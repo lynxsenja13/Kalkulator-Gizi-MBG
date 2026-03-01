@@ -26,14 +26,14 @@
 
     <h2>Input Bahan</h2>
 
-    <div class="input-row">
+    <div class="input-row input-row-flex">
 
-  <div class="autocomplete">
-    <input id="namaBahan" placeholder="Nama bahan">
+  <div class="autocomplete input-nama">
+    <input id="namaBahan" placeholder="Nama bahan" autocomplete="off">
     <div id="dropdownBahan" class="dropdown"></div>
   </div>
 
-  <input id="beratBahan" type="number" placeholder="Gram">
+  <input id="beratBahan" class="input-gram" type="number" placeholder="Gram">
 
   <button type="button" class="btn-primary" onclick="tambahBahan()">
     Tambah
@@ -56,10 +56,13 @@
   </div>
 
   <!-- HASIL -->
+  <div id="hasil-wrapper">
   <div id="hasil" class="hasil-grid"></div>
-<p id="emptyState" class="empty-state">
-  Belum ada laporan. Silakan generate.
-</p>
+
+  <p id="emptyState" class="empty-state">
+    Belum ada laporan. Silakan generate.
+  </p>
+</div>
 
   <!-- NOTE -->
   <div class="card dark">
