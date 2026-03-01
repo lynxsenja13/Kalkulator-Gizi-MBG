@@ -1,9 +1,8 @@
 /* ===== GLOBAL ===== */
 body {
-  margin: 0;
-  font-family: Inter, system-ui, sans-serif;
-  background: #eef2f7;
-  color: #111;
+  font-family: 'Nunito', 'Poppins', sans-serif;
+  background: #0b1a33; /* opsional biar konsisten */
+  color: #ffffff;
 }
 
 .app {
