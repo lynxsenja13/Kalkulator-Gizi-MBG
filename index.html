@@ -8,47 +8,50 @@
 </head>
 <body>
 
-<div class="container">
+<div class="app">
 
-<h1>🥗 Kalkulator Gizi</h1>
-
-<!-- ================= INPUT BAHAN ================= -->
-<div class="card">
-  <h2>Input Bahan</h2>
-
-  <!-- AUTOCOMPLETE MODERN -->
-  <div class="autocomplete">
-    <input
-      id="namaBahan"
-      placeholder="Cari nama bahan..."
-      autocomplete="off"
-    />
-    <div id="dropdownBahan" class="dropdown"></div>
+  <!-- HEADER -->
+  <div class="header">
+    <img src="logo.png" class="logo" />
+    <h1>SPPG Cicadas 01</h1>
+    <p class="credit">Created by Fikri Purwana Senja</p>
   </div>
 
-  <input id="beratBahan" type="number" placeholder="Berat (gram)" />
+  <!-- INPUT CARD -->
+  <div class="card dark">
 
-  <div class="toolbar">
-    <button onclick="tambahBahan()">Tambah</button>
-    <button class="generate" onclick="generateLaporan()">
-      Generate Laporan
-    </button>
-    <button class="export" onclick="window.print()">
-      Export PDF
-    </button>
+    <h2>Input Bahan</h2>
+
+    <div class="input-row">
+      <input id="namaBahan" list="bahanListAuto" placeholder="Nama bahan">
+      <datalist id="bahanListAuto"></datalist>
+
+      <input id="beratBahan" type="number" placeholder="Gram">
+      <button class="btn-primary" onclick="tambahBahan()">Tambah</button>
+    </div>
+
+    <ul id="listBahan"></ul>
+
+    <div class="action-row">
+      <button class="btn-success" onclick="generateLaporan()">
+        Generate Laporan
+      </button>
+
+      <button class="btn-secondary" onclick="window.print()">
+        Export PDF
+      </button>
+    </div>
+
   </div>
 
-  <ul id="listBahan"></ul>
-</div>
+  <!-- HASIL -->
+  <div id="hasil"></div>
 
-<!-- ================= HASIL ================= -->
-<div id="hasil"></div>
-
-<!-- ================= NOTE ================= -->
-<div class="card">
-  <h2>Catatan Hari Ini</h2>
-  <textarea id="note" placeholder="Tulis catatan distribusi hari ini..."></textarea>
-</div>
+  <!-- NOTE -->
+  <div class="card dark">
+    <h2>Catatan Hari Ini</h2>
+    <textarea id="note"></textarea>
+  </div>
 
 </div>
 
