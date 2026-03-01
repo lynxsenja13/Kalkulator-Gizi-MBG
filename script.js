@@ -522,26 +522,26 @@ function formatTanggalIndonesia() {
 }
 
 function exportPDF() {
-  setJudulLaporan();
-
   const element = document.getElementById("laporanPDF");
 
+  if (!element) {
+    alert("Elemen laporanPDF tidak ditemukan!");
+    return;
+  }
+
   const now = new Date();
+  const hari = now.getDate();
   const bulan = now.toLocaleDateString("id-ID", { month: "long" });
   const tahun = now.getFullYear();
-  const hari = now.getDate();
 
   const filename = `Laporan Gizi ${hari} ${bulan} ${tahun}.pdf`;
 
-  const opt = {
-    margin: 0.5,
+  html2pdf(element, {
+    margin: 10,
     filename: filename,
-    image: { type: "jpeg", quality: 0.98 },
     html2canvas: { scale: 2 },
-    jsPDF: { unit: "in", format: "a4", orientation: "portrait" }
-  };
-
-  html2pdf().set(opt).from(element).save();
+    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+  });
 }
 
 function getTanggalLengkap() {
