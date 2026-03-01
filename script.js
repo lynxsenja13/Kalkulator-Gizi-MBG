@@ -522,15 +522,40 @@ function formatTanggalIndonesia() {
 }
 
 function exportPDF() {
-  const tanggalDisplay = formatTanggalIndonesia();
-  const tanggalFile = formatTanggalFile();
+  setJudulLaporan();
 
-  // ✅ nama file rapi
-  document.title = `Laporan_Gizi_${tanggalFile}`;
+  const element = document.getElementById("laporanPDF");
 
-  // ✅ judul di halaman
-  const title = document.getElementById("printTitle");
-  title.innerText = `Laporan Gizi Harian\n${tanggalDisplay}`;
+  const now = new Date();
+  const bulan = now.toLocaleDateString("id-ID", { month: "long" });
+  const tahun = now.getFullYear();
+  const hari = now.getDate();
 
-  window.print();
+  const filename = `Laporan Gizi ${hari} ${bulan} ${tahun}.pdf`;
+
+  const opt = {
+    margin: 0.5,
+    filename: filename,
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: "in", format: "a4", orientation: "portrait" }
+  };
+
+  html2pdf().set(opt).from(element).save();
+}
+
+function getTanggalLengkap() {
+  const now = new Date();
+
+  const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
+  const tanggal = now.getDate();
+  const bulan = now.toLocaleDateString("id-ID", { month: "long" });
+  const tahun = now.getFullYear();
+
+  return `${hari}, ${tanggal} ${bulan} ${tahun}`;
+}
+
+function setJudulLaporan() {
+  const tanggal = getTanggalLengkap();
+  document.getElementById("tanggalLaporan").innerText = tanggal;
 }
