@@ -1,4 +1,10 @@
 /* ===== GLOBAL ===== */
+html, body {
+  background: #f3f4f6; /* putih keabu soft */
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Nunito', 'Poppins', sans-serif;
   background: #0b1a33; /* opsional biar konsisten */
@@ -171,9 +177,10 @@ button {
 
 /* ===== KATEGORI CARD ===== */
 .kategori-card {
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-  overflow: hidden;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border-radius: 20px;
+  padding: 20px;
+  color: white;
 }
 
 .kategori-libur {
