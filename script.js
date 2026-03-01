@@ -391,7 +391,7 @@ function editBerat(kat, index, value) {
 // ================= AUTOCOMPLETE DROPDOWN =================
 function initAutocomplete() {
   const input = document.getElementById("namaBahan");
-  const dropdown = document.getElementById("dropdownBahan");
+  const dropdown = document.getElementById("autocomplete-list");
 
   if (!input || !dropdown) return;
 
@@ -427,7 +427,7 @@ function initAutocomplete() {
 
   // ✅ klik luar
   document.addEventListener("click", e => {
-    if (!e.target.closest(".autocomplete")) {
+    if (!e.target.closest(".autocomplete-wrapper")) {
       dropdown.style.display = "none";
     }
   });
