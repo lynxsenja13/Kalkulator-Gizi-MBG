@@ -254,3 +254,26 @@ button {
     flex-direction: column;
   }
 }
+
+.tabel-gizi {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabel-gizi th,
+.tabel-gizi td {
+  border: 1px solid #374151;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.total-row.cukup {
+  background: #14532d;
+  color: #bbf7d0;
+}
+
+.total-row.kurang {
+  background: #7f1d1d;
+  color: #fecaca;
+}
