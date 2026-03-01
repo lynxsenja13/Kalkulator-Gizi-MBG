@@ -277,3 +277,55 @@ button {
   background: #7f1d1d;
   color: #fecaca;
 }
+
+.tabel-gizi {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.tabel-gizi thead th {
+  background: #1e293b;
+  color: white;
+  padding: 10px;
+}
+
+.tabel-gizi td {
+  padding: 8px 10px;
+}
+
+.kategori-card {
+  background: #0f172a; /* biru gelap elegan */
+  color: #ffffff;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+}
+
+.kategori-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.libur-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  background: rgba(255,255,255,0.08);
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.libur-switch input {
+  transform: scale(1.2);
+  cursor: pointer;
+}
