@@ -635,3 +635,85 @@ tabel-gizi td {
   page-break-inside: avoid;
   break-inside: avoid;
 }
+
+/* ===== PDF STYLE ===== */
+#laporanPDF {
+  font-family: 'Times New Roman', serif;
+  color: #000;
+  padding: 20px;
+  background: #fff;
+}
+
+/* KOP */
+.kop {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.kop-logo {
+  width: 70px;
+}
+
+.kop-text h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.kop-text h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.kop-text p {
+  margin: 2px 0;
+  font-size: 12px;
+}
+
+.garis-kop {
+  border: 2px solid black;
+  margin: 10px 0 20px;
+}
+
+/* JUDUL */
+.judul-laporan {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.tanggal {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* TABEL */
+#laporanPDF table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+#laporanPDF th,
+#laporanPDF td {
+  border: 1px solid black;
+  padding: 6px;
+  text-align: center;
+}
+
+/* ANTI KEpotong 🔥 */
+.kategori-card {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* CATATAN */
+.catatan-box {
+  margin-top: 20px;
+}
+
+/* HIDE DI LAYAR */
+#laporanPDF {
+  display: none;
+}
