@@ -118,9 +118,6 @@ function loadCache() {
   }
 }
 
-// panggil sebelum loadDatabase
-loadCache();
-
 // ================= TAMBAH BAHAN =================
 function tambahBahan() {
   const nama = document.getElementById("namaBahan").value.trim();
@@ -160,9 +157,10 @@ function hitungTotal(list) {
 
   list.forEach(item => {
     const db = database.find(d =>
-      String(d["nama bahan"]).toLowerCase().trim() ===
-      item.nama.toLowerCase().trim()
-    );
+  String(d["nama bahan"] || d["NAMA BAHAN"])
+    .toLowerCase()
+    .trim() === item.nama.toLowerCase().trim()
+);
 
     if (!db) {
       console.warn("Tidak ketemu:", item.nama);
@@ -308,9 +306,10 @@ function generateLaporan() {
     // 🔥 DETAIL PER BAHAN
     const detailBahan = kategoriData[kat].map(item => {
       const db = database.find(d =>
-        String(d["nama bahan"]).toLowerCase().trim() ===
-        item.nama.toLowerCase().trim()
-      );
+  String(d["nama bahan"] || d["NAMA BAHAN"])
+    .toLowerCase()
+    .trim() === item.nama.toLowerCase().trim()
+);
 
       if (!db) {
         return {
