@@ -84,7 +84,23 @@ async function loadDatabase() {
   }
 }
 
+initAutocomplete();
+saveCache();
+
 loadDatabase();
+
+
+// ================= AUTO COMPLETE =================
+function initAutocomplete() {
+  const dl = document.getElementById("bahanListAuto");
+  dl.innerHTML = "";
+
+  database.forEach(d => {
+    const opt = document.createElement("option");
+    opt.value = d["nama bahan"];
+    dl.appendChild(opt);
+  });
+}
 
 // ================= INIT KATEGORI =================
 function initKategori() {
@@ -92,6 +108,25 @@ function initKategori() {
     kategoriData[k] = [];
   });
 }
+
+// ================= CACHE =================
+function saveCache() {
+  localStorage.setItem("dbGizi", JSON.stringify(database));
+}
+
+function loadCache() {
+  const cache = localStorage.getItem("dbGizi");
+  if (cache) {
+    database = JSON.parse(cache);
+    databaseLoaded = true;
+    initKategori();
+    initAutocomplete();
+    console.log("Database dari cache");
+  }
+}
+
+// panggil sebelum loadDatabase
+loadCache();
 
 // ================= TAMBAH BAHAN =================
 function tambahBahan() {
@@ -177,15 +212,30 @@ function generateLaporan() {
 
         <hr>
 
-        <p>Energi: ${total.Energi.toFixed(1)}</p>
-        <p>Protein: ${total.Protein.toFixed(1)}</p>
-        <p>Lemak: ${total.Lemak.toFixed(1)}</p>
-        <p>Karbohidrat: ${total.Karbohidrat.toFixed(1)}</p>
-        <p>Kalsium: ${total.Kalsium.toFixed(1)}</p>
-        <p>Serat: ${total.Serat.toFixed(1)}</p>
+        ${renderAKG("Energi", total, kat)}
+        ${renderAKG("Protein", total, kat)}
+        ${renderAKG("Lemak", total, kat)}
+        ${renderAKG("Karbohidrat", total, kat)}
+        ${renderAKG("Kalsium", total, kat)}
+        ${renderAKG("Serat", total, kat)}
       </div>
     `;
   });
+}
+
+function renderAKG(nutrien, total, kategori) {
+  const nilai = total[nutrien] || 0;
+  const target = AKG[kategori][nutrien] || 1;
+  const persen = (nilai / target) * 100;
+
+  return `
+    <p>
+      ${nutrien}: ${nilai.toFixed(1)}
+      <span style="color:#2b7cff">
+        (${persen.toFixed(1)}%)
+      </span>
+    </p>
+  `;
 }
 
 // ================= EDITABLE BERAT =================
@@ -222,3 +272,4 @@ function toggleLibur(cb) {
     generateLaporan();
   }
 }
+
