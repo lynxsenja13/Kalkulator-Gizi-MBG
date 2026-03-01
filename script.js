@@ -205,10 +205,23 @@ function generateLaporan() {
   // ✅ TARUH BLOK KAMU DI SINI
   if (isLibur) {
     hasilDiv.innerHTML += `
-      <div class="kategori-card kategori-libur">
-        <h3>${namaKategori} Libur</h3>
-      </div>
-    `;
+  <div class="kategori-card">
+
+    <div class="kategori-header">
+      <h3>${kat}</h3>
+
+      <label class="switch">
+        <input type="checkbox"
+               ${kategoriLibur[kat] ? "checked" : ""}
+               onchange="toggleLibur('${kat}', this.checked)">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    ${renderEditableList(kat)}
+
+    <!-- tabel gizi di bawah -->
+`;
     return; // ⛔ penting: stop render kategori ini
   }
 
