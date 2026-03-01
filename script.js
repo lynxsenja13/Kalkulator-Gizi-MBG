@@ -494,6 +494,21 @@ function renderTabelGizi(total, kategori) {
   `;
 }
 
+function formatTanggalFile() {
+  const bulan = [
+    "Januari","Februari","Maret","April","Mei","Juni",
+    "Juli","Agustus","September","Oktober","November","Desember"
+  ];
+
+  const now = new Date();
+
+  const tgl = String(now.getDate()).padStart(2, "0");
+  const namaBulan = bulan[now.getMonth()];
+  const tahun = now.getFullYear();
+
+  return `${tgl}_${namaBulan}_${tahun}`;
+}
+
 function formatTanggalIndonesia() {
   const hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
   const bulan = [
@@ -503,17 +518,19 @@ function formatTanggalIndonesia() {
 
   const now = new Date();
 
-  const namaHari = hari[now.getDay()];
-  const tanggal = now.getDate();
-  const namaBulan = bulan[now.getMonth()];
-  const tahun = now.getFullYear();
-
-  return `${namaHari}, ${tanggal} ${namaBulan} ${tahun}`;
+  return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
 }
 
 function exportPDF() {
+  const tanggalDisplay = formatTanggalIndonesia();
+  const tanggalFile = formatTanggalFile();
+
+  // ✅ nama file rapi
+  document.title = `Laporan_Gizi_${tanggalFile}`;
+
+  // ✅ judul di halaman
   const title = document.getElementById("printTitle");
-  title.innerText = "Laporan Gizi Harian\n" + formatTanggalIndonesia();
+  title.innerText = `Laporan Gizi Harian\n${tanggalDisplay}`;
 
   window.print();
 }
