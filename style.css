@@ -605,3 +605,28 @@ tabel-gizi td {
     width: 100%;
   }
 }
+
+#laporanPDF {
+  font-family: 'Times New Roman', serif;
+  color: black;
+  padding: 20px;
+}
+
+#laporanPDF h2 {
+  margin-bottom: 5px;
+}
+
+#laporanPDF table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#laporanPDF table, #laporanPDF th, #laporanPDF td {
+  border: 1px solid black;
+}
+
+#laporanPDF th, #laporanPDF td {
+  padding: 8px;
+  text-align: center;
+}
