@@ -75,7 +75,7 @@ function hitungTotal(list) {
 
   list.forEach(item => {
     const db = database.find(d =>
-      String(d["Nama Bahan"]).toLowerCase().trim() ===
+      String(d["nama bahan"]).toLowerCase().trim() ===
       item.nama.toLowerCase().trim()
     );
 
@@ -84,12 +84,12 @@ function hitungTotal(list) {
       return;
     }
 
-    total.Energi += (item.berat / 100) * Number(db["Energi"] || 0);
-    total.Protein += (item.berat / 100) * Number(db["Protein"] || 0);
-    total.Lemak += (item.berat / 100) * Number(db["Lemak"] || 0);
-    total.Karbohidrat += (item.berat / 100) * Number(db["Karbohidrat"] || 0);
-    total.Kalsium += (item.berat / 100) * Number(db["Kalsium"] || 0);
-    total.Serat += (item.berat / 100) * Number(db["Serat"] || 0);
+    total.Energi += (item.berat / 100) * Number(db["energi"] || 0);
+    total.Protein += (item.berat / 100) * Number(db["protein"] || 0);
+    total.Lemak += (item.berat / 100) * Number(db["lemak"] || 0);
+    total.Karbohidrat += (item.berat / 100) * Number(db["karbohidrat"] || 0);
+    total.Kalsium += (item.berat / 100) * Number(db["kalsium"] || 0);
+    total.Serat += (item.berat / 100) * Number(db["serat"] || 0);
   });
 
   return total;
