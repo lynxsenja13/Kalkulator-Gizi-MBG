@@ -326,9 +326,7 @@ function tambahBahan() {
 
   // cek database
   let db = database.find(d =>
-  String(d["nama bahan"] ?? "")
-    .toLowerCase()
-    .trim() === namaFix
+  getNamaBahan(d) === namaFix
 );
 
 
@@ -388,9 +386,7 @@ function hitungTotal(list) {
   list.forEach(item => {
 
     const db = database.find(d =>
-  String(d["nama bahan"] ?? "")
-    .toLowerCase()
-    .trim() === item.nama.toLowerCase().trim()
+  getNamaBahan(d) === item.nama.toLowerCase().trim()
 );
 
     if (!db) return;
@@ -551,7 +547,7 @@ function generateLaporan() {
     const detailBahan = kategoriData[modeMenu][kat].map(item => {
 
   const db = database.find(d =>
-  String(d["nama bahan"] ?? "")
+  String(getNamaBahan(d) ?? "")
     .toLowerCase()
     .trim() === item.nama.toLowerCase().trim()
 );
@@ -654,11 +650,16 @@ function renderEditableList(kat) {
     <div style="display:flex; gap:6px; margin:4px 0; align-items:center;">
       <span style="flex:1">${b.nama}</span>
 
-      <span style="width:40px;text-align:center">
-      ${b.satuan === "GRAM" ? "g" : "pcs"}
-      </span>
+      <input
+        type="number"
+        value="${b.berat}"
         style="width:80px"
-        onchange="editBerat('${kat}', ${i}, this.value)">
+        onchange="editBerat('${kat}', ${i}, this.value)"
+      >
+
+      <span style="width:40px;text-align:center">
+        ${b.satuan === "GRAM" ? "g" : "pcs"}
+      </span>
 
       <button onclick="hapusBahan('${kat}', ${i})"
         style="background:#ef4444;color:white;border:none;padding:4px 8px;border-radius:6px;">
@@ -667,7 +668,6 @@ function renderEditableList(kat) {
     </div>
   `).join("");
 }
-
 function editBerat(kat, index, value) {
   kategoriData[modeMenu][kat][index].berat = parseFloat(value) || 0;
   generateLaporan();
@@ -695,7 +695,7 @@ function initAutocomplete() {
     }
 
     const hasil = database
-  .map(d => d["nama bahan"])
+  .map(d => getNamaBahan(d))
   .filter(n => n && n.toLowerCase().includes(keyword))
   .slice(0, 10);
 
