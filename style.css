@@ -873,3 +873,24 @@ button {
   outline: none;
   border: 1px solid #10b981;
 }
+
+.header-laporan {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.judul-laporan {
+  margin-bottom: 25px;
+}
+
+#jenisMenuLaporan {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+}
+
+.tanggal {
+  margin-top: 0;
+}
