@@ -818,8 +818,8 @@ function exportPDF() {
     };
 
     html2pdf().set(opt).from(element).save().then(() => {
-      element.style.display = "none";
-    });
+  element.style.display = "none";
+});
 
   }, 300); // 🔥 delay 300ms
 }
