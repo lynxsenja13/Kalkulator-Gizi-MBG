@@ -3,6 +3,7 @@ let kategoriLibur = {};
 let kategoriData = {};
 let database = [];
 let databaseLoaded = false;
+let pendingNama = null;
 
 // =====================
 // MODAL FUNCTION
