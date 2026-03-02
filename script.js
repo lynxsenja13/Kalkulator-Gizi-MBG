@@ -23,10 +23,25 @@ function showModal(nama) {
 }
 
 function tutupModal() {
-  document.getElementById("modalGizi").style.display = "none";
+  const modal = document.getElementById("modalGizi");
+  modal.style.opacity = "0";
+
+  setTimeout(() => {
+    modal.style.display = "none";
+    modal.style.opacity = "1";
+  }, 200);
 }
 
+document.getElementById("modalGizi").addEventListener("click", function(e) {
+  if (e.target === this) {
+    tutupModal();
+  }
+});
+
 function simpanGizi() {
+  const btn = document.querySelector(".btn-save");
+  btn.innerText = "Menyimpan...";
+  btn.disabled = true;
   const newItem = {
     "nama bahan": pendingNama.toLowerCase().trim(),
     "ENERGI": Number(mEnergi.value),
