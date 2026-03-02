@@ -167,6 +167,11 @@ async function loadDatabase() {
   }
 }
 
+function resetCache() {
+  localStorage.removeItem("dbGizi");
+  location.reload();
+}
+
 // ================= INIT KATEGORI =================
 function initKategori() {
   kategoriList.forEach(k => {
