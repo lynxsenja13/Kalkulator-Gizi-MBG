@@ -4,32 +4,54 @@ let kategoriData = {};
 let database = [];
 let databaseLoaded = false;
 let pendingNama = null;
+let pendingBerat = null;
 
 // =====================
 // MODAL FUNCTION
 // =====================
 function showModal(nama) {
   pendingNama = nama;
+  document.getElementById("modalNama").innerText = nama;
   document.getElementById("modalGizi").style.display = "flex";
+}
+
+function tutupModal() {
+  document.getElementById("modalGizi").style.display = "none";
 }
 
 function simpanGizi() {
   const newItem = {
-    "nama bahan": pendingNama,
-    "ENERGI": Number(document.getElementById("mEnergi").value),
-    "PROTEIN": Number(document.getElementById("mProtein").value),
-    "LEMAK": Number(document.getElementById("mLemak").value),
-    "KARBOHIDRAT": Number(document.getElementById("mKarbo").value),
-    "KALSIUM": Number(document.getElementById("mKalsium").value),
-    "SERAT": Number(document.getElementById("mSerat").value)
+    "nama bahan": pendingNama.toLowerCase().trim(),
+    "ENERGI": Number(mEnergi.value),
+    "PROTEIN": Number(mProtein.value),
+    "LEMAK": Number(mLemak.value),
+    "KARBOHIDRAT": Number(mKarbo.value),
+    "KALSIUM": Number(mKalsium.value),
+    "SERAT": Number(mSerat.value)
   };
 
   database.push(newItem);
   saveCache();
 
-  document.getElementById("modalGizi").style.display = "none";
-}
+  const namaBaru = pendingNama;
+const beratBaru = pendingBerat;
 
+database.push(newItem);
+saveCache();
+
+bahanMaster.push({ nama: namaBaru, berat: beratBaru });
+
+kategoriList.forEach(k => {
+  kategoriData[k].push({ nama: namaBaru, berat: beratBaru });
+});
+
+tutupModal();
+
+pendingNama = null;
+pendingBerat = null;
+
+renderList();
+generateLaporan();
 // ================= TOGGLE LIBUR =================
 function toggleLibur(kat, checked) {
   kategoriLibur[kat] = checked;
@@ -160,39 +182,30 @@ function tambahBahan() {
 
   if (!nama || !berat) return;
 
-  // 🔍 CEK ADA DI DATABASE
+  const namaFix = nama.toLowerCase().trim();
+
+  // cek database
   let db = database.find(d =>
     String(d["nama bahan"] || d["NAMA BAHAN"])
       .toLowerCase()
-      .trim() === nama.toLowerCase().trim()
+      .trim() === namaFix
   );
 
-  // ❌ JIKA TIDAK ADA → INPUT MANUAL SEKALI SAJA
+  // ❗ JIKA BELUM ADA → MUNCUL MODAL
   if (!db) {
-    const energi = prompt("Energi (per 100g)?");
-    const protein = prompt("Protein (per 100g)?");
-    const lemak = prompt("Lemak (per 100g)?");
-    const karbo = prompt("Karbohidrat (per 100g)?");
-    const kalsium = prompt("Kalsium (per 100g)?");
-    const serat = prompt("Serat (per 100g)?");
-
-    const newItem = {
-      "nama bahan": nama,
-      "ENERGI": Number(energi),
-      "PROTEIN": Number(protein),
-      "LEMAK": Number(lemak),
-      "KARBOHIDRAT": Number(karbo),
-      "KALSIUM": Number(kalsium),
-      "SERAT": Number(serat)
-    };
-
-    database.push(newItem);
-    saveCache();
-
-    db = newItem; // 🔥 penting supaya langsung dipakai
+    pendingNama = namaFix;
+    showModal(namaFix);
+    return;
   }
 
-  // ✅ SIMPAN KE LIST
+  if (!db) {
+  pendingNama = namaFix;
+  pendingBerat = berat;
+  showModal(namaFix);
+  return;
+}
+
+  // ✅ MASUKKAN DATA
   bahanMaster.push({ nama, berat });
 
   kategoriList.forEach(k => {
@@ -233,9 +246,9 @@ function hitungTotal(list) {
 );
 
     if (!db) {
-      console.warn("Tidak ketemu:", item.nama);
-      return;
-    }
+  console.warn("Belum ada gizi:", item.nama);
+  return;
+}
 
     total.Energi += (item.berat / 100) * Number(db["ENERGI"] ?? db["energi"] ?? 0);
     total.Protein += (item.berat / 100) * Number(db["PROTEIN"] ?? db["protein"] ?? 0);
@@ -637,3 +650,7 @@ function setJudulLaporan() {
   const tanggal = getTanggalLengkap();
   document.getElementById("tanggalLaporan").innerText = tanggal;
 }
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") tutupModal();
+});
