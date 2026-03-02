@@ -45,18 +45,18 @@ function simpanGizi() {
   saveCache();
 
   // ✅ TAMBAHKAN KE SPREADSHEET (INI TEMPATNYA)
-  fetch("https://script.google.com/macros/s/AKfycbxqiq063vrcj2N2EHBph3V-xpjFz4empqrrK_sNO3nGKWAmRkrjtM8x_AOHWclxWzU/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbzIzaaCT0IQtDCogdOzUs0zBUAYGiVshOK2oe8yPDcYQBTNbRfvrY6qwAyu81yZlNeM/exec", {
     method: "POST",
     body: JSON.stringify({
-      nama: namaBaru,
-      energi: newItem.ENERGI,
-      protein: newItem.PROTEIN,
-      lemak: newItem.LEMAK,
-      karbo: newItem.KARBOHIDRAT,
-      kalsium: newItem.KALSIUM,
-      serat: newItem.SERAT
-    })
+    nama: newItem["nama bahan"],
+    ENERGI: newItem.ENERGI,
+    PROTEIN: newItem.PROTEIN,
+    LEMAK: newItem.LEMAK,
+    KARBOHIDRAT: newItem.KARBOHIDRAT,
+    KALSIUM: newItem.KALSIUM,
+    SERAT: newItem.SERAT
   })
+});
   .then(res => res.json())
   .then(res => console.log("Sync sukses:", res))
   .catch(err => console.error("Sync gagal:", err));
