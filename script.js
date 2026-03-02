@@ -802,7 +802,7 @@ function exportPDF() {
   document.getElementById("tanggalLaporan").innerText = tanggal;
 
   document.getElementById("jenisMenuLaporan").innerText =
-  "Menu : " + (modeMenu === "OMPRENGAN" ? "OMPRENGAN" : "SNACK");
+  modeMenu;
 
   const element = document.getElementById("laporanPDF");
   element.style.display = "block";
