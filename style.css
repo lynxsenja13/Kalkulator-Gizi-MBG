@@ -836,3 +836,13 @@ button {
   justify-content: center;
   gap: 6px;
 }
+
+.active-omprengan {
+  background: #2563eb;
+  color: white;
+}
+
+.active-snack {
+  background: #16a34a;
+  color: white;
+}
