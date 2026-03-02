@@ -176,6 +176,27 @@ function hitungTotal(list) {
 );
 
     if (!db) {
+  const energi = prompt("Energi (per 100g)?");
+  const protein = prompt("Protein (per 100g)?");
+  const lemak = prompt("Lemak (per 100g)?");
+  const karbo = prompt("Karbohidrat (per 100g)?");
+  const kalsium = prompt("Kalsium (per 100g)?");
+  const serat = prompt("Serat (per 100g)?");
+
+  database.push({
+    "nama bahan": nama,
+    "ENERGI": energi,
+    "PROTEIN": protein,
+    "LEMAK": lemak,
+    "KARBOHIDRAT": karbo,
+    "KALSIUM": kalsium,
+    "SERAT": serat
+  });
+
+  saveCache(); // simpan ke localStorage
+}
+
+    if (!db) {
       console.warn("Tidak ketemu:", item.nama);
       return;
     }
