@@ -125,15 +125,48 @@ function loadCache() {
 // ================= TAMBAH BAHAN =================
 function tambahBahan() {
   if (!databaseLoaded) {
-  alert("Tunggu database selesai load dulu");
-  return;
+    alert("Tunggu database selesai load dulu");
+    return;
   }
-  
+
   const nama = document.getElementById("namaBahan").value.trim();
   const berat = parseFloat(document.getElementById("beratBahan").value);
 
   if (!nama || !berat) return;
 
+  // 🔍 CEK ADA DI DATABASE
+  let db = database.find(d =>
+    String(d["nama bahan"] || d["NAMA BAHAN"])
+      .toLowerCase()
+      .trim() === nama.toLowerCase().trim()
+  );
+
+  // ❌ JIKA TIDAK ADA → INPUT MANUAL SEKALI SAJA
+  if (!db) {
+    const energi = prompt("Energi (per 100g)?");
+    const protein = prompt("Protein (per 100g)?");
+    const lemak = prompt("Lemak (per 100g)?");
+    const karbo = prompt("Karbohidrat (per 100g)?");
+    const kalsium = prompt("Kalsium (per 100g)?");
+    const serat = prompt("Serat (per 100g)?");
+
+    const newItem = {
+      "nama bahan": nama,
+      "ENERGI": Number(energi),
+      "PROTEIN": Number(protein),
+      "LEMAK": Number(lemak),
+      "KARBOHIDRAT": Number(karbo),
+      "KALSIUM": Number(kalsium),
+      "SERAT": Number(serat)
+    };
+
+    database.push(newItem);
+    saveCache();
+
+    db = newItem; // 🔥 penting supaya langsung dipakai
+  }
+
+  // ✅ SIMPAN KE LIST
   bahanMaster.push({ nama, berat });
 
   kategoriList.forEach(k => {
@@ -141,12 +174,10 @@ function tambahBahan() {
   });
 
   renderList();
+
   document.getElementById("namaBahan").value = "";
   document.getElementById("beratBahan").value = "";
-  console.log("Tambah bahan:", nama, berat);
-  console.log("Isi kategoriData:", kategoriData);
 }
-
 // ================= RENDER LIST =================
 function renderList() {
   const ul = document.getElementById("listBahan");
@@ -174,27 +205,6 @@ function hitungTotal(list) {
     .toLowerCase()
     .trim() === item.nama.toLowerCase().trim()
 );
-
-    if (!db) {
-  const energi = prompt("Energi (per 100g)?");
-  const protein = prompt("Protein (per 100g)?");
-  const lemak = prompt("Lemak (per 100g)?");
-  const karbo = prompt("Karbohidrat (per 100g)?");
-  const kalsium = prompt("Kalsium (per 100g)?");
-  const serat = prompt("Serat (per 100g)?");
-
-  database.push({
-    "nama bahan": nama,
-    "ENERGI": energi,
-    "PROTEIN": protein,
-    "LEMAK": lemak,
-    "KARBOHIDRAT": karbo,
-    "KALSIUM": kalsium,
-    "SERAT": serat
-  });
-
-  saveCache(); // simpan ke localStorage
-}
 
     if (!db) {
       console.warn("Tidak ketemu:", item.nama);
