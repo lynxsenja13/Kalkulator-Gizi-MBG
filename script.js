@@ -77,22 +77,23 @@ function simpanGizi() {
 .then(res => console.log("Sync sukses:", res))
 .catch(err => console.error("Sync gagal:", err));
 
-  // ✅ lanjut logic biasa
-  bahanMaster.push({ nama: namaBaru, berat: beratBaru });
+// ✅ lanjut logic biasa
+bahanMaster.push({ nama: namaBaru, berat: beratBaru });
 
-  kategoriList.forEach(k => {
-    kategoriData[k].push({ nama: namaBaru, berat: beratBaru });
-  });
+kategoriList.forEach(k => {
+  kategoriData[k].push({ nama: namaBaru, berat: beratBaru });
+});
 
-  tutupModal();
+tutupModal();
 
-  pendingNama = null;
-  pendingBerat = null;
+pendingNama = null;
+pendingBerat = null;
 
-  renderList();
-  generateLaporan();
-  initAutocomplete();
-  loadDatabase(); // ambil data terbaru dari spreadsheet
+renderList();
+generateLaporan();
+initAutocomplete();
+
+// ❌ HAPUS loadDatabase()
 }
 // ================= TOGGLE LIBUR =================
 function toggleLibur(kat, checked) {
