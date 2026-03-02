@@ -229,6 +229,10 @@ const AKG = {
   }
 };
 
+// ================= MAPPING AKG SNACK =================
+AKG["Keringan Sekolah Kecil"] = AKG["SD 1-3"];
+AKG["Keringan Sekolah Besar"] = AKG["SMP"];
+
 // ================= LOAD DATABASE =================
 async function loadDatabase() {
   try {
