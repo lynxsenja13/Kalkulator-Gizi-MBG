@@ -5,6 +5,11 @@ let database = [];
 let databaseLoaded = false;
 let pendingNama = null;
 let pendingBerat = null;
+let modeKategori = "SEMUA";
+
+function setModeKategori(value) {
+  modeKategori = value;
+}
 
 // =====================
 // MODAL FUNCTION
@@ -80,9 +85,13 @@ function simpanGizi() {
 // ✅ lanjut logic biasa
 bahanMaster.push({ nama: namaBaru, berat: beratBaru });
 
-kategoriList.forEach(k => {
-  kategoriData[k].push({ nama: namaBaru, berat: beratBaru });
-});
+if (modeKategori === "SEMUA") {
+  kategoriList.forEach(k => {
+    kategoriData[k].push({ nama: namaBaru, berat: beratBaru });
+  });
+} else {
+  kategoriData[modeKategori].push({ nama: namaBaru, berat: beratBaru });
+}
 
 tutupModal();
 
@@ -250,9 +259,13 @@ function tambahBahan() {
   // ✅ MASUKKAN DATA
   bahanMaster.push({ nama, berat });
 
+  if (modeKategori === "SEMUA") {
   kategoriList.forEach(k => {
     kategoriData[k].push({ nama, berat });
   });
+} else {
+  kategoriData[modeKategori].push({ nama, berat });
+}
 
   renderList();
 
@@ -509,22 +522,30 @@ function renderAKG(nutrien, total, kategori) {
 // ================= EDITABLE BERAT =================
 function renderEditableList(kat) {
   return kategoriData[kat]
-    .map(
-      (b, i) => `
-    <div style="display:flex; gap:6px; margin:4px 0;">
+    .map((b, i) => `
+    <div style="display:flex; gap:6px; margin:4px 0; align-items:center;">
       <span style="flex:1">${b.nama}</span>
+
       <input type="number"
         value="${b.berat}"
         style="width:80px"
         onchange="editBerat('${kat}', ${i}, this.value)">
+
+      <button onclick="hapusBahan('${kat}', ${i})"
+        style="background:#ef4444;color:white;border:none;padding:4px 8px;border-radius:6px;">
+        ❌
+      </button>
     </div>
-  `
-    )
-    .join("");
+  `).join("");
 }
 
 function editBerat(kat, index, value) {
   kategoriData[kat][index].berat = parseFloat(value) || 0;
+  generateLaporan();
+}
+
+function hapusBahan(kat, index) {
+  kategoriData[kat].splice(index, 1);
   generateLaporan();
 }
 
