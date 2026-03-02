@@ -27,6 +27,8 @@ function setModeMenu(menu) {
     document.getElementById("btnSnack").classList.add("active-snack");
   }
 
+  renderDropdownKategori(); // 🔥 TAMBAHKAN INI
+
   renderList();
   generateLaporan();
 }
@@ -172,6 +174,21 @@ function getKategoriAktif() {
     : kategoriSnack;
 }
 
+function renderDropdownKategori() {
+  const select = document.getElementById("pilihKategori");
+  if (!select) return;
+
+  const kategoriAktif = getKategoriAktif();
+
+  select.innerHTML = `<option value="SEMUA">Semua Kategori</option>`;
+
+  kategoriAktif.forEach(kat => {
+    select.innerHTML += `<option value="${kat}">${kat}</option>`;
+  });
+
+  modeKategori = "SEMUA"; // reset pilihan
+}
+
 // ================= AKG TARGET =================
 const AKG = {
   "Balita": {
@@ -243,6 +260,7 @@ async function loadDatabase() {
     console.log("Database loaded:", database.length);
 
     initKategori();
+    renderDropdownKategori();
     initAutocomplete(); // ✅ di sini
     saveCache();        // ✅ di sini
 
@@ -283,6 +301,7 @@ function loadCache() {
     database = JSON.parse(cache);
     databaseLoaded = true;
     initKategori();
+    renderDropdownKategori();
     initAutocomplete();
     console.log("Database dari cache");
     return true; // 🔥 penting
