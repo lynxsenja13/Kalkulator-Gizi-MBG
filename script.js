@@ -11,7 +11,7 @@ let pendingBerat = null;
 // =====================
 function showModal(nama) {
   pendingNama = nama;
-  document.getElementById("modalNama").innerText = nama;
+  document.getElementById("modalTitle").innerText = "Tambah Gizi: " + nama;
   document.getElementById("modalGizi").style.display = "flex";
 }
 
