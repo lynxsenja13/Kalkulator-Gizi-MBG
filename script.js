@@ -605,12 +605,13 @@ const standar = AKG[kat] || {
     <div class="kategori-header">
       <h3>${kat}</h3>
 
-      <label class="libur-switch">
-        <input type="checkbox"
-          ${kategoriLibur[kat] ? "checked" : ""}
-          onchange="toggleLibur('${kat}', this.checked)">
-        <span>Libur</span>
-      </label>
+      <label class="switch-ios">
+  <input type="checkbox"
+    ${kategoriLibur[kat] ? "checked" : ""}
+    onchange="toggleLibur('${kat}', this.checked)">
+  <span class="slider-ios"></span>
+</label>
+<span class="label-libur">Libur</span>
     </div>
 
     ${renderEditableList(kat)}
