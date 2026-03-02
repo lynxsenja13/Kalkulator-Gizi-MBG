@@ -341,7 +341,11 @@ function tambahBahan() {
 }
 
   // ✅ MASUKKAN DATA
-  bahanMaster[modeMenu].push({ nama, berat });
+  bahanMaster[modeMenu].push({ 
+  nama, 
+  berat,
+  satuan: "GRAM"
+});
 
   if (modeKategori === "SEMUA") {
 
