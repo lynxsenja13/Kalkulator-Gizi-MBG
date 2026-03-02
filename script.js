@@ -689,11 +689,8 @@ function initAutocomplete() {
 
     const hasil = database
   .map(d => {
-    const key = Object.keys(d).find(k =>
-      k.toLowerCase().replace(/\s/g, "") === "namabahan"
-    );
-    return key ? d[key] : null;
-  })
+  return d["NAMA BAHAN"] ?? d["nama bahan"] ?? null;
+})
   .filter(n => n && n.toLowerCase().includes(keyword))
   .slice(0, 10);
 
