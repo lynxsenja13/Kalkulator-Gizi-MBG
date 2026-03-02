@@ -17,7 +17,18 @@ let modeKategori = "SEMUA";
 
 function setModeMenu(menu) {
   modeMenu = menu;
+
+  document.getElementById("btnOmprengan").classList.remove("active-omprengan");
+  document.getElementById("btnSnack").classList.remove("active-snack");
+
+  if (menu === "OMPRENGAN") {
+    document.getElementById("btnOmprengan").classList.add("active-omprengan");
+  } else {
+    document.getElementById("btnSnack").classList.add("active-snack");
+  }
+
   renderList();
+  generateLaporan();
 }
 
 function getNamaBahan(obj) {
