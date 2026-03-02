@@ -553,47 +553,48 @@ function generateLaporan() {
 
     // 🔥 DETAIL PER BAHAN
     const detailBahan = kategoriData[modeMenu][kat].map(item => {
-      const db = database.find(d =>
-  String(d["nama bahan"] || d["NAMA BAHAN"])
-    .toLowerCase()
-    .trim() === item.nama.toLowerCase().trim()
-);
 
-      if (!db) {
-        return {
-          nama: item.nama,
-          berat: item.berat,
-          energi: 0,
-          protein: 0,
-          lemak: 0,
-          karbo: 0,
-          kalsium: 0,
-          serat: 0
-        };
-      }
+  const db = database.find(d =>
+    String(d["nama bahan"] || d["NAMA BAHAN"])
+      .toLowerCase()
+      .trim() === item.nama.toLowerCase().trim()
+  );
 
-      return {
-        nama: item.nama,
-        berat: item.berat,
-       let faktor = 0;
+  if (!db) {
+    return {
+      nama: item.nama,
+      berat: item.berat,
+      satuan: item.satuan,
+      energi: 0,
+      protein: 0,
+      lemak: 0,
+      karbo: 0,
+      kalsium: 0,
+      serat: 0
+    };
+  }
 
-if (item.satuan === "GRAM") {
-  faktor = item.berat / 100;
-} else {
-  faktor = item.berat;
-}
+  let faktor = 0;
 
-return {
-  nama: item.nama,
-  berat: item.berat,
-  satuan: item.satuan,
-  energi: faktor * Number(db["ENERGI"] ?? db["energi"] ?? 0),
-  protein: faktor * Number(db["PROTEIN"] ?? db["protein"] ?? 0),
-  lemak: faktor * Number(db["LEMAK"] ?? db["lemak"] ?? 0),
-  karbo: faktor * Number(db["KARBOHIDRAT"] ?? db["karbohidrat"] ?? 0),
-  kalsium: faktor * Number(db["KALSIUM"] ?? db["kalsium"] ?? 0),
-  serat: faktor * Number(db["SERAT"] ?? db["serat"] ?? 0)
-};
+  if (item.satuan === "GRAM") {
+    faktor = item.berat / 100;
+  } else {
+    faktor = item.berat;
+  }
+
+  return {
+    nama: item.nama,
+    berat: item.berat,
+    satuan: item.satuan,
+    energi: faktor * Number(db["ENERGI"] ?? db["energi"] ?? 0),
+    protein: faktor * Number(db["PROTEIN"] ?? db["protein"] ?? 0),
+    lemak: faktor * Number(db["LEMAK"] ?? db["lemak"] ?? 0),
+    karbo: faktor * Number(db["KARBOHIDRAT"] ?? db["karbohidrat"] ?? 0),
+    kalsium: faktor * Number(db["KALSIUM"] ?? db["kalsium"] ?? 0),
+    serat: faktor * Number(db["SERAT"] ?? db["serat"] ?? 0)
+  };
+
+});
 
     // ✅⬅️ TAMBAHKAN DI SINI (SETELAH MAP)
     hasilDiv.innerHTML += `
