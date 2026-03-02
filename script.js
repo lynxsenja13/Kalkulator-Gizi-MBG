@@ -42,12 +42,16 @@ function simpanGizi() {
 
   // ✅ simpan ke local database
   database.push(newItem);
+  database = [...database]; // trigger refresh reference
   saveCache();
 
   // ✅ TAMBAHKAN KE SPREADSHEET (INI TEMPATNYA)
-  fetch("https://script.google.com/macros/s/AKfycbzIzaaCT0IQtDCogdOzUs0zBUAYGiVshOK2oe8yPDcYQBTNbRfvrY6qwAyu81yZlNeM/exec", {
-    method: "POST",
-    body: JSON.stringify({
+  fetch("https://script.google.com/macros/s/AKfycbzLPsPLG5U9DCKSO181QDVslljmyz-4p_KU-YsNsi_Ama8S4Tovd2tI99iCKFftebSL/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
     nama: newItem["nama bahan"],
     ENERGI: newItem.ENERGI,
     PROTEIN: newItem.PROTEIN,
@@ -56,10 +60,10 @@ function simpanGizi() {
     KALSIUM: newItem.KALSIUM,
     SERAT: newItem.SERAT
   })
-});
-  .then(res => res.json())
-  .then(res => console.log("Sync sukses:", res))
-  .catch(err => console.error("Sync gagal:", err));
+})
+.then(res => res.json())
+.then(res => console.log("Sync sukses:", res))
+.catch(err => console.error("Sync gagal:", err));
 
   // ✅ lanjut logic biasa
   bahanMaster.push({ nama: namaBaru, berat: beratBaru });
@@ -75,6 +79,8 @@ function simpanGizi() {
 
   renderList();
   generateLaporan();
+  initAutocomplete();
+  loadDatabase(); // ambil data terbaru dari spreadsheet
 }
 // ================= TOGGLE LIBUR =================
 function toggleLibur(kat, checked) {
@@ -551,10 +557,6 @@ function initAutocomplete() {
     }
   });
 }
-// ================= STARTUP =================
-if (!loadCache()) {
-  loadDatabase();
-}
 
 // ================= TABEL GIZI =================
 function renderTabelGizi(total, kategori) {
@@ -677,3 +679,11 @@ function setJudulLaporan() {
 document.addEventListener("keydown", function(e) {
   if (e.key === "Escape") tutupModal();
 });
+
+window.onload = function () {
+  if (!loadCache()) {
+    loadDatabase(); // ambil dari spreadsheet kalau cache kosong
+  } else {
+    loadDatabase(); // tetap refresh background 🔥
+  }
+};
