@@ -5,7 +5,10 @@ let bahanMaster = {
 
 let modeMenu = "OMPRENGAN";
 let kategoriLibur = {};
-let kategoriData = {};
+let kategoriData = {
+  OMPRENGAN: {},
+  SNACK: {}
+};
 let database = [];
 let databaseLoaded = false;
 let pendingNama = null;
@@ -133,7 +136,7 @@ function toggleLibur(kat, checked) {
   generateLaporan();
 }
 
-const kategoriList = [
+const kategoriOmprengan = [
   "Balita",
   "Bumil & Busui",
   "SD 1-3",
@@ -141,6 +144,19 @@ const kategoriList = [
   "SMP",
   "SMA"
 ];
+
+const kategoriSnack = [
+  "Balita",
+  "Bumil & Busui",
+  "Keringan Sekolah Kecil",
+  "Keringan Sekolah Besar"
+];
+
+function getKategoriAktif() {
+  return modeMenu === "OMPRENGAN"
+    ? kategoriOmprengan
+    : kategoriSnack;
+}
 
 // ================= AKG TARGET =================
 const AKG = {
@@ -225,10 +241,16 @@ function resetCache() {
 
 // ================= INIT KATEGORI =================
 function initKategori() {
-  kategoriList.forEach(k => {
-    if (!kategoriData[k]) {
-      kategoriData[k] = [];
-    }
+  ["OMPRENGAN", "SNACK"].forEach(menu => {
+    const list = menu === "OMPRENGAN"
+      ? kategoriOmprengan
+      : kategoriSnack;
+
+    list.forEach(k => {
+      if (!kategoriData[menu][k]) {
+        kategoriData[menu][k] = [];
+      }
+    });
   });
 }
 
@@ -445,7 +467,7 @@ function generateLaporan() {
 
   const listAktif = bahanMaster[modeMenu];
 
-  kategoriList.forEach(kat => {
+  getKategoriAktif().forEach(kat => {
 
   const listAktif = bahanMaster[modeMenu]; // ✅ TAMBAH DI SINI
 
@@ -472,13 +494,13 @@ function generateLaporan() {
 
     // ================= HITUNG =================
     const total = hitungTotal(
-  kategoriData[kat].filter(item =>
+  kategoriData[modeMenu][kat].filter(item =>
     listAktif.some(b => b.nama === item.nama)
   )
 );
 
     // 🔥 DETAIL PER BAHAN
-    const detailBahan = kategoriData[kat].map(item => {
+    const detailBahan = kategoriData[modeMenu][kat].map(item => {
       const db = database.find(d =>
   String(d["nama bahan"] || d["NAMA BAHAN"])
     .toLowerCase()
@@ -557,7 +579,7 @@ function renderAKG(nutrien, total, kategori) {
 
 // ================= EDITABLE BERAT =================
 function renderEditableList(kat) {
-  return kategoriData[kat]
+  return kategoriData[modeMenu][kat]
     .map((b, i) => `
     <div style="display:flex; gap:6px; margin:4px 0; align-items:center;">
       <span style="flex:1">${b.nama}</span>
@@ -576,12 +598,12 @@ function renderEditableList(kat) {
 }
 
 function editBerat(kat, index, value) {
-  kategoriData[kat][index].berat = parseFloat(value) || 0;
+  kategoriData[modeMenu][kat][index].berat = parseFloat(value) || 0;
   generateLaporan();
 }
 
 function hapusBahan(kat, index) {
-  kategoriData[kat].splice(index, 1);
+  kategoriData[modeMenu][kat].splice(index, 1);
   generateLaporan();
 }
 
