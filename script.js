@@ -15,14 +15,6 @@ let pendingNama = null;
 let pendingBerat = null;
 let modeKategori = "SEMUA";
 
-function toTitleCase(str) {
-  return str
-    .toLowerCase()
-    .split(" ")
-    .map(kata => kata.charAt(0).toUpperCase() + kata.slice(1))
-    .join(" ");
-}
-
 function setModeMenu(menu) {
   modeMenu = menu;
 
@@ -330,10 +322,9 @@ function tambahBahan() {
 
   if (!nama || !berat) return;
 
-  const namaFix = toTitleCase(nama.trim());
+  const namaFix = nama.trim().toLowerCase();
 
-  // cek database
-  let db = database.find(d =>
+let db = database.find(d =>
   getNamaBahan(d) === namaFix
 );
 
@@ -348,7 +339,7 @@ function tambahBahan() {
 
   // ✅ MASUKKAN DATA
   bahanMaster[modeMenu].push({ 
-  nama: toTitleCase(nama),
+  nama: nama.trim(),
   berat,
   satuan
 });
@@ -356,12 +347,12 @@ function tambahBahan() {
   if (modeKategori === "SEMUA") {
 
   getKategoriAktif().forEach(k => {
-    kategoriData[modeMenu][k].push({ nama: toTitleCase(nama), berat, satuan });
+    kategoriData[modeMenu][k].push({ nama: nama.trim(), berat, satuan });
   });
 
 } else {
 
-  kategoriData[modeMenu][modeKategori].push({ nama: toTitleCase(nama), berat, satuan });
+  kategoriData[modeMenu][modeKategori].push({ nama: nama.trim(), berat, satuan });
 
 }
 
@@ -623,8 +614,6 @@ const standar = AKG[kat] || {
     </label>
   </div>
 </div>
-<span class="label-libur">Libur</span>
-    </div>
 
     ${renderEditableList(kat)}
 
