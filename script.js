@@ -15,6 +15,14 @@ let pendingNama = null;
 let pendingBerat = null;
 let modeKategori = "SEMUA";
 
+function toTitleCase(str) {
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map(kata => kata.charAt(0).toUpperCase() + kata.slice(1))
+    .join(" ");
+}
+
 function setModeMenu(menu) {
   modeMenu = menu;
 
@@ -322,7 +330,7 @@ function tambahBahan() {
 
   if (!nama || !berat) return;
 
-  const namaFix = nama.toLowerCase().trim();
+  const namaFix = toTitleCase(nama.trim());
 
   // cek database
   let db = database.find(d =>
@@ -340,7 +348,7 @@ function tambahBahan() {
 
   // ✅ MASUKKAN DATA
   bahanMaster[modeMenu].push({ 
-  nama, 
+  nama: toTitleCase(nama),
   berat,
   satuan
 });
@@ -348,12 +356,12 @@ function tambahBahan() {
   if (modeKategori === "SEMUA") {
 
   getKategoriAktif().forEach(k => {
-    kategoriData[modeMenu][k].push({ nama, berat, satuan });
+    kategoriData[modeMenu][k].push({ nama: toTitleCase(nama), berat, satuan });
   });
 
 } else {
 
-  kategoriData[modeMenu][modeKategori].push({ nama, berat, satuan });
+  kategoriData[modeMenu][modeKategori].push({ nama: toTitleCase(nama), berat, satuan });
 
 }
 
@@ -603,14 +611,18 @@ const standar = AKG[kat] || {
   <div class="kategori-card">
     
     <div class="kategori-header">
-      <h3>${kat}</h3>
+  <h3>${kat}</h3>
 
-      <label class="switch-ios">
-  <input type="checkbox"
-    ${kategoriLibur[kat] ? "checked" : ""}
-    onchange="toggleLibur('${kat}', this.checked)">
-  <span class="slider-ios"></span>
-</label>
+  <div class="libur-ios-wrapper">
+    <span class="label-libur">Libur</span>
+    <label class="switch-ios">
+      <input type="checkbox"
+        ${kategoriLibur[kat] ? "checked" : ""}
+        onchange="toggleLibur('${kat}', this.checked)">
+      <span class="slider-ios"></span>
+    </label>
+  </div>
+</div>
 <span class="label-libur">Libur</span>
     </div>
 
