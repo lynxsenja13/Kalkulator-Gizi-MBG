@@ -29,7 +29,9 @@
     <h2>Input Bahan</h2>
 
 <!-- 🔽 TAMBAHKAN INI -->
-<select id="pilihKategori" style="margin-bottom:10px; padding:8px; border-radius:8px;">
+<select id="pilihKategori"
+        onchange="setModeKategori(this.value)"
+        style="margin-bottom:10px; padding:8px; border-radius:8px;">
   <option value="SEMUA">Semua Kategori</option>
   <option value="Balita">Balita</option>
   <option value="Bumil & Busui">Bumil & Busui</option>
