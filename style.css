@@ -824,3 +824,15 @@ button {
     opacity: 1;
   }
 }
+
+.modal-grid input:focus {
+  border: 1px solid #4da3ff;
+  box-shadow: 0 0 8px #4da3ff;
+}
+
+.modal-content h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
