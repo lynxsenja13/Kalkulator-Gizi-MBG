@@ -145,23 +145,23 @@
   </div>
 </div>
 
-  <div id="modalGizi" class="modal">
+  <div id="modalGizi">
   <div class="modal-content">
+    
+    <h3 id="modalTitle">Tambah Gizi</h3>
 
-    <h3 id="modalTitle">Tambah Kandungan Gizi</h3>
-
-    <div class="grid-input">
+    <div class="modal-grid">
       <input id="mEnergi" placeholder="Energi">
       <input id="mProtein" placeholder="Protein">
       <input id="mLemak" placeholder="Lemak">
-      <input id="mKarbo" placeholder="Karbohidrat">
+      <input id="mKarbo" placeholder="Karbo">
       <input id="mKalsium" placeholder="Kalsium">
       <input id="mSerat" placeholder="Serat">
     </div>
 
-    <div class="modal-action">
-      <button onclick="tutupModal()" class="btn-cancel">Batal</button>
-      <button onclick="simpanGizi()" class="btn-save">Simpan</button>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="tutupModal()">Batal</button>
+      <button class="btn-save" onclick="simpanGizi()">Simpan</button>
     </div>
 
   </div>
