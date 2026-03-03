@@ -1059,3 +1059,39 @@ function bukaModalLibur() {
 function tutupModalLibur() {
   document.getElementById("modalLibur").style.display = "none";
 }
+
+function prosesLaporanHarian() {
+
+  const data = {
+    balita: document.getElementById("libur_balita").checked ? 0 : 211,
+    bumil: document.getElementById("libur_bumil").checked ? 0 : 125,
+    sdyas: document.getElementById("libur_sdyas").checked ? 0 : 186,
+    smpyas: document.getElementById("libur_smpyas").checked ? 0 : 630,
+    smayas: document.getElementById("libur_smayas").checked ? 0 : 534,
+    awig: document.getElementById("libur_awig").checked ? 0 : 1015,
+    guru_sd: document.getElementById("libur_sdyas").checked ? 0 : 17,
+    guru_smp: document.getElementById("libur_smpyas").checked ? 0 : 35,
+    guru_sma: document.getElementById("libur_smayas").checked ? 0 : 37,
+    guru_awig: document.getElementById("libur_awig").checked ? 0 : 62,
+    pic: document.getElementById("libur_balita").checked ? 0 : 5,
+  };
+
+  const totalPenerima =
+    data.balita +
+    data.bumil +
+    data.sdyas +
+    data.smpyas +
+    data.smayas +
+    data.awig +
+    data.guru_sd +
+    data.guru_smp +
+    data.guru_sma +
+    data.guru_awig +
+    data.pic;
+
+  const jumlahMakan = totalPenerima;
+
+  buatCaptionHarian(data, totalPenerima, jumlahMakan);
+
+  tutupModalLibur();
+}
