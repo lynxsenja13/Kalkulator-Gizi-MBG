@@ -1676,19 +1676,23 @@ function editMenuHarian(index, value) {
 
 let isDataChanged = false;
 
-// tandai perubahan user
+// tandai perubahan
 document.addEventListener("input", () => {
   isDataChanged = true;
 });
 
-// ✅ handler tunggal (tidak pakai addEventListener lagi)
+// ✅ PAKAI INI SAJA (jangan addEventListener lagi)
 window.onbeforeunload = function (e) {
   if (!isDataChanged) return;
 
-  // ⚠️ penting: MATIKAN handler setelah dipanggil
+  // 🔥 MATIKAN HANDLER SEBELUM LANJUT
   window.onbeforeunload = null;
 
-  return "Data akan hilang!";
+  // standar browser
+  e.preventDefault();
+  e.returnValue = '';
+
+  return '';
 };
 
 window.addEventListener("load", () => {
@@ -1705,5 +1709,4 @@ function konfirmasiAksi(pesan, callback) {
 }
 
 konfirmasiAksi("Data akan hilang, lanjut?", () => {
-  location.reload();
 });
