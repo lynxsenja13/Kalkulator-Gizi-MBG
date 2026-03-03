@@ -1488,7 +1488,7 @@ function prosesGenerateLaporan() {
   tutupModalLibur();
 
   if (subTabAktif === "harian") {
-    generateLaporanHarian();
+    generateCaptionHarian();
   } else if (subTabAktif === "gizi") {
     generateLaporanGizi();
   }
