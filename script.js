@@ -1021,3 +1021,33 @@ function prosesGenerate() {
     libur
   );
 }
+
+/* ===============================
+   TAB LEVEL 1
+=================================*/
+function setMainTab(tab) {
+  document.getElementById("tabLaporan").classList.remove("active-tab");
+  document.getElementById("tabCaption").classList.remove("active-tab");
+
+  if (tab === "laporan") {
+    document.getElementById("tabLaporan").classList.add("active-tab");
+    document.getElementById("subTabLaporan").style.display = "flex";
+  } else {
+    document.getElementById("tabCaption").classList.add("active-tab");
+    document.getElementById("subTabLaporan").style.display = "none";
+  }
+}
+
+/* ===============================
+   SUB TAB
+=================================*/
+function setSubTab(tab) {
+  document.getElementById("btnLapHarian").classList.remove("active-subtab");
+  document.getElementById("btnLapGizi").classList.remove("active-subtab");
+
+  if (tab === "harian") {
+    document.getElementById("btnLapHarian").classList.add("active-subtab");
+  } else {
+    document.getElementById("btnLapGizi").classList.add("active-subtab");
+  }
+}
