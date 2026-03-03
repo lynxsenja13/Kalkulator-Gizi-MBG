@@ -14,6 +14,23 @@ let databaseLoaded = false;
 let pendingNama = null;
 let pendingBerat = null;
 let modeKategori = "SEMUA";
+let menuHarian = [""]; // mulai 1 baris
+let liburLaporan = {};
+
+// ================= DATA PENERIMA =================
+const PENERIMA_DEFAULT = {
+  "BALITA": 211,
+  "BUMIL & BUSUI": 125,
+  "SD YAS": 186,
+  "SMP YAS": 630,
+  "SMA YAS": 534,
+  "SDN Awi Gombong": 1015,
+  "Guru & Tendik SD YAS": 17,
+  "Guru & Tendik SMP YAS": 35,
+  "Guru & Tendik SMA YAS": 37,
+  "Guru & Tendik SD Awi Gombong": 62,
+  "PIC POSYANDU": 5
+};
 
 function setModeMenu(menu) {
   modeMenu = menu;
@@ -855,3 +872,124 @@ window.onload = function () {
     loadDatabase(); // tetap refresh background 🔥
   }
 };
+
+function hitungPenerimaFinal() {
+  const data = { ...PENERIMA_DEFAULT };
+
+  // mapping libur
+  if (liburLaporan["Balita"]) {
+    data["BALITA"] = 0;
+    data["PIC POSYANDU"] = 0;
+  }
+
+  if (liburLaporan["Bumil & Busui"]) {
+    data["BUMIL & BUSUI"] = 0;
+  }
+
+  if (liburLaporan["SD YAS"]) {
+    data["SD YAS"] = 0;
+    data["Guru & Tendik SD YAS"] = 0;
+  }
+
+  if (liburLaporan["SMP YAS"]) {
+    data["SMP YAS"] = 0;
+    data["Guru & Tendik SMP YAS"] = 0;
+  }
+
+  if (liburLaporan["SMA YAS"]) {
+    data["SMA YAS"] = 0;
+    data["Guru & Tendik SMA YAS"] = 0;
+  }
+
+  if (liburLaporan["SD Awi Gombong"]) {
+    data["SDN Awi Gombong"] = 0;
+    data["Guru & Tendik SD Awi Gombong"] = 0;
+  }
+
+  const total = Object.values(data).reduce((a,b)=>a+b,0);
+
+  return { data, total };
+}
+
+function generateCaptionHarian() {
+  const { data, total } = hitungPenerimaFinal();
+  const tanggal = formatTanggalIndonesia();
+
+  const menuList = menuHarian
+    .filter(m => m.trim())
+    .map((m,i)=>`${i+1}. ${m}`)
+    .join("\n");
+
+  const caption = `
+Yth. Dandim 0618/Kota Bandung
+Cc. Pasiter Kodim 0618/Kota Bandung
+
+Selamat Pagi Komandan,
+Izin melaporkan, pada hari ${tanggal} telah dilaksanakan kegiatan Pembagian Makan Bergizi Gratis operasional Unit SPPG Khusus/Hybrid.
+
+A. SPPG : Yayasan Pangan Mandiri Barokah Dapur Cicadas 01
+B. Lokasi : Jalan Brigjen Katamso RT. 10 RW. 13 Kel. Cicadas Kec. Cibeunying Kidul Kota Bandung.
+C. Personel :
+1. Kepala SPPG/No tlp : Tata Dhea Wimala/087892330960
+2. Ahli Gizi/No tlp : Aliyah Khairunnisa Syafitri/089664825252
+3. Akuntan/No tlp : Febrianto/082121312500
+4. Jml Karyawan : 44
+
+D. Jumlah penerima sebanyak ${total} orang.
+1. BALITA = ${data["BALITA"]}
+2. BUMIL & BUSUI = ${data["BUMIL & BUSUI"]}
+3. SD YAS = ${data["SD YAS"]}
+4. SMP YAS = ${data["SMP YAS"]}
+5. SMA YAS = ${data["SMA YAS"]}
+6. SDN Awi Gombong = ${data["SDN Awi Gombong"]}
+7. Guru & Tendik SD YAS = ${data["Guru & Tendik SD YAS"]}
+8. Guru & Tendik SMP YAS = ${data["Guru & Tendik SMP YAS"]}
+9. Guru & Tendik SMA YAS = ${data["Guru & Tendik SMA YAS"]}
+10. Guru & Tendik SD Awi Gombong = ${data["Guru & Tendik SD Awi Gombong"]}
+11. PIC POSYANDU = ${data["PIC POSYANDU"]}
+
+Jumlah makan : ${total} porsi.
+
+E. Menu Makan hari ini ${tanggal}
+${menuList}
+
+Demikian kami laporkan.
+Dokumentasi terlampir.
+`;
+
+  document.getElementById("captionOutput").value = caption.trim();
+}
+
+function toggleLiburLaporan(nama, checked) {
+  liburLaporan[nama] = checked;
+  generateCaptionHarian();
+}
+
+function tambahMenuHarian() {
+  menuHarian.push("");
+  renderMenuHarian();
+}
+
+function editMenuHarian(index, value) {
+  menuHarian[index] = value;
+  generateCaptionHarian();
+}
+
+function renderMenuHarian() {
+  const wrap = document.getElementById("menuHarianWrap");
+  if (!wrap) return;
+
+  wrap.innerHTML = menuHarian.map((m,i)=>`
+    <input
+      type="text"
+      value="${m}"
+      placeholder="Nama menu"
+      onchange="editMenuHarian(${i}, this.value)"
+      style="margin-bottom:6px;width:100%;padding:8px;border-radius:8px;border:none;"
+    >
+  `).join("");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  renderMenuHarian();
+});
