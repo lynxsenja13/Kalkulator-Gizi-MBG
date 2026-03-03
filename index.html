@@ -213,8 +213,9 @@
   <!-- INPUT MENU -->
   <div id="menuContainer">
     <input type="text"
-           class="input-menu"
-           placeholder="Nama menu">
+       class="input-menu"
+       placeholder="Nama menu"
+       oninput="updateMenuAwal(this.value)">
 
     <button class="btn-secondary"
             onclick="tambahMenuBaris()">
