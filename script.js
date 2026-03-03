@@ -1469,3 +1469,13 @@ ${menuText}
   const output = document.getElementById("captionOutput");
   if (output) output.value = caption.trim();
 }
+
+function prosesGenerateLaporan() {
+  tutupModalLibur();
+
+  if (subTabAktif === "harian") {
+    generateLaporanHarian();
+  } else if (subTabAktif === "gizi") {
+    generateLaporanGizi();
+  }
+}
