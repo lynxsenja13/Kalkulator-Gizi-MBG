@@ -1699,3 +1699,36 @@ function konfirmasiAksi(pesan, callback) {
   const yakin = confirm(pesan);
   if (yakin) callback();
 }
+
+function kirimKeSpreadsheet() {
+
+  if (!window.hasilGiziPerKategori) {
+    alert("Generate laporan dulu!");
+    return;
+  }
+
+  const tanggal = formatTanggalIndonesia(); // contoh: 1 Maret 2026
+
+  const data = {
+    tanggal: tanggal,
+    menu: menuHarian.filter(m => m.trim()),
+    gizi: window.hasilGiziPerKategori
+  };
+
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "kirimLaporan",
+      data: data
+    })
+  })
+  .then(res => res.json())
+  .then(res => {
+    alert("Berhasil kirim ke spreadsheet!");
+    console.log(res);
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Gagal kirim!");
+  });
+}
