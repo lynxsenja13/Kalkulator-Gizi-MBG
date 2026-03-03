@@ -1093,3 +1093,13 @@ button {
 .ios-switch input:checked + span::before {
   transform: translateX(20px);
 }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: none; /* 🔥 INI PENTING */
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
