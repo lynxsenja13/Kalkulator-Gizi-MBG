@@ -1112,7 +1112,6 @@ function prosesLaporanHarian() {
   } else {
     generateCaptionHarian();
   }
-}
 
   const data = {
     balita: document.getElementById("libur_balita").checked ? 0 : 211,
