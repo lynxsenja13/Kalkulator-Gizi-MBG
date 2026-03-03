@@ -1273,3 +1273,48 @@ function tambahMenuInput() {
 
   container.appendChild(input);
 }
+
+// ================= MODAL LIBUR =================
+function bukaModalLibur() {
+  const modal = document.getElementById("modalLibur");
+  if (!modal) return;
+  modal.style.display = "flex";
+}
+
+function tutupModalLibur() {
+  const modal = document.getElementById("modalLibur");
+  if (!modal) return;
+  modal.style.display = "none";
+}
+
+// ================= PROSES LAPORAN HARIAN =================
+function prosesLaporanHarian() {
+
+  // ambil status libur dari toggle
+  liburLaporan = {
+    "Balita": document.getElementById("libur_balita")?.checked || false,
+    "Bumil & Busui": document.getElementById("libur_bumil")?.checked || false,
+    "SD YAS": document.getElementById("libur_sdyas")?.checked || false,
+    "SMP YAS": document.getElementById("libur_smpyas")?.checked || false,
+    "SMA YAS": document.getElementById("libur_smayas")?.checked || false,
+    "SD Awi Gombong": document.getElementById("libur_awig")?.checked || false
+  };
+
+  // ambil menu harian dari input
+  const inputs = document.querySelectorAll(".input-menu");
+  menuHarian = [];
+
+  inputs.forEach(inp => {
+    menuHarian.push(inp.value.trim());
+  });
+
+  // tutup modal
+  tutupModalLibur();
+
+  // 🔥 generate caption otomatis
+  generateCaptionHarian();
+
+  // optional: scroll ke hasil
+  document.getElementById("cardCreateLaporan")
+    ?.scrollIntoView({ behavior: "smooth" });
+}
