@@ -1120,3 +1120,11 @@ function tambahMenuBaris() {
   const btn = container.querySelector(".btn-secondary");
   container.insertBefore(input, btn);
 }
+
+function bukaModalLibur() {
+  document.getElementById("modalLibur").style.display = "flex";
+}
+
+function tutupModalLibur() {
+  document.getElementById("modalLibur").style.display = "none";
+}
