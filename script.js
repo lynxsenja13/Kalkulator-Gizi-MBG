@@ -1680,11 +1680,11 @@ Serat : ${data.serat ?? 0} g
 }
 
 function updateMenuAwal(value) {
-  if (!menuHarian || menuHarian.length === 0) {
-    menuHarian = [""];
+  if (!window.menuHarian) {
+    window.menuHarian = [""];
   }
 
-  menuHarian[0] = value;
+  window.menuHarian[0] = value;
 }
 
 let menuHarian = [""];
