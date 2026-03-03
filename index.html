@@ -212,6 +212,71 @@
   </button>
 
 </div>
+
+  <div id="modalLibur" class="modal">
+  <div class="modal-content">
+
+    <h3>Siapa yang libur?</h3>
+
+    <div class="libur-list">
+
+      <label class="switch-row">
+        <span>Balita</span>
+        <label class="ios-switch">
+          <input type="checkbox" id="libur_balita">
+          <span></span>
+        </label>
+      </label>
+
+      <label class="switch-row">
+        <span>Bumil & Busui</span>
+        <label class="ios-switch">
+          <input type="checkbox" id="libur_bumil">
+          <span></span>
+        </label>
+      </label>
+
+      <label class="switch-row">
+        <span>SD YAS</span>
+        <label class="ios-switch">
+          <input type="checkbox" id="libur_sdyas">
+          <span></span>
+        </label>
+      </label>
+
+      <label class="switch-row">
+        <span>SMP YAS</span>
+        <label class="ios-switch">
+          <input type="checkbox" id="libur_smpyas">
+          <span></span>
+        </label>
+      </label>
+
+      <label class="switch-row">
+        <span>SMA YAS</span>
+        <label class="ios-switch">
+          <input type="checkbox" id="libur_smayas">
+          <span></span>
+        </label>
+      </label>
+
+      <label class="switch-row">
+        <span>SDN Awi Gombong</span>
+        <label class="ios-switch">
+          <input type="checkbox" id="libur_awig">
+          <span></span>
+        </label>
+      </label>
+
+    </div>
+
+    <div class="modal-action">
+      <button class="btn-cancel" onclick="tutupModalLibur()">Batal</button>
+      <button class="btn-save" onclick="prosesLaporanHarian()">Lanjut</button>
+    </div>
+
+  </div>
+</div>
 <script src="config.js"></script>
 <script src="script.js"></script>
 
