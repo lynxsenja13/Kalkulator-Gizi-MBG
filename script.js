@@ -1034,8 +1034,8 @@ function renderMenuHarian() {
     <input
       type="text"
       value="${m}"
-      placeholder="Nama menu"
-      onchange="editMenuHarian(${i}, this.value)"
+      placeholder="Nama menu ${i+1}"
+      oninput="editMenuHarian(${i}, this.value)"
       style="margin-bottom:6px;width:100%;padding:8px;border-radius:8px;border:none;"
     >
   `).join("");
