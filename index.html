@@ -157,6 +157,40 @@
   </div>
 </div>
 
+  <div class="card dark">
+  <h2>📝 Caption Laporan Harian</h2>
+
+  <div id="menuHarianWrap"></div>
+
+  <button class="btn-primary" onclick="tambahMenuHarian()">
+    ➕ Tambah Menu
+  </button>
+
+  <hr style="margin:14px 0; opacity:.3">
+
+  <h3>Libur</h3>
+
+  <label class="switch-ios">
+    Balita
+    <input type="checkbox" onchange="toggleLiburLaporan('Balita', this.checked)">
+    <span class="slider-ios"></span>
+  </label>
+
+  <label class="switch-ios">
+    SD YAS
+    <input type="checkbox" onchange="toggleLiburLaporan('SD YAS', this.checked)">
+    <span class="slider-ios"></span>
+  </label>
+
+  <br><br>
+
+  <button class="btn-success" onclick="generateCaptionHarian()">
+    🚀 Generate Caption
+  </button>
+
+  <textarea id="captionOutput" placeholder="Caption muncul di sini..."></textarea>
+</div>
+
 <script src="config.js"></script>
 <script src="script.js"></script>
 
