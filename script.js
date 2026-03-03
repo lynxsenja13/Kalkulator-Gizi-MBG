@@ -16,6 +16,7 @@ let pendingBerat = null;
 let modeKategori = "SEMUA";
 let menuHarian = [""]; // mulai 1 baris
 let liburLaporan = {};
+let subTabAktif = "harian"; // default
 
 // ================= DATA PENERIMA =================
 const PENERIMA_DEFAULT = {
@@ -1081,8 +1082,11 @@ function setMainTab(tab) {
    SUB TAB
 =================================*/
 function setSubTab(tab) {
-  document.getElementById("btnLapHarian").classList.remove("active-subtab");
-  document.getElementById("btnLapGizi").classList.remove("active-subtab");
+  subTabAktif = tab;
+
+  document
+    .querySelectorAll("#subTabLaporan .btn-primary")
+    .forEach(btn => btn.classList.remove("active-subtab"));
 
   if (tab === "harian") {
     document.getElementById("btnLapHarian").classList.add("active-subtab");
