@@ -17,6 +17,7 @@ let modeKategori = "SEMUA";
 let menuHarian = [""]; // mulai 1 baris
 let liburLaporan = {};
 let subTabAktif = "harian"; // default
+let subTabCaptionAktif = "omprengan";
 
 // ================= DATA PENERIMA =================
 const PENERIMA_DEFAULT = {
@@ -1487,9 +1488,151 @@ ${menuText}
 function prosesGenerateLaporan() {
   tutupModalLibur();
 
-  if (subTabAktif === "harian") {
-    generateCaptionHarian();
-  } else if (subTabAktif === "gizi") {
-    generateLaporanGizi();
+  if (mainTabAktif === "caption") {
+    if (subTabCaptionAktif === "snack") {
+      generateCaptionSnack();
+    } else {
+      generateCaptionOmprengan();
+    }
+    return;
   }
+
+  // laporan
+  if (subTabAktif === "gizi") {
+    generateLaporanGizi();
+  } else {
+    generateCaptionHarian();
+  }
+}
+
+function setSubTabCaption(tab) {
+  subTabCaptionAktif = tab;
+
+  document.getElementById("btnCapOmprengan")
+    ?.classList.toggle("active-subtab-caption", tab === "omprengan");
+
+  document.getElementById("btnCapSnack")
+    ?.classList.toggle("active-subtab-caption", tab === "snack");
+}
+
+function generateCaptionOmprengan() {
+  const now = new Date();
+  const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
+  const tanggal = now.toLocaleDateString("id-ID", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+
+  // menu
+  const menuInputs = document.querySelectorAll("#menuContainer .input-menu");
+  let menuText = "";
+
+  menuInputs.forEach((inp) => {
+    if (inp.value.trim()) {
+      menuText += ` • ${inp.value.trim()}\n`;
+    }
+  });
+
+  // libur dari sistemmu
+  const libur = window.kategoriLibur || {};
+  const gizi = window.hasilGiziPerKategori || {};
+
+  function blok(judul, data) {
+    if (!data) return "";
+    return `
+${judul}
+ • Energi: ${data.energi ?? 0} kkal
+ • Protein: ${data.protein ?? 0} gr
+ • Lemak: ${data.lemak ?? 0} gr
+ • Karbohidrat: ${data.karbo ?? 0} gr
+ • Serat: ${data.serat ?? 0} gr
+`;
+  }
+
+  let caption = `🍱 Menu Bergizi Gratis
+📅 ${hari}, ${tanggal}
+
+🥗 Menu:
+${menuText}
+
+⚖️ Kandungan Gizi (per porsi):
+`;
+
+  if (!libur["Balita"])
+    caption += blok("Analisis Nilai Gizi Balita", gizi.balita);
+
+  if (!libur["Bumil & Busui"])
+    caption += blok("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
+
+  if (!libur["SD 1-3"])
+    caption += blok("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
+
+  if (!libur["SD 4-6"])
+    caption += blok("Analisis Nilai Gizi SD 4-6", gizi.sd4_6);
+
+  if (!libur["SMP"])
+    caption += blok("Analisis Nilai Gizi SMP", gizi.smp);
+
+  if (!libur["SMA"])
+    caption += blok("Analisis Nilai Gizi SMA", gizi.sma);
+
+  caption += `
+🌿 “Makan bergizi, tubuh berenergi!”
+
+#SPPGCicadas01 #MakanBergiziGratis #MBG #MakanSehat #GiziSeimbang
+`;
+
+  document.getElementById("captionOutput").value = caption.trim();
+}
+
+function generateCaptionSnack() {
+  const gizi = window.hasilGiziPerKategori || {};
+  const libur = window.kategoriLibur || {};
+
+  function blok(judul, data) {
+    if (!data) return "";
+    return `
+${judul}
+ • Energi: ${data.energi ?? 0} kkal
+ • Protein: ${data.protein ?? 0} gr
+ • Lemak: ${data.lemak ?? 0} gr
+ • Karbohidrat: ${data.karbo ?? 0} gr
+ • Serat: ${data.serat ?? 0} gr
+`;
+  }
+
+  let caption = "";
+
+  if (!libur["Balita"])
+    caption += blok(
+      "Analisis Nilai Gizi Menu Keringan untuk Balita",
+      gizi.balita
+    );
+
+  if (!libur["Bumil & Busui"])
+    caption += blok(
+      "Analisis Nilai Gizi Menu Keringan untuk Bumil & Busui",
+      gizi.bumil
+    );
+
+  if (!libur["SD 1-3"])
+    caption += blok(
+      "Analisis Nilai Gizi Menu Keringan Sekolah Kecil",
+      gizi.sd1_3
+    );
+
+  if (!libur["SD 4-6"])
+    caption += blok(
+      "Analisis Nilai Gizi Menu Keringan Sekolah Besar",
+      gizi.sd4_6
+    );
+
+  caption += `
+🌿 “Makan bergizi, tubuh berenergi!”
+
+#SPPGCicadas01 #MakanBergiziGratis #MBG #MakanSehat #GiziSeimbang
+`;
+
+  document.getElementById("captionOutput").value = caption.trim();
 }
