@@ -441,6 +441,7 @@ function renderTabelKategori(namaKategori, dataBahan, standar) {
   };
 
   let html = `
+  <div class="table-wrapper">
     <table class="tabel-gizi">
       <thead>
         <tr>
@@ -518,6 +519,11 @@ function renderTabelKategori(namaKategori, dataBahan, standar) {
 </tr>
 `;
 
+  html += `
+    </tbody>
+    </table>
+  </div>
+`;
   return html;
 }
 
