@@ -1357,6 +1357,22 @@ button {
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabel-gizi {
+  min-width: 600px; /* 🔥 penting supaya tidak gepeng */
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    border-radius: 12px;
+  }
+
+  .tabel-gizi th,
+  .tabel-gizi td {
+    white-space: nowrap; /* 🔥 biar tidak turun-turun */
+  }
 }
 
 /* tabel */
@@ -1378,30 +1394,6 @@ th, td {
   th, td {
     font-size: 12px;
     padding: 6px;
-  }
-}
-
-@media (max-width: 480px) {
-  table thead {
-    display: none;
-  }
-
-  table, tbody, tr, td {
-    display: block;
-    width: 100%;
-  }
-
-  tr {
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 8px;
-  }
-
-  td {
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
   }
 }
 
