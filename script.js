@@ -569,7 +569,9 @@ const keyMap = {
   "SD 1-3": "sd1_3",
   "SD 4-6": "sd4_6",
   "SMP": "smp",
-  "SMA": "sma"
+  "SMA": "sma",
+  "Keringan Sekolah Kecil": "kecil",
+  "Keringan Sekolah Besar": "besar"
 };
 
 const key = keyMap[kat];
@@ -1497,18 +1499,16 @@ ${menuText}
 }
 
 function prosesGenerateLaporan() {
-  tutupModalLibur();
-
   if (mainTabAktif === "caption") {
-    if (subTabCaptionAktif === "snack") {
-      generateCaptionSnack();
-    } else {
+    if (subTabCaptionAktif === "omprengan") {
       generateCaptionOmprengan();
+    } else {
+      generateCaptionSnack();
     }
     return;
   }
 
-  // laporan
+  // laporan biasa
   if (subTabAktif === "gizi") {
     generateLaporanGizi();
   } else {
@@ -1635,17 +1635,11 @@ ${judul}
       gizi.bumil
     );
 
-  if (!libur["SD 1-3"])
-    caption += blok(
-      "Analisis Nilai Gizi Menu Keringan Sekolah Kecil",
-      gizi.sd1_3
-    );
+  if (!libur.kecil)
+  caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", gizi.kecil);
 
-  if (!libur["SD 4-6"])
-    caption += blok(
-      "Analisis Nilai Gizi Menu Keringan Sekolah Besar",
-      gizi.sd4_6
-    );
+if (!libur.besar)
+  caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", gizi.besar);
 
   caption += `
 🌿 “Makan bergizi, tubuh berenergi!”
@@ -1654,4 +1648,17 @@ ${judul}
 `;
 
   document.getElementById("captionOutput").value = caption.trim();
+}
+
+function blokGizi(judul, data) {
+  if (!data) return "";
+
+  return `
+${judul}
+Energi : ${data.energi ?? 0} kkal
+Protein : ${data.protein ?? 0} g
+Lemak : ${data.lemak ?? 0} g
+Karbohidrat : ${data.karbo ?? 0} g
+Serat : ${data.serat ?? 0} g
+`;
 }
