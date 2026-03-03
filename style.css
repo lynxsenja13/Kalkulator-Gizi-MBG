@@ -258,7 +258,7 @@ button {
 
   .card {
   width: 100%;
-  max-width: 900px; /* 🔥 ubah dari 500 → 900 */
+  max-width: 900px; /* 🔥 BESARIN */
   margin: 0 auto;
 }
 
@@ -1346,15 +1346,6 @@ button {
   padding: 10px;
 }
 
-/* CARD */
-.card {
-  width: 100%;
-  max-width: 500px; /* ⬅️ ini kunci biar gak melebar */
-  margin: 0 auto;
-  border-radius: 16px;
-  box-sizing: border-box;
-}
-
 /* MOBILE FIX */
 @media (max-width: 768px) {
   .card {
@@ -1419,11 +1410,6 @@ th, td {
   overflow: hidden;
 }
 
-#hasil {
-  max-width: 500px;
-  margin: 0 auto;
-}
-
 /* ===== DESKTOP ===== */
 @media (min-width: 769px) {
   .card {
@@ -1450,5 +1436,17 @@ th, td {
 .container-main,
 .app {
   max-width: 1100px;
+  margin: 0 auto;
+}
+
+.card {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+#hasil {
+  max-width: 900px;
   margin: 0 auto;
 }
