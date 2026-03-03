@@ -1715,7 +1715,7 @@ function kirimKeSpreadsheet() {
     gizi: window.hasilGiziPerKategori
   };
 
-  fetch(API_URL, {
+  fetch(API_URL2, {
     method: "POST",
     body: JSON.stringify({
       action: "kirimLaporan",
