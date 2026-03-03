@@ -14,7 +14,7 @@ let databaseLoaded = false;
 let pendingNama = null;
 let pendingBerat = null;
 let modeKategori = "SEMUA";
-let menuHarian = [""]; // mulai 1 baris
+let menuHarian = ["", ""]; // minimal 2 biar ga ketimpa
 let liburLaporan = {};
 let subTabAktif = "harian"; // default
 let mainTabAktif = "laporan";
@@ -1016,6 +1016,13 @@ function tambahMenuHarian() {
 
 function editMenuHarian(index, value) {
   menuHarian[index] = value;
+
+  // 🔥 kalau input terakhir diisi → tambah baris baru otomatis
+  if (index === menuHarian.length - 1 && value.trim() !== "") {
+    menuHarian.push("");
+    renderMenuHarian();
+  }
+
   generateCaptionHarian();
 }
 
