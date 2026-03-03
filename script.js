@@ -1103,9 +1103,25 @@ function prosesLaporanHarian() {
 }
 
 function copyCaptionWA() {
-  const text = document.getElementById("captionOutput").value;
-  navigator.clipboard.writeText(text);
-  alert("Caption berhasil disalin 👍");
+  const el = document.getElementById("captionOutput");
+  if (!el) return;
+
+  const text = el.value;
+
+  navigator.clipboard.writeText(text).then(() => {
+    // feedback kecil
+    const btn = document.querySelector(".btn-copy-wa");
+    if (!btn) return;
+
+    const oldText = btn.innerHTML;
+    btn.innerHTML = "✅ Berhasil Disalin";
+
+    setTimeout(() => {
+      btn.innerHTML = oldText;
+    }, 1500);
+  }).catch(() => {
+    alert("Gagal menyalin teks");
+  });
 }
 
 function tambahMenuBaris() {
