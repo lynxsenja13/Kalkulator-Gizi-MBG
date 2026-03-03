@@ -257,9 +257,10 @@ button {
   }
 
   .card {
-    padding: 14px;
-    border-radius: 14px;
-  }
+  width: 100%;
+  max-width: 900px; /* 🔥 ubah dari 500 → 900 */
+  margin: 0 auto;
+}
 
   /* input full */
   .input-row {
@@ -539,9 +540,10 @@ button {
   }
 
   /* ✅ TAMPILKAN HASIL */
-  #hasil-wrapper {
-    display: block !important;
-  }
+  #hasil {
+  max-width: 900px; /* 🔥 biar lebar di laptop */
+  margin: 0 auto;
+}
 
   /* ✅ CATATAN TETAP MUNCUL */
   textarea {
@@ -1388,7 +1390,7 @@ th, td {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   table thead {
     display: none;
   }
@@ -1419,5 +1421,34 @@ th, td {
 
 #hasil {
   max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ===== DESKTOP ===== */
+@media (min-width: 769px) {
+  .card {
+    max-width: 900px;
+  }
+
+  #hasil {
+    max-width: 900px;
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .card {
+    max-width: 100%;
+  }
+
+  #hasil {
+    max-width: 100%;
+  }
+}
+
+.container,
+.container-main,
+.app {
+  max-width: 1100px;
   margin: 0 auto;
 }
