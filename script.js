@@ -1077,6 +1077,13 @@ function tutupModalLibur() {
 }
 
 function prosesLaporanHarian() {
+  tutupModalLibur();
+
+  if (currentSubTab === "gizi") {
+    generateLaporanGizi();
+  } else {
+    generateCaptionHarian(); // yang lama
+  }
 
   const data = {
     balita: document.getElementById("libur_balita").checked ? 0 : 211,
@@ -1336,4 +1343,102 @@ function autoResizeTextarea(el) {
   if (!el) return;
   el.style.height = "auto";
   el.style.height = (el.scrollHeight) + "px";
+}
+
+function generateLaporanGizi() {
+  // ===============================
+  // 📅 TANGGAL HARI INI
+  // ===============================
+  const now = new Date();
+  const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
+  const tanggal = now.toLocaleDateString("id-ID", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+
+  // ===============================
+  // 🍽️ AMBIL MENU
+  // ===============================
+  const menuInputs = document.querySelectorAll("#menuContainer .input-menu");
+
+  let menuText = "";
+  menuInputs.forEach((inp, i) => {
+    if (inp.value.trim()) {
+      menuText += `${i + 1}. ${inp.value.trim()}\n`;
+    }
+  });
+
+  // ===============================
+  // 🔴 STATUS LIBUR
+  // ===============================
+  const libur = {
+    balita: document.getElementById("libur_balita")?.checked,
+    bumil: document.getElementById("libur_bumil")?.checked,
+    sdyas: document.getElementById("libur_sdyas")?.checked,
+    smpyas: document.getElementById("libur_smpyas")?.checked,
+    smayas: document.getElementById("libur_smayas")?.checked
+  };
+
+  // ===============================
+  // 🧮 AMBIL DATA GIZI (DARI SISTEMMU)
+  // ⚠️ SESUAIKAN jika nama variabel beda
+  // ===============================
+  const gizi = window.hasilGiziPerKategori || {};
+
+  // ===============================
+  // 🧩 HELPER FORMAT BLOK GIZI
+  // ===============================
+  function blokGizi(judul, data) {
+    if (!data) return "";
+
+    return `
+🥗 ${judul} 🥗
+ • Energi: ${data.energi ?? 0} kkal
+ • Protein: ${data.protein ?? 0} gr
+ • Lemak: ${data.lemak ?? 0} gr
+ • Karbohidrat: ${data.karbo ?? 0} gr
+ • Zat Besi: ${data.besi ?? 0} mg
+ • Serat: ${data.serat ?? 0} gr
+`;
+  }
+
+  // ===============================
+  // 🧱 SUSUN CAPTION
+  // ===============================
+  let caption = `Assalamualaikum wr.wb, Selamat Pagi.
+Izin menginformasikan, untuk menu hari ini.
+Tanggal : ${hari}, ${tanggal}
+
+Menu:
+${menuText}
+`;
+
+  // ===============================
+  // ➕ TAMBAH BLOK (HANYA YANG TIDAK LIBUR)
+  // ===============================
+
+  if (!libur.balita)
+    caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
+
+  if (!libur.bumil)
+    caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
+
+  if (!libur.sdyas)
+    caption += blokGizi("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
+
+  if (!libur.sdyas)
+    caption += blokGizi("Analisis Nilai Gizi SD 4-6", gizi.sd4_6);
+
+  if (!libur.smpyas)
+    caption += blokGizi("Analisis Nilai Gizi SMP", gizi.smp);
+
+  if (!libur.smayas)
+    caption += blokGizi("Analisis Nilai Gizi SMA", gizi.sma);
+
+  // ===============================
+  // 📤 OUTPUT
+  // ===============================
+  const output = document.getElementById("captionOutput");
+  if (output) output.value = caption.trim();
 }
