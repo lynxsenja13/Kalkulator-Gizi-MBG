@@ -1095,3 +1095,9 @@ function prosesLaporanHarian() {
 
   tutupModalLibur();
 }
+
+function copyCaptionWA() {
+  const text = document.getElementById("hasilCaption").innerText;
+  navigator.clipboard.writeText(text);
+  alert("Caption berhasil disalin 👍");
+}
