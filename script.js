@@ -1106,6 +1106,7 @@ function tutupModalLibur() {
 function prosesLaporanHarian() {
   tutupModalLibur();
 
+  // ✅ cek subtab aktif
   if (subTabAktif === "gizi") {
     generateLaporanGizi();
   } else {
