@@ -1578,23 +1578,23 @@ ${menuText}
 ⚖️ Kandungan Gizi (per porsi):
 `;
 
-  if (!libur["Balita"])
-    caption += blok("Analisis Nilai Gizi Balita", gizi.balita);
+  if (!libur.balita)
+  caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
 
-  if (!libur["Bumil & Busui"])
-    caption += blok("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
+if (!libur.bumil)
+  caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
 
-  if (!libur["SD 1-3"])
-    caption += blok("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
+if (!libur.sdyas)
+  caption += blokGizi("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
 
-  if (!libur["SD 4-6"])
-    caption += blok("Analisis Nilai Gizi SD 4-6", gizi.sd4_6);
+if (!libur.sdyas)
+  caption += blokGizi("Analisis Nilai Gizi SD 4-6", gizi.sd4_6);
 
-  if (!libur["SMP"])
-    caption += blok("Analisis Nilai Gizi SMP", gizi.smp);
+if (!libur.smpyas)
+  caption += blokGizi("Analisis Nilai Gizi SMP", gizi.smp);
 
-  if (!libur["SMA"])
-    caption += blok("Analisis Nilai Gizi SMA", gizi.sma);
+if (!libur.smayas)
+  caption += blokGizi("Analisis Nilai Gizi SMA", gizi.sma);
 
   caption += `
 🌿 “Makan bergizi, tubuh berenergi!”
