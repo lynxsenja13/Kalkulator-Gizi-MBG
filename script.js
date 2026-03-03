@@ -1687,8 +1687,6 @@ function updateMenuAwal(value) {
   window.menuHarian[0] = value;
 }
 
-let menuHarian = [""];
-
 function renderMenuHarian() {
   const container = document.getElementById("menuContainer");
 
