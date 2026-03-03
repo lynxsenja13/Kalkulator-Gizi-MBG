@@ -976,3 +976,13 @@ button {
   width: 100%;
   box-sizing: border-box;
 }
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.btn-grid button {
+  width: 100%;
+}
