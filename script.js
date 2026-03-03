@@ -1676,18 +1676,24 @@ function editMenuHarian(index, value) {
 
 let isDataChanged = false;
 
-// tandai perubahan
+// tandai perubahan user
 document.addEventListener("input", () => {
   isDataChanged = true;
 });
 
-// RESET semua handler lama (penting!)
-window.onbeforeunload = null;
-
-window.onbeforeunload = function () {
+// ✅ handler tunggal (tidak pakai addEventListener lagi)
+window.onbeforeunload = function (e) {
   if (!isDataChanged) return;
+
+  // ⚠️ penting: MATIKAN handler setelah dipanggil
+  window.onbeforeunload = null;
+
   return "Data akan hilang!";
 };
+
+window.addEventListener("load", () => {
+  isDataChanged = false;
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   isDataChanged = false;
