@@ -1082,6 +1082,12 @@ function prosesLaporanHarian() {
     pic: document.getElementById("libur_balita").checked ? 0 : 5,
   };
 
+  const jumlahPenerima =
+  (Number(d3) || 0) +
+  (Number(d4) || 0) +
+  (Number(d5) || 0) +
+  (Number(d6) || 0);
+
   const totalPenerima =
     data.balita +
     data.bumil +
@@ -1211,7 +1217,7 @@ C. Personel :
 3. Akuntan/No tlp : Febrianto/082121312500
 4. Jml Karyawan : 44
 
-D. Jumlah penerima sebanyak ${totalPenerima} orang.
+D. Jumlah penerima sebanyak ${jumlahPenerima} orang
 1. BALITA = ${D1}
 2. BUMIL & BUSUI = ${D2}
 3. SD YAS = ${D3}
