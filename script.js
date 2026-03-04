@@ -1134,18 +1134,16 @@ function copyCaptionWA() {
   const text = el.value;
 
   navigator.clipboard.writeText(text).then(() => {
-    // feedback kecil
     const btn = document.querySelector(".btn-copy-wa");
     if (!btn) return;
 
     const oldText = btn.innerHTML;
-    btn.innerHTML = "✅ Berhasil Disalin";
 
+    btn.innerHTML = "✅ Tersalin!";
+    
     setTimeout(() => {
       btn.innerHTML = oldText;
-    }, 1500);
-  }).catch(() => {
-    alert("Gagal menyalin teks");
+    }, 2000);
   });
 }
 
