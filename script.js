@@ -1907,12 +1907,16 @@ function kirimLaporanKeSpreadsheet() {
     gizi: window.hasilGiziPerKategori
   };
 
-  console.log("DATA DIKIRIM:", data); // 🔥 DEBUG
+  console.log("DATA DIKIRIM:", data);
+
+  // ✅ WAJIB: buat FormData dulu
+  const formData = new FormData();
+  formData.append("data", JSON.stringify(data));
 
   fetch(API_URL2, {
-  method: "POST",
-  body: formData
-})
+    method: "POST",
+    body: formData
+  })
   .then(res => res.text())
   .then(res => {
     console.log("RESP:", res);
@@ -1922,7 +1926,7 @@ function kirimLaporanKeSpreadsheet() {
     console.error(err);
     alert("Gagal kirim");
   });
-  }
+}
   function debounce(fn, delay = 150) {
   let t;
   return (...args) => {
