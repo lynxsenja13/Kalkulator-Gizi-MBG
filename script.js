@@ -1734,14 +1734,14 @@ function kirimKeSpreadsheet() {
   fetch(API_URL2, {
   method: "POST",
   body: formData
-});
+})
 .then(() => {
   alert("Data berhasil dikirim");
 })
 .catch(err => {
   console.error(err);
   alert("Gagal kirim");
-  });
+});
 }
 function kirimLaporan(data) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
