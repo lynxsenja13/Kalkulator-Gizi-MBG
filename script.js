@@ -1742,8 +1742,8 @@ function kirimKeSpreadsheet() {
 .catch(err => {
   console.error(err);
   alert("Gagal kirim");
-});
-
+  });
+}
 function kirimLaporan(data) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const namaSheet = data.tanggal;
@@ -1926,4 +1926,11 @@ function kirimLaporanKeSpreadsheet() {
     console.error(err);
     alert("Gagal kirim");
   });
+  }
+  function debounce(fn, delay = 150) {
+  let t;
+  return (...args) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...args), delay);
+  };
 }
