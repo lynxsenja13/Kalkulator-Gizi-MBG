@@ -1717,21 +1717,19 @@ function kirimKeSpreadsheet() {
 
   fetch(API_URL2, {
   method: "POST",
+  mode: "no-cors", // 🔥 WAJIB TAMBAH INI
   headers: {
     "Content-Type": "application/json"
   },
   body: JSON.stringify(data)
 })
-  .then(res => res.json())
-  .then(res => {
-    alert("Berhasil kirim ke spreadsheet!");
-    console.log(res);
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Gagal kirim!");
-  });
-}
+.then(() => {
+  alert("Data berhasil dikirim");
+})
+.catch(err => {
+  console.error(err);
+  alert("Gagal kirim");
+});
 
 function kirimLaporan(data) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
