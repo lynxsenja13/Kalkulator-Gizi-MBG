@@ -1901,31 +1901,30 @@ function kirimLaporan(data) {
 }
 
 function kirimLaporanKeSpreadsheet() {
-  const data = {
+  const payload = {
     tanggal: getTanggalLengkap(),
     menu: menuHarian.filter(m => m.trim()),
     gizi: window.hasilGiziPerKategori
   };
 
-  console.log("DATA DIKIRIM:", data);
+  console.log("DATA DIKIRIM:", payload);
 
-  // ✅ WAJIB ADA
   const formData = new FormData();
-  formData.append("data", JSON.stringify(data));
+  formData.append("data", JSON.stringify(payload));
 
   fetch(API_URL2, {
     method: "POST",
     body: formData
   })
-  .then(res => res.text())
-  .then(res => {
-    console.log("RESP:", res);
-    alert("Berhasil kirim");
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Gagal kirim");
-  });
+    .then(res => res.text())
+    .then(res => {
+      console.log("RESP:", res);
+      alert("Berhasil kirim");
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Gagal kirim");
+    });
 }
   function debounce(fn, delay = 150) {
   let t;
