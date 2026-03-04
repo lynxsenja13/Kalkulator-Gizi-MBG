@@ -1909,7 +1909,7 @@ function kirimLaporanKeSpreadsheet() {
 
   console.log("DATA DIKIRIM:", data);
 
-  // ✅ WAJIB: buat FormData dulu
+  // ✅ WAJIB ADA
   const formData = new FormData();
   formData.append("data", JSON.stringify(data));
 
