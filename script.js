@@ -1912,12 +1912,9 @@ function kirimLaporanKeSpreadsheet() {
   console.log("DATA DIKIRIM:", data); // 🔥 DEBUG
 
   fetch(API_URL2, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
+  method: "POST",
+  body: formData
+})
   .then(res => res.text())
   .then(res => {
     console.log("RESP:", res);
