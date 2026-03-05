@@ -1925,26 +1925,29 @@ function kirimLaporan(data) {
 function kirimLaporanKeSpreadsheet() {
 
   const data = {
-  tanggal: getTanggalLengkap(),
-  menu: menuHarian.filter(m => m.trim()),
-  gizi: window.hasilGiziPerKategori,
-  detail: window.detailBahanSpreadsheet
-};
+    tanggal: getTanggalLengkap(),
+    menu: menuHarian.filter(m => m.trim()),
+    gizi: window.hasilGiziPerKategori,
+    detail: window.detailBahanSpreadsheet
+  };
 
-const formData = new FormData();
-formData.append("data", JSON.stringify(data));
+  const formData = new FormData();
+  formData.append("data", JSON.stringify(data));
 
-fetch(API_URL2, {
-  method: "POST",
-  body: formData
-})
-.then(res => res.text())
-.then(res => {
-  console.log("RESP:", res);
-})
-.catch(err => console.error(err));
+  fetch(API_URL2, {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(res => {
+    console.log("RESP:", res);
+    alert("Berhasil kirim laporan");
+  })
+  .catch(err => {
+    console.error(err);
     alert("Gagal kirim");
   });
+
 }
   function debounce(fn, delay = 150) {
   let t;
