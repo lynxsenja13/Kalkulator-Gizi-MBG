@@ -552,10 +552,11 @@ function renderTabelKategori(namaKategori, dataBahan, standar) {
 
 function generateLaporan() {
 
-  window.dataSpreadsheet[modeMenu] = {
-    gizi: {},
-    detail: []
-  };
+  // reset semua data spreadsheet
+window.dataSpreadsheet = {
+  OMPRENGAN: { gizi: {}, detail: [] },
+  SNACK: { gizi: {}, detail: [] }
+};
 
   if (!databaseLoaded) {
     alert("Database masih loading...");
