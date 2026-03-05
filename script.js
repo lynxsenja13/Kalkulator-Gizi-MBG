@@ -1925,27 +1925,24 @@ function kirimLaporan(data) {
 function kirimLaporanKeSpreadsheet() {
 
   const data = {
-    tanggal: getTanggalLengkap(),
-    menu: menuHarian.filter(m => m.trim()),
-    gizi: window.hasilGiziPerKategori,
-    detail: window.detailBahanSpreadsheet   // 🔥 INI WAJIB
-  };
-  console.log("DATA KIRIM:", data); // 🔥 cek ini
-  
-  const formData = new FormData();
-  formData.append("data", JSON.stringify(data));
+  tanggal: getTanggalLengkap(),
+  menu: menuHarian.filter(m => m.trim()),
+  gizi: window.hasilGiziPerKategori,
+  detail: window.detailBahanSpreadsheet
+};
 
-  fetch(API_URL2, {
-    method: "POST",
-    body: formData
-  })
-  .then(res => res.text())
-  .then(res => {
-    console.log("RESP:", res);
-    alert("Berhasil kirim laporan");
-  })
-  .catch(err => {
-    console.error(err);
+const formData = new FormData();
+formData.append("data", JSON.stringify(data));
+
+fetch(API_URL2, {
+  method: "POST",
+  body: formData
+})
+.then(res => res.text())
+.then(res => {
+  console.log("RESP:", res);
+})
+.catch(err => console.error(err));
     alert("Gagal kirim");
   });
 }
