@@ -538,6 +538,8 @@ function renderTabelKategori(namaKategori, dataBahan, standar) {
 }
 
 function generateLaporan() {
+
+  window.detailBahanSpreadsheet = [];
   if (!databaseLoaded) {
     alert("Database masih loading...");
     return;
@@ -647,6 +649,24 @@ if (key) {
   };
 
 });
+
+    // ================= SIMPAN DETAIL UNTUK SPREADSHEET =================
+detailBahan.forEach(b => {
+
+  window.detailBahanSpreadsheet.push({
+    kategori: kat,
+    nama: b.nama,
+    berat: b.berat,
+    satuan: b.satuan,
+    energi: Number(b.energi.toFixed(2)),
+    protein: Number(b.protein.toFixed(2)),
+    lemak: Number(b.lemak.toFixed(2)),
+    karbo: Number(b.karbo.toFixed(2)),
+    serat: Number(b.serat.toFixed(2))
+  });
+
+});
+    
 
     // ✅ TAMBAHKAN DI SINI
 const standar = AKG[kat] || {
@@ -1905,7 +1925,8 @@ function kirimLaporanKeSpreadsheet() {
   const data = {
     tanggal: getTanggalLengkap(),
     menu: menuHarian.filter(m => m.trim()),
-    gizi: window.hasilGiziPerKategori
+    gizi: window.hasilGiziPerKategori,
+    bahan: window.detailBahanSpreadsheet
   };
 
   const formData = new FormData();
@@ -1924,6 +1945,7 @@ function kirimLaporanKeSpreadsheet() {
     console.error(err);
     alert("Gagal kirim");
   });
+
 }
   function debounce(fn, delay = 150) {
   let t;
