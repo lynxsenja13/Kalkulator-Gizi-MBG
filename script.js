@@ -654,16 +654,20 @@ if (key) {
 detailBahan.forEach(b => {
 
   window.detailBahanSpreadsheet.push({
-    kategori: kat,
-    nama: b.nama,
-    berat: b.berat,
-    satuan: b.satuan,
-    energi: Number(b.energi.toFixed(2)),
-    protein: Number(b.protein.toFixed(2)),
-    lemak: Number(b.lemak.toFixed(2)),
-    karbo: Number(b.karbo.toFixed(2)),
-    serat: Number(b.serat.toFixed(2))
-  });
+
+  kategori: kat,
+  nama: b.nama,
+  berat: b.berat,
+  satuan: b.satuan,
+
+  energi: Number(b.energi.toFixed(2)),
+  protein: Number(b.protein.toFixed(2)),
+  lemak: Number(b.lemak.toFixed(2)),
+  karbo: Number(b.karbo.toFixed(2)),
+  kalsium: Number(b.kalsium.toFixed(2)),
+  serat: Number(b.serat.toFixed(2))
+
+});
 
 });
     
@@ -1926,7 +1930,7 @@ function kirimLaporanKeSpreadsheet() {
     tanggal: getTanggalLengkap(),
     menu: menuHarian.filter(m => m.trim()),
     gizi: window.hasilGiziPerKategori,
-    bahan: window.detailBahanSpreadsheet
+    detail: window.detailBahanSpreadsheet   // 🔥 INI WAJIB
   };
 
   const formData = new FormData();
@@ -1945,7 +1949,6 @@ function kirimLaporanKeSpreadsheet() {
     console.error(err);
     alert("Gagal kirim");
   });
-
 }
   function debounce(fn, delay = 150) {
   let t;
