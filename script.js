@@ -557,36 +557,37 @@ function generateLaporan() {
     return;
   }
 
-  // reset hanya menu yang sedang dihitung
-  // reset semua menu
-window.dataSpreadsheet = {
-  OMPRENGAN: {
-    gizi: {},
-    detail: []
-  },
-  SNACK: {
-    gizi: {},
-    detail: []
-  }
-};
+  // reset data spreadsheet
+  window.dataSpreadsheet = {
+    OMPRENGAN: {
+      gizi: {},
+      detail: []
+    },
+    SNACK: {
+      gizi: {},
+      detail: []
+    }
+  };
 
   const hasilDiv = document.getElementById("hasil");
   hasilDiv.innerHTML = "";
 
   ["OMPRENGAN","SNACK"].forEach(menu => {
 
-  const listAktif = bahanMaster[menu];
-  const kategoriList = menu === "OMPRENGAN"
-    ? kategoriOmprengan
-    : kategoriSnack;
+    const listAktif = bahanMaster[menu];
 
-  kategoriList.forEach(kat => {
-    
-  const isLibur = kategoriLibur[kat] || false;
+    const kategoriList = menu === "OMPRENGAN"
+      ? kategoriOmprengan
+      : kategoriSnack;
 
-    // ================= LIBUR =================
-    if (isLibur) {
-      hasilDiv.innerHTML += `
+    kategoriList.forEach(kat => {
+
+      const isLibur = kategoriLibur[kat] || false;
+
+      // ================= LIBUR =================
+      if (isLibur) {
+
+        hasilDiv.innerHTML += `
         <div class="kategori-card kategori-libur">
           <h3>${kat} Libur</h3>
 
@@ -599,155 +600,178 @@ window.dataSpreadsheet = {
             </label>
           </div>
         </div>
+        `;
+
+        return;
+      }
+
+      // ================= HITUNG =================
+      const total = hitungTotal(
+        kategoriData[menu][kat].filter(item =>
+          listAktif.some(b => b.nama === item.nama)
+        )
+      );
+
+      // ================= MAP KATEGORI =================
+      const keyMap = {
+
+        "Balita": menu === "OMPRENGAN" ? "omprengan_balita" : "snack_balita",
+        "Bumil & Busui": menu === "OMPRENGAN" ? "omprengan_bumil" : "snack_bumil",
+
+        "SD 1-3": "omprengan_sd1_3",
+        "SD 4-6": "omprengan_sd4_6",
+        "SMP": "omprengan_smp",
+        "SMA": "omprengan_sma",
+
+        "Keringan Sekolah Kecil": "snack_kecil",
+        "Keringan Sekolah Besar": "snack_besar"
+
+      };
+
+      const key = keyMap[kat];
+
+      if (key) {
+
+        window.dataSpreadsheet[menu].gizi[key] = {
+          energi: Number(total.Energi.toFixed(2)),
+          protein: Number(total.Protein.toFixed(2)),
+          lemak: Number(total.Lemak.toFixed(2)),
+          karbo: Number(total.Karbohidrat.toFixed(2)),
+          besi: 0,
+          serat: Number(total.Serat.toFixed(2))
+        };
+
+      }
+
+      // ================= DETAIL PER BAHAN =================
+      const detailBahan = kategoriData[menu][kat]
+        .filter(item => listAktif.some(b => b.nama === item.nama))
+        .map(item => {
+
+          const db = database.find(d =>
+            String(getNamaBahan(d) ?? "")
+              .toLowerCase()
+              .includes(item.nama.toLowerCase().trim())
+          );
+
+          if (!db) {
+
+            return {
+              nama: item.nama,
+              berat: item.berat,
+              satuan: item.satuan,
+              energi: 0,
+              protein: 0,
+              lemak: 0,
+              karbo: 0,
+              kalsium: 0,
+              serat: 0
+            };
+
+          }
+
+          let faktor = 0;
+
+          if (item.satuan === "GRAM") {
+            faktor = item.berat / 100;
+          } else {
+            faktor = item.berat;
+          }
+
+          return {
+
+            nama: item.nama,
+            berat: item.berat,
+            satuan: item.satuan,
+
+            energi: faktor * Number(db["ENERGI"] ?? db["energi"] ?? 0),
+            protein: faktor * Number(db["PROTEIN"] ?? db["protein"] ?? 0),
+            lemak: faktor * Number(db["LEMAK"] ?? db["lemak"] ?? 0),
+            karbo: faktor * Number(db["KARBOHIDRAT"] ?? db["karbohidrat"] ?? 0),
+            kalsium: faktor * Number(db["KALSIUM"] ?? db["kalsium"] ?? 0),
+            serat: faktor * Number(db["SERAT"] ?? db["serat"] ?? 0)
+
+          };
+
+        });
+
+      // ================= SIMPAN DETAIL =================
+      detailBahan.forEach(b => {
+
+        window.dataSpreadsheet[menu].detail.push({
+
+          menu: menu,
+          kategori: kat,
+          nama: b.nama,
+          berat: b.berat,
+          satuan: b.satuan,
+
+          energi: Number(b.energi.toFixed(2)),
+          protein: Number(b.protein.toFixed(2)),
+          lemak: Number(b.lemak.toFixed(2)),
+          karbo: Number(b.karbo.toFixed(2)),
+          kalsium: Number(b.kalsium.toFixed(2)),
+          serat: Number(b.serat.toFixed(2))
+
+        });
+
+      });
+
+      // ================= STANDAR AKG =================
+      const standar = AKG[kat] || {
+
+        Energi: 0,
+        Protein: 0,
+        Lemak: 0,
+        Karbohidrat: 0,
+        Kalsium: 0,
+        Serat: 0
+
+      };
+
+      // ================= RENDER =================
+      hasilDiv.innerHTML += `
+      <div class="kategori-card">
+
+        <div class="kategori-header">
+
+          <h3>${kat}</h3>
+
+          <div class="libur-ios-wrapper">
+            <span class="label-libur">Libur</span>
+
+            <label class="switch-ios">
+              <input type="checkbox"
+                ${kategoriLibur[kat] ? "checked" : ""}
+                onchange="toggleLibur('${kat}', this.checked)">
+              <span class="slider-ios"></span>
+            </label>
+
+          </div>
+
+        </div>
+
+        ${renderEditableList(kat)}
+
+        ${renderTabelKategori(kat, detailBahan, {
+
+          energi: standar.Energi,
+          protein: standar.Protein,
+          lemak: standar.Lemak,
+          karbo: standar.Karbohidrat,
+          kalsium: standar.Kalsium,
+          serat: standar.Serat
+
+        })}
+
+      </div>
       `;
-      return;
-    }
 
-    // ================= HITUNG =================
-    const total = hitungTotal(
-  kategoriData[menu][kat].filter(item =>
-    listAktif.some(b => b.nama === item.nama)
-  )
-);
-    // ================= SIMPAN TOTAL UNTUK LAPORAN GIZI =================
-const keyMap = {
-  "Balita": menu === "OMPRENGAN" ? "omprengan_balita" : "snack_balita",
-  "Bumil & Busui": menu === "OMPRENGAN" ? "omprengan_bumil" : "snack_bumil",
+    });
 
-  "SD 1-3": "omprengan_sd1_3",
-  "SD 4-6": "omprengan_sd4_6",
-  "SMP": "omprengan_smp",
-  "SMA": "omprengan_sma",
-
-  "Keringan Sekolah Kecil": "snack_kecil",
-  "Keringan Sekolah Besar": "snack_besar"
-};
-
-const key = keyMap[kat];
-
-if (key) {
-  window.dataSpreadsheet[menu].gizi[key] = {
-    energi: Number(total.Energi.toFixed(2)),
-    protein: Number(total.Protein.toFixed(2)),
-    lemak: Number(total.Lemak.toFixed(2)),
-    karbo: Number(total.Karbohidrat.toFixed(2)),
-    besi: 0, // kalau belum ada Fe di database
-    serat: Number(total.Serat.toFixed(2))
-  };
-}
-
-    // 🔥 DETAIL PER BAHAN
-    const detailBahan = kategoriData[menu][kat]
-  .filter(item => listAktif.some(b => b.nama === item.nama))
-  .map(item => {
-
-  const db = database.find(d =>
-  String(getNamaBahan(d) ?? "")
-    .toLowerCase()
-    .includes(item.nama.toLowerCase().trim())
-);
-
-  if (!db) {
-    return {
-      nama: item.nama,
-      berat: item.berat,
-      satuan: item.satuan,
-      energi: 0,
-      protein: 0,
-      lemak: 0,
-      karbo: 0,
-      kalsium: 0,
-      serat: 0
-    };
-  }
-
-  let faktor = 0;
-
-  if (item.satuan === "GRAM") {
-    faktor = item.berat / 100;
-  } else {
-    faktor = item.berat;
-  }
-
-  return {
-    nama: item.nama,
-    berat: item.berat,
-    satuan: item.satuan,
-    energi: faktor * Number(db["ENERGI"] ?? db["energi"] ?? 0),
-    protein: faktor * Number(db["PROTEIN"] ?? db["protein"] ?? 0),
-    lemak: faktor * Number(db["LEMAK"] ?? db["lemak"] ?? 0),
-    karbo: faktor * Number(db["KARBOHIDRAT"] ?? db["karbohidrat"] ?? 0),
-    kalsium: faktor * Number(db["KALSIUM"] ?? db["kalsium"] ?? 0),
-    serat: faktor * Number(db["SERAT"] ?? db["serat"] ?? 0)
-  };
-
-});
-
-    // ================= SIMPAN DETAIL UNTUK SPREADSHEET =================
-// 🔥 SIMPAN DETAIL UNTUK SPREADSHEET
-detailBahan.forEach(b => {
-
-  window.dataSpreadsheet[menu].detail.push({
-  menu: menu,
-    kategori: kat,
-    nama: b.nama,
-    berat: b.berat,
-    satuan: b.satuan,
-    energi: Number(b.energi.toFixed(2)),
-    protein: Number(b.protein.toFixed(2)),
-    lemak: Number(b.lemak.toFixed(2)),
-    karbo: Number(b.karbo.toFixed(2)),
-    kalsium: Number(b.kalsium.toFixed(2)),
-    serat: Number(b.serat.toFixed(2))
   });
 
-});
-    
-
-    // ✅ TAMBAHKAN DI SINI
-const standar = AKG[kat] || {
-  Energi: 0,
-  Protein: 0,
-  Lemak: 0,
-  Karbohidrat: 0,
-  Kalsium: 0,
-  Serat: 0
-};
-
-    // ✅⬅️ TAMBAHKAN DI SINI (SETELAH MAP)
-    hasilDiv.innerHTML += `
-  <div class="kategori-card">
-    
-    <div class="kategori-header">
-  <h3>${kat}</h3>
-
-  <div class="libur-ios-wrapper">
-    <span class="label-libur">Libur</span>
-    <label class="switch-ios">
-      <input type="checkbox"
-        ${kategoriLibur[kat] ? "checked" : ""}
-        onchange="toggleLibur('${kat}', this.checked)">
-      <span class="slider-ios"></span>
-    </label>
-  </div>
-</div>
-
-    ${renderEditableList(kat)}
-
-    ${renderTabelKategori(kat, detailBahan, {
-      energi: standar.Energi,
-      protein: standar.Protein,
-      lemak: standar.Lemak,
-      karbo: standar.Karbohidrat,
-      kalsium: standar.Kalsium,
-      serat: standar.Serat
-    })}
-  </div>
-`;
-  });
-});
 }
-
 function renderAKG(nutrien, total, kategori) {
   const nilai = total[nutrien] || 0;
   const target = AKG[kategori][nutrien] || 1;
