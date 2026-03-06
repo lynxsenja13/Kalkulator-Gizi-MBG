@@ -1458,3 +1458,18 @@ th, td {
 .btn-kirim:hover{
   background:#1b8fe0;
 }
+
+.judul-sppg{
+  text-align:center;
+  font-size:28px;
+  font-weight:700;
+}
+
+.ahli-gizi{
+  text-align:center;
+  font-weight:bold;
+  font-size:16px;
+  color:#444;
+  letter-spacing:0.5px;
+  margin-top:4px;
+}
