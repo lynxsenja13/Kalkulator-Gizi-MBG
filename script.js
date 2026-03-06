@@ -809,13 +809,13 @@ function renderEditableList(menu, kat) {
 
   return html;
 }
-function editBerat(kat, index, value) {
+function editBerat(menu, kat, index, value) {
   kategoriData[menu][kat][index].berat = parseFloat(value) || 0;
   generateLaporan();
 }
 
-function hapusBahan(kat, index) {
-  kategoriData[menu][kat].splice(index, 1);
+function hapusBahan(menu, kat, index) {
+  kategoriData[menu][kat].splice(index,1);
   generateLaporan();
 }
 
