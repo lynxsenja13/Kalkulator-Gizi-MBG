@@ -382,7 +382,7 @@ let db = database.find(d =>
 
   // ✅ MASUKKAN DATA
   bahanMaster[modeMenu].push({ 
-  nama: nama.trim(),
+  nama: nama.trim().toLowerCase(),
   berat,
   satuan
 });
@@ -428,7 +428,7 @@ function hitungTotal(list) {
   list.forEach(item => {
 
     const db = database.find(d =>
-  getNamaBahan(d) === item.nama.toLowerCase().trim()
+  getNamaBahan(d).includes(item.nama.toLowerCase().trim())
 );
 
     if (!db) return;
@@ -630,7 +630,7 @@ if (key) {
   const db = database.find(d =>
   String(getNamaBahan(d) ?? "")
     .toLowerCase()
-    .trim() === item.nama.toLowerCase().trim()
+    .includes(item.nama.toLowerCase().trim())
 );
 
   if (!db) {
