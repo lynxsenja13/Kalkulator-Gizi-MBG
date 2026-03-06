@@ -745,7 +745,6 @@ const standar = AKG[kat] || {
   </div>
 `;
   });
-    });
 });
 }
 
