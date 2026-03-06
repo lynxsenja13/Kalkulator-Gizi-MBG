@@ -453,9 +453,11 @@ function hitungTotal(list) {
   return total;
 }
 
-function renderTabelKategori(menu, kat, dataBahan = [], standar = {}) {
+function renderTabelKategori(menu, kat, dataBahan, standar) {
 
+  // 🔧 PERBAIKAN ERROR
   if (!Array.isArray(dataBahan)) {
+    console.warn("dataBahan bukan array:", dataBahan);
     dataBahan = [];
   }
   
@@ -624,6 +626,34 @@ function generateLaporan() {
       );
 
       const total = hitungTotal(dataAktif);
+
+      // ================= SIMPAN GIZI UNTUK CAPTION =================
+if (!window.hasilGiziPerKategori) {
+  window.hasilGiziPerKategori = {};
+}
+
+const mapCaption = {
+  "Balita": "balita",
+  "Bumil & Busui": "bumil",
+  "SD 1-3": "sd1_3",
+  "SD 4-6": "sd4_6",
+  "SMP": "smp",
+  "SMA": "sma",
+  "Keringan Sekolah Kecil": "kecil",
+  "Keringan Sekolah Besar": "besar"
+};
+
+const keyCaption = mapCaption[kat];
+
+if (keyCaption) {
+  window.hasilGiziPerKategori[keyCaption] = {
+    energi: Number((total.Energi || 0).toFixed(2)),
+    protein: Number((total.Protein || 0).toFixed(2)),
+    lemak: Number((total.Lemak || 0).toFixed(2)),
+    karbo: Number((total.Karbohidrat || 0).toFixed(2)),
+    serat: Number((total.Serat || 0).toFixed(2))
+  };
+}
 
       // ================= SIMPAN TOTAL GIZI =================
       const keyMap = {
