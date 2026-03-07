@@ -15,6 +15,14 @@ window.dataSpreadsheet = {
   }
 };
 
+const STATE = {
+  modeMenu:"OMPRENGAN",
+  modeKategori:"SEMUA",
+  mainTab:"laporan",
+  subTab:"harian",
+  subTabCaption:"omprengan"
+}
+
 let autocompleteInitialized = false;
 let modeMenu = "OMPRENGAN";
 let kategoriLibur = {};
@@ -584,16 +592,12 @@ function generateLaporan() {
   hasilDiv.innerHTML = "";
 
   // reset data spreadsheet
-  window.dataSpreadsheet = {
-    OMPRENGAN: {
-      gizi: {},
-      detail: []
-    },
-    SNACK: {
-      gizi: {},
-      detail: []
-    }
-  };
+  if(!window.dataSpreadsheet){
+window.dataSpreadsheet = {
+  OMPRENGAN:{ gizi:{}, detail:[] },
+  SNACK:{ gizi:{}, detail:[] }
+};
+}
 
   const semuaMenu = [modeMenu];
 
@@ -880,10 +884,12 @@ function renderEditableList(menu, kat) {
 
 function editBerat(menu, kat, index, value) {
   kategoriData[menu][kat][index].berat = parseFloat(value) || 0;
+  renderList();
   generateLaporan();
 }
 
 function hapusBahan(menu, kat, index) {
+  const item = kategoriData[menu][kat][index];
   kategoriData[menu][kat].splice(index,1);
   generateLaporan();
 }
@@ -1235,15 +1241,6 @@ function setSubTab(tab) {
   }
 }
 
-function bukaModalLibur() {
-  syncLiburModal();
-  document.getElementById("modalLibur").style.display = "flex";
-}
-
-function tutupModalLibur() {
-  document.getElementById("modalLibur").style.display = "none";
-}
-
 function prosesLaporanHarian() {
   tutupModalLibur();
 
@@ -1529,15 +1526,15 @@ function generateLaporanGizi() {
 
 let caption = "";
 
-const kategoriLibur = kategoriLibur || {};
+const liburData = window.kategoriLibur || {};
 
 const libur = {
-  balita: kategoriLibur["Balita"] || false,
-  bumil: kategoriLibur["Bumil & Busui"] || false,
-  sd13: kategoriLibur["SD 1-3"] || false,
-  sd46: kategoriLibur["SD 4-6"] || false,
-  smp: kategoriLibur["SMP"] || false,
-  sma: kategoriLibur["SMA"] || false
+  balita: liburData["Balita"] || false,
+  bumil: liburData["Bumil & Busui"] || false,
+  sd13: liburData["SD 1-3"] || false,
+  sd46: liburData["SD 4-6"] || false,
+  smp: liburData["SMP"] || false,
+  sma: liburData["SMA"] || false
 };
 
 const now = new Date();
@@ -1658,18 +1655,6 @@ function generateCaptionOmprengan() {
 };
   
   const gizi = window.hasilGiziPerKategori || {};
-
-  function blok(judul, data) {
-    if (!data) return "";
-    return `
-${judul}
- • Energi: ${data.energi ?? 0} kkal
- • Protein: ${data.protein ?? 0} gr
- • Lemak: ${data.lemak ?? 0} gr
- • Karbohidrat: ${data.karbo ?? 0} gr
- • Serat: ${data.serat ?? 0} gr
-`;
-  }
 
   let caption = `🍱 Menu Bergizi Gratis
 📅 ${hari}, ${tanggal}
