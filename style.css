@@ -1473,3 +1473,35 @@ th, td {
   letter-spacing:0.5px;
   margin-top:4px;
 }
+
+.bahan-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:6px 0;
+}
+
+.bahan-nama{
+flex:1;
+text-align:left;
+}
+
+.bahan-edit{
+display:flex;
+gap:8px;
+align-items:center;
+}
+
+.bahan-edit input{
+width:60px;
+text-align:right;
+}
+
+.btn-hapus{
+background:#ff4d4d;
+border:none;
+color:white;
+padding:4px 6px;
+border-radius:6px;
+cursor:pointer;
+}
