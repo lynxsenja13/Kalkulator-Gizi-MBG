@@ -1565,7 +1565,7 @@ ${menuText}
 
   if (!libur.bumil)
     caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
-
+  
   if (!libur.sdyas)
     caption += blokGizi("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
 
@@ -1720,23 +1720,21 @@ ${judul}
 
   let caption = "";
 
-  if (!libur["Balita"])
-    caption += blok(
-      "Analisis Nilai Gizi Menu Keringan untuk Balita",
-      gizi.balita
-    );
+if (!kategoriLibur["Balita"]) {
+  caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
+}
 
-  if (!libur["Bumil & Busui"])
-    caption += blok(
-      "Analisis Nilai Gizi Menu Keringan untuk Bumil & Busui",
-      gizi.bumil
-    );
+if (!kategoriLibur["Bumil & Busui"]) {
+  caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
+}
 
-if (!libur["Keringan Sekolah Kecil"])
+if (!kategoriLibur["Keringan Sekolah Kecil"]) {
   caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", gizi.kecil);
+}
 
-if (!libur["Keringan Sekolah Besar"])
+if (!kategoriLibur["Keringan Sekolah Besar"]) {
   caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", gizi.besar);
+}
 
   caption += `
 🌿 “Makan bergizi, tubuh berenergi!”
