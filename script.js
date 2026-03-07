@@ -193,22 +193,22 @@ initAutocomplete();
 function toggleLibur(kat, checked) {
 
   kategoriLibur[kat] = checked;
-  liburLaporan[kat] = checked;
+  window.kategoriLibur = kategoriLibur;
 
   // sync SD
   if (kat === "SD 1-3" || kat === "SD 4-6") {
-    kategoriLibur["SD 1-3"] = checked;
-    kategoriLibur["SD 4-6"] = checked;
+    kategoriLiburData["SD 1-3"] = checked;
+    kategoriLiburData["SD 4-6"] = checked;
   }
 
   // sync SMP
   if (kat === "SMP") {
-    kategoriLibur["SMP"] = checked;
+    kategoriLiburData["SMP"] = checked;
   }
 
   // sync SMA
   if (kat === "SMA") {
-    kategoriLibur["SMA"] = checked;
+    kategoriLiburData["SMA"] = checked;
   }
 
   generateLaporan();
@@ -611,7 +611,7 @@ function generateLaporan() {
 
     kategoriList.forEach(kat => {
 
-      const isLibur = kategoriLibur[kat] || false;
+      const isLibur = kategoriLiburData[kat] || false;
 
       // ================= LIBUR =================
       if (isLibur) {
@@ -646,7 +646,7 @@ function generateLaporan() {
 
       let total;
 
-if (kategoriLibur[kat]) {
+if (kategoriLiburData[kat]) {
   total = {
     Energi: 0,
     Protein: 0,
@@ -796,7 +796,7 @@ if (keyCaption) {
 
               <label class="switch-ios">
                 <input type="checkbox"
-                  ${kategoriLibur[kat] ? "checked" : ""}
+                  ${kategoriLiburData[kat] ? "checked" : ""}
                   onchange="toggleLibur('${kat}', this.checked)">
                 <span class="slider-ios"></span>
               </label>
@@ -1530,15 +1530,18 @@ function autoResizeTextarea(el) {
 
 function generateLaporanGizi() {
 
-const kategoriLibur = window.kategoriLibur || {};
+const output = document.getElementById("captionOutput");
+if (output) output.value = "";
+
+const kategoriLiburData = kategoriLibur || {};
 
 const libur = {
-  balita: kategoriLibur["Balita"] || false,
-  bumil: kategoriLibur["Bumil & Busui"] || false,
-  sd13: kategoriLibur["SD 1-3"] || false,
-  sd46: kategoriLibur["SD 4-6"] || false,
-  smp: kategoriLibur["SMP"] || false,
-  sma: kategoriLibur["SMA"] || false
+  balita: kategoriLiburData["Balita"] || false,
+  bumil: kategoriLiburData["Bumil & Busui"] || false,
+  sd13: kategoriLiburData["SD 1-3"] || false,
+  sd46: kategoriLiburData["SD 4-6"] || false,
+  smp: kategoriLiburData["SMP"] || false,
+  sma: kategoriLiburData["SMA"] || false
 };
   
   // ===============================
@@ -1567,7 +1570,9 @@ const libur = {
   // ===============================
   // 🧱 SUSUN CAPTION
   // ===============================
-let caption = `Assalamualaikum wr.wb, Selamat Pagi.
+let caption = "";
+
+caption += `Assalamualaikum wr.wb, Selamat Pagi.
 Izin menginformasikan, untuk menu hari ini.
 Tanggal : ${hari}, ${tanggal}
 
@@ -1623,16 +1628,16 @@ if (!libur.sma)
   // ➕ TAMBAH BLOK (HANYA YANG TIDAK LIBUR)
   // ===============================
 
-  if (!kategoriLibur["Balita"]) {
+  if (!kategoriLiburData["Balita"]) {
     caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
     }
 
- if (!kategoriLibur["Bumil & Busui"]) {
+ if (!kategoriLiburData["Bumil & Busui"]) {
   caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
 }
   
-  const sdAwiLibur = kategoriLibur["SD Awi Gombong"];
-  const sdYasLibur = kategoriLibur["SD YAS"];
+  const sdAwiLibur = kategoriLiburData["SD Awi Gombong"];
+  const sdYasLibur = kategoriLiburData["SD YAS"];
 
 // jika dua-duanya libur maka tidak tampil
 if (!(sdAwiLibur && sdYasLibur)) {
@@ -1723,12 +1728,12 @@ function generateCaptionOmprengan() {
   const kategoriLibur = window.kategoriLibur || {};
   
   const libur = {
-  balita: kategoriLibur["Balita"] || false,
-  bumil: kategoriLibur["Bumil & Busui"] || false,
-  sd13: kategoriLibur["SD 1-3"] || false,
-  sd46: kategoriLibur["SD 4-6"] || false,
-  smp: kategoriLibur["SMP"] || false,
-  sma: kategoriLibur["SMA"] || false
+  balita: kategoriLiburData["Balita"] || false,
+  bumil: kategoriLiburData["Bumil & Busui"] || false,
+  sd13: kategoriLiburData["SD 1-3"] || false,
+  sd46: kategoriLiburData["SD 4-6"] || false,
+  smp: kategoriLiburData["SMP"] || false,
+  sma: kategoriLiburData["SMA"] || false
 };
   
   const gizi = window.hasilGiziPerKategori || {};
@@ -1792,19 +1797,19 @@ function generateCaptionSnack() {
 ⚖️ Kandungan Gizi (per porsi):
 `;
 
-  if (!kategoriLibur["Balita"]) {
+  if (!kategoriLiburData["Balita"]) {
     caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
   }
 
-  if (!kategoriLibur["Bumil & Busui"]) {
+  if (!kategoriLiburData["Bumil & Busui"]) {
     caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
   }
 
-  if (!kategoriLibur["Keringan Sekolah Kecil"]) {
+  if (!kategoriLiburData["Keringan Sekolah Kecil"]) {
     caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", gizi.kecil);
   }
 
-  if (!kategoriLibur["Keringan Sekolah Besar"]) {
+  if (!kategoriLiburData["Keringan Sekolah Besar"]) {
     caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", gizi.besar);
   }
 
@@ -2108,7 +2113,7 @@ function kirimLaporanKeSpreadsheet() {
 
   // ambil status libur
   Object.keys(kategoriLibur).forEach(kat => {
-    semuaLibur[kat] = kategoriLibur[kat];
+    semuaLibur[kat] = kategoriLiburData[kat];
   });
 
   const data = {
@@ -2148,17 +2153,41 @@ function kirimLaporanKeSpreadsheet() {
 function syncLiburModal() {
 
   document.getElementById("liburBalita").checked =
-    kategoriLibur["Balita"] || false;
+    kategoriLiburData["Balita"] || false;
 
   document.getElementById("liburBumil").checked =
-    kategoriLibur["Bumil & Busui"] || false;
+    kategoriLiburData["Bumil & Busui"] || false;
 
   document.getElementById("liburSDYas").checked =
-    kategoriLibur["SD 1-3"] || false;
+    kategoriLiburData["SD 1-3"] || false;
 
   document.getElementById("liburSMPYas").checked =
-    kategoriLibur["SMP"] || false;
+    kategoriLiburData["SMP"] || false;
 
   document.getElementById("liburSMAYas").checked =
-    kategoriLibur["SMA"] || false;
+    kategoriLiburData["SMA"] || false;
+}
+
+function syncLiburModal() {
+
+  const map = {
+    Balita: "liburBalita",
+    "Bumil & Busui": "liburBumil",
+    "SD 1-3": "liburSD",
+    "SD 4-6": "liburSD",
+    SMP: "liburSMP",
+    SMA: "liburSMA"
+  };
+
+  Object.keys(map).forEach(kat => {
+
+    const id = map[kat];
+    const el = document.getElementById(id);
+
+    if (el) {
+      el.checked = kategoriLibur[kat] || false;
+    }
+
+  });
+
 }
