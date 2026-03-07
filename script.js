@@ -192,6 +192,7 @@ initAutocomplete();
 // ================= TOGGLE LIBUR =================
 function toggleLibur(kat, checked) {
   kategoriLibur[kat] = checked;
+  liburLaporan[kat] = checked; // 🔥 TAMBAHKAN INI
   generateLaporan();
 }
 
@@ -1731,10 +1732,10 @@ ${judul}
       gizi.bumil
     );
 
-  if (!libur.kecil)
+if (!libur["Keringan Sekolah Kecil"])
   caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", gizi.kecil);
 
-if (!libur.besar)
+if (!libur["Keringan Sekolah Besar"])
   caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", gizi.besar);
 
   caption += `
