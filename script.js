@@ -591,13 +591,12 @@ function generateLaporan() {
   const hasilDiv = document.getElementById("hasil");
   hasilDiv.innerHTML = "";
 
-  // reset data spreadsheet
-  if(!window.dataSpreadsheet){
-window.dataSpreadsheet = {
-  OMPRENGAN:{ gizi:{}, detail:[] },
-  SNACK:{ gizi:{}, detail:[] }
-};
-}
+  // 🔥 RESET DATA SEBELUM HITUNG
+  window.dataSpreadsheet.OMPRENGAN.detail = [];
+  window.dataSpreadsheet.SNACK.detail = [];
+
+  window.dataSpreadsheet.OMPRENGAN.gizi = {};
+  window.dataSpreadsheet.SNACK.gizi = {};
 
   const semuaMenu = [modeMenu];
 
