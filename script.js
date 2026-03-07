@@ -598,7 +598,7 @@ function generateLaporan() {
   window.dataSpreadsheet.OMPRENGAN.gizi = {};
   window.dataSpreadsheet.SNACK.gizi = {};
 
-  const semuaMenu = [modeMenu];
+  const semuaMenu = ["OMPRENGAN", "SNACK"];
 
   semuaMenu.forEach(menu => {
 
