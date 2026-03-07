@@ -1027,34 +1027,34 @@ window.onload = function () {
 };
 
 function hitungPenerimaFinal() {
+
   const data = { ...PENERIMA_DEFAULT };
 
-  // mapping libur
-  if (liburLaporan["Balita"]) {
+  if (kategoriLibur["Balita"]) {
     data["BALITA"] = 0;
     data["PIC POSYANDU"] = 0;
   }
 
-  if (liburLaporan["Bumil & Busui"]) {
+  if (kategoriLibur["Bumil & Busui"]) {
     data["BUMIL & BUSUI"] = 0;
   }
 
-  if (liburLaporan["SD YAS"]) {
+  if (kategoriLibur["SD 1-3"] || kategoriLibur["SD 4-6"]) {
     data["SD YAS"] = 0;
     data["Guru & Tendik SD YAS"] = 0;
   }
 
-  if (liburLaporan["SMP YAS"]) {
+  if (kategoriLibur["SMP"]) {
     data["SMP YAS"] = 0;
     data["Guru & Tendik SMP YAS"] = 0;
   }
 
-  if (liburLaporan["SMA YAS"]) {
+  if (kategoriLibur["SMA"]) {
     data["SMA YAS"] = 0;
     data["Guru & Tendik SMA YAS"] = 0;
   }
 
-  if (liburLaporan["SD Awi Gombong"]) {
+  if (kategoriLibur["SD Awi Gombong"]) {
     data["SDN Awi Gombong"] = 0;
     data["Guru & Tendik SD Awi Gombong"] = 0;
   }
@@ -1810,20 +1810,22 @@ function kirimKeSpreadsheet() {
   const tanggal = formatTanggalIndonesia();
 
   const data = {
-    tanggal: tanggal,
+  tanggal: tanggal,
 
-    // menu yang ditulis user
-    menu: menuHarian.filter(m => m.trim()),
+  menu: menuHarian.filter(m => m.trim()),
 
-    // DATA OMPRENGAN
-    omprengan: window.dataSpreadsheet.OMPRENGAN,
+  omprengan: window.dataSpreadsheet.OMPRENGAN || {
+    gizi:{},
+    detail:[]
+  },
 
-    // DATA SNACK
-    snack: window.dataSpreadsheet.SNACK,
+  snack: window.dataSpreadsheet.SNACK || {
+    gizi:{},
+    detail:[]
+  },
 
-    // catatan
-    catatan: document.getElementById("note")?.value || ""
-  };
+  catatan: document.getElementById("note")?.value || ""
+};
 
   const formData = new FormData();
   formData.append("data", JSON.stringify(data));
