@@ -608,7 +608,7 @@ function generateLaporan() {
 
     kategoriList.forEach(kat => {
 
-      const isLibur = kategoriLiburData[kat] || false;
+      const isLibur = kategoriLibur[kat] || false;
 
       // ================= LIBUR =================
       if (isLibur) {
@@ -643,7 +643,7 @@ function generateLaporan() {
 
       let total;
 
-if (kategoriLiburData[kat]) {
+if (kategoriLibur[kat]) {
   total = {
     Energi: 0,
     Protein: 0,
@@ -793,7 +793,7 @@ if (keyCaption) {
 
               <label class="switch-ios">
                 <input type="checkbox"
-                  ${kategoriLiburData[kat] ? "checked" : ""}
+                  ${kategoriLibur[kat] ? "checked" : ""}
                   onchange="toggleLibur('${kat}', this.checked)">
                 <span class="slider-ios"></span>
               </label>
@@ -1529,15 +1529,15 @@ function generateLaporanGizi() {
 
 let caption = "";
 
-const kategoriLiburData = kategoriLibur || {};
+const kategoriLibur = kategoriLibur || {};
 
 const libur = {
-  balita: kategoriLiburData["Balita"] || false,
-  bumil: kategoriLiburData["Bumil & Busui"] || false,
-  sd13: kategoriLiburData["SD 1-3"] || false,
-  sd46: kategoriLiburData["SD 4-6"] || false,
-  smp: kategoriLiburData["SMP"] || false,
-  sma: kategoriLiburData["SMA"] || false
+  balita: kategoriLibur["Balita"] || false,
+  bumil: kategoriLibur["Bumil & Busui"] || false,
+  sd13: kategoriLibur["SD 1-3"] || false,
+  sd46: kategoriLibur["SD 4-6"] || false,
+  smp: kategoriLibur["SMP"] || false,
+  sma: kategoriLibur["SMA"] || false
 };
 
 const now = new Date();
@@ -1649,12 +1649,12 @@ function generateCaptionOmprengan() {
   const kategoriLibur = window.kategoriLibur || {};
   
   const libur = {
-  balita: kategoriLiburData["Balita"] || false,
-  bumil: kategoriLiburData["Bumil & Busui"] || false,
-  sd13: kategoriLiburData["SD 1-3"] || false,
-  sd46: kategoriLiburData["SD 4-6"] || false,
-  smp: kategoriLiburData["SMP"] || false,
-  sma: kategoriLiburData["SMA"] || false
+  balita: kategoriLibur["Balita"] || false,
+  bumil: kategoriLibur["Bumil & Busui"] || false,
+  sd13: kategoriLibur["SD 1-3"] || false,
+  sd46: kategoriLibur["SD 4-6"] || false,
+  smp: kategoriLibur["SMP"] || false,
+  sma: kategoriLibur["SMA"] || false
 };
   
   const gizi = window.hasilGiziPerKategori || {};
@@ -1718,19 +1718,19 @@ function generateCaptionSnack() {
 ⚖️ Kandungan Gizi (per porsi):
 `;
 
-  if (!kategoriLiburData["Balita"]) {
+  if (!kategoriLibur["Balita"]) {
     caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
   }
 
-  if (!kategoriLiburData["Bumil & Busui"]) {
+  if (!kategoriLibur["Bumil & Busui"]) {
     caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
   }
 
-  if (!kategoriLiburData["Keringan Sekolah Kecil"]) {
+  if (!kategoriLibur["Keringan Sekolah Kecil"]) {
     caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", gizi.kecil);
   }
 
-  if (!kategoriLiburData["Keringan Sekolah Besar"]) {
+  if (!kategoriLibur["Keringan Sekolah Besar"]) {
     caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", gizi.besar);
   }
 
@@ -2034,7 +2034,7 @@ function kirimLaporanKeSpreadsheet() {
 
   // ambil status libur
   Object.keys(kategoriLibur).forEach(kat => {
-    semuaLibur[kat] = kategoriLiburData[kat];
+    semuaLibur[kat] = kategoriLibur[kat];
   });
 
   const data = {
@@ -2074,19 +2074,19 @@ function kirimLaporanKeSpreadsheet() {
 function syncLiburModal() {
 
   document.getElementById("liburBalita").checked =
-    kategoriLiburData["Balita"] || false;
+    kategoriLibur["Balita"] || false;
 
   document.getElementById("liburBumil").checked =
-    kategoriLiburData["Bumil & Busui"] || false;
+    kategoriLibur["Bumil & Busui"] || false;
 
   document.getElementById("liburSDYas").checked =
-    kategoriLiburData["SD 1-3"] || false;
+    kategoriLibur["SD 1-3"] || false;
 
   document.getElementById("liburSMPYas").checked =
-    kategoriLiburData["SMP"] || false;
+    kategoriLibur["SMP"] || false;
 
   document.getElementById("liburSMAYas").checked =
-    kategoriLiburData["SMA"] || false;
+    kategoriLibur["SMA"] || false;
 }
 
 function syncLiburModal() {
