@@ -1782,3 +1782,10 @@ background:#10b981;
 border-color:#10b981;
 
 }
+
+.kategori-scroll{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin:10px 0;
+}
