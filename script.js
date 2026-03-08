@@ -2133,24 +2133,24 @@ function ambilMenuUntukLaporan(){
   return hasil;
 }
 
-function renderKategoriCheckbox() {
+function renderKategoriCheckbox(){
 
   const container = document.getElementById("kategoriCheckbox");
 
-  if (!container) return;
+  if(!container) return;
 
   const kategoriAktif = getKategoriAktif();
 
   container.innerHTML = "";
 
-  kategoriAktif.forEach(kat => {
+  kategoriAktif.forEach(kat=>{
 
     const label = document.createElement("label");
-    label.className = "kategori-item";
+    label.className = "kategori-chip";
 
     label.innerHTML = `
       <input type="checkbox" value="${kat}">
-      ${kat}
+      <span>${kat}</span>
     `;
 
     container.appendChild(label);
@@ -2158,23 +2158,16 @@ function renderKategoriCheckbox() {
   });
 
   const semua = document.createElement("label");
-
-  semua.className = "kategori-item kategori-semua";
+  semua.className = "kategori-chip kategori-semua";
 
   semua.innerHTML = `
     <input type="checkbox" value="SEMUA">
-    Semua
+    <span>SEMUA</span>
   `;
 
   container.appendChild(semua);
 
 }
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-renderKategoriCheckbox();
-
-});
 
 function ambilKategoriDipilih() {
 
