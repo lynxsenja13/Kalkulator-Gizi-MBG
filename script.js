@@ -2243,33 +2243,7 @@ return kategori;
 
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderKategori();
-});
-
-document.getElementById("kategoriSemua").addEventListener("change", function(){
- 
-const semua = this.checked;
-
-document.querySelectorAll(".kategori-check").forEach(cb=>{
-cb.checked = semua;
-});
-
-});
-
-const kategoriSemua = document.getElementById("kategoriSemua");
-
-if(kategoriSemua){
-kategoriSemua.addEventListener("change", function(){
-
-const semua = this.checked;
-
-document.querySelectorAll(".kategori-check").forEach(cb=>{
-cb.checked = semua;
-});
-
-});
-}
+document.addEventListener("DOMContentLoaded", function(){
 
 let kategoriAktif = [];
 
@@ -2297,12 +2271,15 @@ return;
 this.classList.toggle("active");
 
 // matikan SEMUA
-document.querySelector('[data-kategori="semua"]').classList.remove("active");
+const semuaChip = document.querySelector('[data-kategori="semua"]');
+if(semuaChip) semuaChip.classList.remove("active");
 
 kategoriAktif = [];
 
 document.querySelectorAll(".kategori-chip.active").forEach(c=>{
 kategoriAktif.push(c.dataset.kategori);
+});
+
 });
 
 });
