@@ -29,8 +29,7 @@
 
     <h2>Input Bahan</h2>
 
-    <div style="margin-bottom:10px;">
-  <div style="margin-bottom:10px;">
+  <div class="menu-row">
   <button id="btnOmprengan"
           onclick="setModeMenu('OMPRENGAN')"
           class="btn-secondary active-omprengan">
@@ -43,26 +42,9 @@
     Menu Snack
   </button>
 </div>
-</div>
 
 <!-- 🔽 TAMBAHKAN INI -->
 <div id="kategoriCheckbox" class="kategori-scroll"></div>
-
-<div class="kategori-chip" data-kategori="semua">Semua</div>
-
-<div class="kategori-chip" data-kategori="Balita">Balita</div>
-
-<div class="kategori-chip" data-kategori="Bumil & Busui">Bumil & Busui</div>
-
-<div class="kategori-chip" data-kategori="SD 1-3">SD 1-3</div>
-
-<div class="kategori-chip" data-kategori="SD 4-6">SD 4-6</div>
-
-<div class="kategori-chip" data-kategori="SMP">SMP</div>
-
-<div class="kategori-chip" data-kategori="SMA">SMA</div>
-
-</div>
 
 <div class="input-row input-row-flex">
 
@@ -74,8 +56,8 @@
   <input id="beratBahan" type="number" placeholder="Jumlah" class="input-jumlah">
 
 <select id="satuanBahan" class="input-satuan">
-  <option value="GRAM">Gram</option>
-  <option value="PCS">Pcs</option>
+  <option value="Gram">Gram</option>
+  <option value="Pcs">Pcs</option>
 </select>
 
   <button type="button" class="btn-primary" onclick="tambahBahan()">
