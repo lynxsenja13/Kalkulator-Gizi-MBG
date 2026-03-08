@@ -314,7 +314,7 @@ const kategori = document.querySelectorAll(".kategori-check");
 
 if(!semua) return;
 
-/* ketika klik SEMUA */
+/* klik SEMUA */
 
 semua.addEventListener("change", function(){
 
@@ -322,20 +322,13 @@ if(this.checked){
 
 kategori.forEach(k=>{
 k.checked = false;
-k.disabled = true;
-});
-
-}else{
-
-kategori.forEach(k=>{
-k.disabled = false;
 });
 
 }
 
 });
 
-/* ketika klik kategori lain */
+/* klik kategori lain */
 
 kategori.forEach(k=>{
 
@@ -348,6 +341,17 @@ semua.checked = false;
 });
 
 });
+
+}
+
+function cekKategoriKosong(){
+
+const kategori = document.querySelectorAll(".kategori-check:checked");
+const semua = document.getElementById("kategoriSemua");
+
+if(kategori.length === 0){
+semua.checked = true;
+}
 
 }
 
