@@ -180,19 +180,28 @@ bahanMaster[modeMenu].push({
   satuan: document.getElementById("satuanBahan")?.value || "GRAM"
 });
 
-if (modeKategori === "SEMUA") {
+const select = document.getElementById("pilihKategori");
+const selected = [...select.selectedOptions].map(o => o.value);
+
+if (selected.includes("SEMUA") || selected.length === 0) {
 
   getKategoriAktif().forEach(k => {
-    kategoriData[modeMenu][k].push({ 
-  nama: namaBaru, 
-  berat: beratBaru,
-  satuan: document.getElementById("satuanBahan")?.value || "GRAM"
-});
+    kategoriData[modeMenu][k].push({
+      nama: nama.trim(),
+      berat,
+      satuan
+    });
   });
 
 } else {
 
-  kategoriData[modeMenu][modeKategori].push({ nama: namaBaru, berat: beratBaru });
+  selected.forEach(k => {
+    kategoriData[modeMenu][k].push({
+      nama: nama.trim(),
+      berat,
+      satuan
+    });
+  });
 
 }
 
