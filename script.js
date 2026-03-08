@@ -259,19 +259,24 @@ function getKategoriAktif() {
     : kategoriSnack;
 }
 
-function renderDropdownKategori() {
-  const select = document.getElementById("pilihKategori");
-  if (!select) return;
+function renderKategori() {
+  const container = document.getElementById("kategoriContainer");
+  container.innerHTML = "";
 
-  const kategoriAktif = getKategoriAktif();
+  const kategori = modeMenu === "OMPRENGAN"
+    ? kategoriOmprengan
+    : kategoriSnack;
 
-  select.innerHTML = `<option value="SEMUA">Semua Kategori</option>`;
+  kategori.forEach(kat => {
+    const label = document.createElement("label");
 
-  kategoriAktif.forEach(kat => {
-    select.innerHTML += `<option value="${kat}">${kat}</option>`;
+    label.innerHTML = `
+      <input type="checkbox" class="kategori-check" value="${kat}">
+      ${kat}
+    `;
+
+    container.appendChild(label);
   });
-
-  modeKategori = "SEMUA"; // reset pilihan
 }
 
 // ================= AKG TARGET =================
