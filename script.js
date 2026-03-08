@@ -78,7 +78,8 @@ function setModeMenu(menu) {
     document.getElementById("btnSnack").classList.add("active-snack");
   }
 
-  renderDropdownKategori(); // 🔥 TAMBAHKAN INI
+  renderKategori(); // 🔥 WAJIB ADA
+  renderDropdownKategori();
 
   renderList();
   generateLaporan();
@@ -260,23 +261,31 @@ function getKategoriAktif() {
 }
 
 function renderKategori() {
-  const container = document.getElementById("kategoriContainer");
+
+  const container = document.getElementById("kategoriCheckbox");
+  if (!container) return;
+
   container.innerHTML = "";
 
-  const kategori = modeMenu === "OMPRENGAN"
-    ? kategoriOmprengan
-    : kategoriSnack;
+  const kategori =
+    modeMenu === "OMPRENGAN"
+      ? kategoriOmprengan
+      : kategoriSnack;
 
   kategori.forEach(kat => {
+
     const label = document.createElement("label");
+    label.className = "kategori-pill";
 
     label.innerHTML = `
       <input type="checkbox" class="kategori-check" value="${kat}">
-      ${kat}
+      <span>${kat}</span>
     `;
 
     container.appendChild(label);
+
   });
+
 }
 
 // ================= AKG TARGET =================
