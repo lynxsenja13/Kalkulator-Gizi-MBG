@@ -427,17 +427,18 @@ function saveCache() {
 }
 
 function loadCache() {
+
   const cache = localStorage.getItem("dbGizi");
-  if (cache) {
-    database = JSON.parse(cache);
-    databaseLoaded = true;
-    initKategori();
-    renderKategori(); // ✅
-    initAutocomplete();
-    console.log("Database dari cache");
-    return true; // 🔥 penting
-  }
-  return false;
+
+  if (!cache) return false;
+
+  dbGizi = JSON.parse(cache);
+
+  initKategori();
+  renderKategori(); // ✅ FIX
+  initAutocomplete();
+
+  return true;
 }
 
 // ================= TAMBAH BAHAN =================
