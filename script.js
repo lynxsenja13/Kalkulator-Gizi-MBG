@@ -1874,7 +1874,7 @@ function kirimKeSpreadsheet() {
   const data = {
     tanggal: tanggal,
 
-    let menuFix = [];
+ let menuFix = [];
 
 if(modeMenuLaporan === "semua"){
   menuFix = menuSemua.filter(m => m.trim());
@@ -1887,6 +1887,14 @@ if(modeMenuLaporan === "semua"){
     ...menuSekolah.filter(m=>m.trim())
   ];
 }
+
+const data = {
+  tanggal: tanggal,
+  menu: menuFix,
+  omprengan: window.dataSpreadsheet.OMPRENGAN,
+  snack: window.dataSpreadsheet.SNACK,
+  catatan: document.getElementById("note")?.value || ""
+};
 
     omprengan: window.dataSpreadsheet.OMPRENGAN,
     snack: window.dataSpreadsheet.SNACK,
