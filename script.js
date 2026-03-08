@@ -1785,11 +1785,11 @@ function generateCaptionSnack() {
     caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
   }
 
-  if (!kategoriLibur["Keringan Porsi Kecil"] && gizi.kecil)
+  if (!kategoriLibur["Keringan Porsi Kecil"] && gizi.kecil) {
     caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", kecil);
   }
 
-  if (!kategoriLibur["Keringan Porsi Besar"] && gizi.besar)
+  if (!kategoriLibur["Keringan Porsi Besar"] && gizi.besar) {
     caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", besar);
   }
 
