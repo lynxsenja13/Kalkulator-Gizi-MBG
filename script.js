@@ -1115,7 +1115,6 @@ menuList += sekolahValid
 .join("\n");
 
   }
-}
 
   const caption = `
 Yth. Dandim 0618/Kota Bandung
