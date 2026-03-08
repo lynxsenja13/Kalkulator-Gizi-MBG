@@ -35,6 +35,7 @@ let kategoriData = {
   OMPRENGAN: {},
   SNACK: {}
 };
+
 let database = [];
 let databaseLoaded = false;
 let pendingNama = null;
@@ -249,8 +250,8 @@ const kategoriOmprengan = [
 const kategoriSnack = [
   "Balita",
   "Bumil & Busui",
-  "Keringan Sekolah Kecil",
-  "Keringan Sekolah Besar"
+  "Keringan Porsi Kecil",
+  "Keringan Porsi Besar"
 ];
 
 function getKategoriAktif() {
@@ -302,21 +303,22 @@ const checkboxes = document.querySelectorAll(".kategori-check");
 
 if(!semua) return;
 
-// klik semua
+// jika klik SEMUA
 semua.addEventListener("change", function(){
 
-checkboxes.forEach(cb => {
+checkboxes.forEach(cb=>{
 cb.checked = semua.checked;
 });
 
 });
 
-// jika checkbox satu-satu diklik
-checkboxes.forEach(cb => {
+// jika checkbox lain diubah
+checkboxes.forEach(cb=>{
 
 cb.addEventListener("change", function(){
 
 const semuaChecked = [...checkboxes].every(c => c.checked);
+
 semua.checked = semuaChecked;
 
 });
@@ -324,7 +326,6 @@ semua.checked = semuaChecked;
 });
 
 }
-
 // ================= AKG TARGET =================
 const AKG = {
   "Balita": {
@@ -383,8 +384,8 @@ const AKG = {
 };
 
 // ================= MAPPING AKG SNACK =================
-AKG["Keringan Sekolah Kecil"] = AKG["SD 1-3"];
-AKG["Keringan Sekolah Besar"] = AKG["SMP"];
+AKG["Keringan Porsi Kecil"] = AKG["SD 1-3"];
+AKG["Keringan Porsi Besar"] = AKG["SMP"];
 
 // ================= LOAD DATABASE =================
 async function loadDatabase() {
@@ -739,8 +740,8 @@ function generateLaporan() {
         "SD 4-6": "sd4_6",
         "SMP": "smp",
         "SMA": "sma",
-        "Keringan Sekolah Kecil": "kecil",
-        "Keringan Sekolah Besar": "besar"
+        "Keringan Porsi Kecil": "kecil",
+        "Keringan Porsi Besar": "besar"
       };
 
       const keyCaption = mapCaption[kat];
@@ -763,8 +764,8 @@ function generateLaporan() {
         "SD 4-6": "omprengan_sd4_6",
         "SMP": "omprengan_smp",
         "SMA": "omprengan_sma",
-        "Keringan Sekolah Kecil": "snack_kecil",
-        "Keringan Sekolah Besar": "snack_besar"
+        "Keringan Porsi Kecil": "snack_kecil",
+        "Keringan Porsi Besar": "snack_besar"
       };
 
       const key = keyMap[kat];
@@ -1050,13 +1051,14 @@ document.addEventListener("keydown", function(e) {
 
 window.onload = function () {
 
-  renderKategori(); // 🔥 WAJIB
+  initKategori();
+  renderKategori();
 
   if (!loadCache()) {
     loadDatabase();
   }
 
-};
+};;
 
 function hitungPenerimaFinal() {
 
@@ -1783,13 +1785,13 @@ function generateCaptionSnack() {
     caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
   }
 
-  if (!kategoriLibur["Keringan Sekolah Kecil"] && gizi.kecil) {
-  caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", kecil);
-}
+  if (!kategoriLibur["Keringan Porsi Kecil"] && gizi.kecil)
+    caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", kecil);
+  }
 
-if (!kategoriLibur["Keringan Sekolah Besar"] && gizi.besar) {
-  caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", besar);
-}
+  if (!kategoriLibur["Keringan Porsi Besar"] && gizi.besar)
+    caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", besar);
+  }
 
   caption += `
 🌿 “Makan bergizi, tubuh berenergi!”
@@ -2222,19 +2224,13 @@ function renderKategori() {
 
 function ambilKategoriDipilih(){
 
-const semua = document.getElementById("kategoriSemua");
 const checkboxes = document.querySelectorAll(".kategori-check");
+const semua = document.getElementById("kategoriSemua");
 
 let kategori = [];
 
 if(semua && semua.checked){
-
-checkboxes.forEach(cb=>{
-kategori.push(cb.value);
-});
-
-return kategori;
-
+return ["SEMUA"];
 }
 
 checkboxes.forEach(cb=>{
