@@ -1697,3 +1697,32 @@ accent-color:#4cafef;
 width:16px;
 height:16px;
 }
+
+.kategori-scroll{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-bottom:12px;
+}
+
+.kategori-chip{
+padding:6px 14px;
+border-radius:20px;
+background:#2c2f3a;
+color:white;
+font-size:14px;
+cursor:pointer;
+border:1px solid #444;
+transition:0.2s;
+user-select:none;
+}
+
+.kategori-chip:hover{
+background:#3a3f4f;
+}
+
+.kategori-chip.active{
+background:#4cafef;
+border-color:#4cafef;
+color:white;
+}
