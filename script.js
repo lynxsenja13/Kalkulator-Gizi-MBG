@@ -2256,3 +2256,41 @@ cb.checked = semua;
 });
 
 });
+
+let kategoriAktif = [];
+
+document.querySelectorAll(".kategori-chip").forEach(chip => {
+
+chip.addEventListener("click", function(){
+
+const kategori = this.dataset.kategori;
+
+// jika klik SEMUA
+if(kategori === "semua"){
+
+document.querySelectorAll(".kategori-chip").forEach(c=>{
+c.classList.remove("active");
+});
+
+this.classList.add("active");
+
+kategoriAktif = ["semua"];
+
+return;
+}
+
+// toggle kategori
+this.classList.toggle("active");
+
+// matikan SEMUA
+document.querySelector('[data-kategori="semua"]').classList.remove("active");
+
+kategoriAktif = [];
+
+document.querySelectorAll(".kategori-chip.active").forEach(c=>{
+kategoriAktif.push(c.dataset.kategori);
+});
+
+});
+
+});
