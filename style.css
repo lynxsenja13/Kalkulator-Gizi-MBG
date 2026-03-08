@@ -1769,3 +1769,54 @@ flex-wrap:wrap;
 gap:8px;
 margin:10px 0;
 }
+
+.kategori-scroll{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-top:10px;
+}
+
+.kategori-chip{
+cursor:pointer;
+}
+
+.kategori-chip input{
+display:none;
+}
+
+/* default */
+
+.kategori-chip span{
+
+display:inline-block;
+
+padding:7px 14px;
+border-radius:999px;
+
+background:#1e3a5f;
+border:1px solid #2c4d75;
+
+color:white;
+font-size:13px;
+font-weight:600;
+
+transition:0.2s;
+
+}
+
+/* hover */
+
+.kategori-chip span:hover{
+background:#2c4d75;
+}
+
+/* dipilih */
+
+.kategori-chip input:checked + span{
+
+background:#16a34a;
+border-color:#16a34a;
+color:white;
+
+}
