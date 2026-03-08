@@ -1624,19 +1624,29 @@ font-weight:600;
   display:none;
 }
 
-.kategori-item{
-  display:flex;
-  align-items:center;
-  gap:4px;
+.kategori-chip{
+  padding:5px 10px;
   font-size:12px;
-  white-space:nowrap;
-  background:#f4f6f8;
-  padding:4px 8px;
   border-radius:20px;
-  border:1px solid #d0d5da;
+  border:1px solid #cfd6dd;
+  background:#f7f9fb;
+  cursor:pointer;
+  white-space:nowrap;
   flex-shrink:0;
+  transition:all 0.15s ease;
 }
 
-.kategori-item input{
-  transform:scale(0.9);
+.kategori-chip:hover{
+  background:#eef2f6;
+}
+
+.kategori-chip.active{
+  background:#2c3e50;
+  color:white;
+  border-color:#2c3e50;
+}
+
+.kategori-chip.semua.active{
+  background:#e67e22;
+  border-color:#e67e22;
 }
