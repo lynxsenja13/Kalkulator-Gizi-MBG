@@ -1502,6 +1502,8 @@ function autoResizeTextarea(el) {
 
 function generateLaporanGizi() {
 
+generateLaporan();
+
 let caption = "";
 
 const liburData = window.kategoriLibur || {};
@@ -1602,6 +1604,7 @@ function setSubTabCaption(mode) {
 }
 
 function generateCaptionOmprengan() {
+generateLaporan(); // 🔥 refresh gizi dulu
   const now = new Date();
   const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
   const tanggal = now.toLocaleDateString("id-ID", {
@@ -1672,6 +1675,8 @@ if (!libur.sma)
 
 function generateCaptionSnack() {
 
+  generateLaporan(); // 🔥 refresh gizi dulu
+
   const gizi = window.hasilGizi.SNACK || {};
 
   const kecil = gizi.kecil || {};
@@ -1691,11 +1696,11 @@ function generateCaptionSnack() {
     caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
   }
 
-  if (!kategoriLibur["Keringan Sekolah Kecil"]) {
+  if (!kategoriLibur["Keringan Sekolah Kecil"] && gizi.kecil) {
   caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", kecil);
 }
 
-if (!kategoriLibur["Keringan Sekolah Besar"]) {
+if (!kategoriLibur["Keringan Sekolah Besar"] && gizi.besar) {
   caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", besar);
 }
 
@@ -1774,11 +1779,6 @@ function kirimKeSpreadsheet() {
 
   // 🔥 PAKSA GENERATE SEMUA MENU
   const modeBackup = modeMenu;
-
-  modeMenu = "OMPRENGAN";
-  generateLaporan();
-
-  modeMenu = "SNACK";
   generateLaporan();
 
   modeMenu = modeBackup;
