@@ -35,7 +35,9 @@ let databaseLoaded = false;
 let pendingNama = null;
 let pendingBerat = null;
 let modeKategori = "SEMUA";
-let menuHarian = [];
+let menuHarian = [""];
+let menuKategori = "semua";
+let modeMenu = "semua"; 
 let menuSemua = [];
 let menuBalita = [];
 let menuSekolah = [];
@@ -1083,38 +1085,36 @@ const totalSemua = Object.values(data).reduce((a,b)=>a+b,0);
 
 let menuList = "";
 
-if (menuSemua.length > 0) {
+if(modeMenu === "semua"){
 
-  menuList = menuSemua
-    .filter(m => m.trim())
-    .map((m,i)=>`${i+1}. ${m}`)
-    .join("\n");
+const valid = menuSemua.filter(m=>m.trim());
 
-} else {
+menuList = valid
+.map((m,i)=>`${i+1}. ${m}`)
+.join("\n");
 
-  if (menuBalita.length > 0) {
+}
 
-    menuList += `Menu Balita, Bumil & Busui :\n\n`;
+else{
 
-    menuList += menuBalita
-      .filter(m => m.trim())
-      .map((m,i)=>`${i+1}. ${m}`)
-      .join("\n");
+const balitaValid = menuBalita.filter(m=>m.trim());
+const sekolahValid = menuSekolah.filter(m=>m.trim());
 
-    menuList += "\n\n";
+menuList += `Menu Balita, Bumil & Busui :\n\n`;
+
+menuList += balitaValid
+.map((m,i)=>`${i+1}. ${m}`)
+.join("\n");
+
+menuList += "\n\n";
+
+menuList += `Menu Sekolah :\n\n`;
+
+menuList += sekolahValid
+.map((m,i)=>`${i+1}. ${m}`)
+.join("\n");
+
   }
-
-  if (menuSekolah.length > 0) {
-
-    menuList += `Menu Sekolah :\n`;
-
-    menuList += menuSekolah
-      .filter(m => m.trim())
-      .map((m,i)=>`${i+1}. ${m}`)
-      .join("\n");
-
-  }
-
 }
 
   const caption = `
@@ -1186,18 +1186,74 @@ function editMenuHarian(index, value) {
 }
 
 function renderMenuHarian() {
-  const wrap = document.getElementById("menuHarianWrap");
-  if (!wrap) return;
+  const container = document.getElementById("menuContainer");
 
-  wrap.innerHTML = menuHarian.map((m,i)=>`
-    <input
-      type="text"
-      value="${m}"
-      placeholder="Nama menu ${i+1}"
-      oninput="editMenuHarian(${i}, this.value)"
-      style="margin-bottom:6px;width:100%;padding:8px;border-radius:8px;border:none;"
-    >
-  `).join("");
+if(modeMenu === "semua"){
+
+container.innerHTML = `
+
+<h3>Menu Untuk Semua</h3>
+
+${menuSemua.map((menu,i)=>`
+<input type="text"
+value="${menu}"
+placeholder="Menu ${i+1}"
+oninput="menuSemua[${i}] = this.value">
+`).join("")}
+
+<button onclick="menuSemua.push(''); renderMenuHarian()">
++ Tambah Menu
+</button>
+
+<br><br>
+
+<button onclick="modeMenu='terpisah'; renderMenuHarian()">
+Gunakan Menu Balita & Sekolah
+</button>
+
+`;
+
+}
+
+else{
+
+container.innerHTML = `
+
+<h3>Menu Balita, Bumil & Busui</h3>
+
+${menuBalita.map((menu,i)=>`
+<input type="text"
+value="${menu}"
+placeholder="Menu Balita ${i+1}"
+oninput="menuBalita[${i}] = this.value">
+`).join("")}
+
+<button onclick="menuBalita.push(''); renderMenuHarian()">
++ Tambah Menu Balita
+</button>
+
+<br><br>
+
+<h3>Menu Sekolah</h3>
+
+${menuSekolah.map((menu,i)=>`
+<input type="text"
+value="${menu}"
+placeholder="Menu Sekolah ${i+1}"
+oninput="menuSekolah[${i}] = this.value">
+`).join("")}
+
+<button onclick="menuSekolah.push(''); renderMenuHarian()">
++ Tambah Menu Sekolah
+</button>
+
+<br><br>
+
+<button onclick="modeMenu='semua'; renderMenuHarian()">
+Gunakan Menu Sama Untuk Semua
+</button>
+  `;
+  }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -2135,4 +2191,9 @@ function syncLiburModal() {
 
   });
 
+}
+
+function ubahKategoriMenu(value){
+  menuKategori = value;
+  generateCaptionHarian();
 }
