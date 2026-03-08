@@ -1394,25 +1394,6 @@ function copyCaptionWA() {
   });
 }
 
-function tambahMenuBaris() {
-  menuHarian.push("");
-
-  const container = document.getElementById("menuContainer");
-
-  const input = document.createElement("input");
-  input.type = "text";
-  input.className = "input-menu";
-  input.placeholder = `Nama menu ${menuHarian.length}`;
-
-  input.oninput = (e) => {
-    menuHarian[menuHarian.length - 1] = e.target.value;
-  };
-
-  // masukkan sebelum tombol
-  const btn = container.querySelector(".btn-secondary");
-  container.insertBefore(input, btn);
-}
-
 function prosesLaporan() {
   // =========================
   // AMBIL STATUS LIBUR
@@ -1835,22 +1816,6 @@ function updateMenuAwal(value) {
   }
 
   window.menuHarian[0] = value;
-}
-
-function renderMenuHarian() {
-  const container = document.getElementById("menuContainer");
-
-  container.innerHTML = menuHarian.map((menu, i) => `
-    <input type="text"
-           class="input-menu"
-           placeholder="Nama menu ${i+1}"
-           value="${menu}"
-           oninput="editMenuHarian(${i}, this.value)">
-  `).join("") + `
-    <button class="btn-secondary" onclick="tambahMenuBaris()">
-      + Tambah Menu
-    </button>
-  `;
 }
 
 function tambahMenuBaris() {
