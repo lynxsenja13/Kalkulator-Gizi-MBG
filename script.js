@@ -70,6 +70,8 @@ const PENERIMA_DEFAULT = {
 function setModeMenu(menu) {
   modeMenu = menu;
 
+  renderKategori();
+
   document.getElementById("btnOmprengan").classList.remove("active-omprengan");
   document.getElementById("btnSnack").classList.remove("active-snack");
 
@@ -78,8 +80,6 @@ function setModeMenu(menu) {
   } else {
     document.getElementById("btnSnack").classList.add("active-snack");
   }
-
-  renderKategori();
 
   renderList();
   generateLaporan();
