@@ -2138,34 +2138,30 @@ function ambilMenuUntukLaporan(){
   return hasil;
 }
 
-function renderKategoriCheckbox(){
-
+function renderKategori() {
   const container = document.getElementById("kategoriCheckbox");
-  if(!container) return;
+  if (!container) return;
 
-  const kategoriAktif = getKategoriAktif();
+  container.innerHTML = "";
 
-  container.innerHTML="";
+  const kategori =
+    modeMenu === "OMPRENGAN"
+      ? kategoriOmprengan
+      : kategoriSnack;
 
-  kategoriAktif.forEach(kat=>{
+  kategori.forEach(kat => {
+    const label = document.createElement("label");
+    label.className = "kategori-item";
 
-    const btn=document.createElement("div");
-    btn.className="kategori-chip";
-    btn.dataset.value=kat;
-    btn.textContent=kat;
+    label.innerHTML = `
+      <input type="checkbox" value="${kat}">
+      ${kat}
+    `;
 
-    container.appendChild(btn);
-
+    container.appendChild(label);
   });
-
-  const semua=document.createElement("div");
-  semua.className="kategori-chip semua";
-  semua.dataset.value="SEMUA";
-  semua.textContent="SEMUA";
-
-  container.appendChild(semua);
-
 }
+
 function ambilKategoriDipilih(){
 
   const aktif=document.querySelectorAll(".kategori-chip.active");
@@ -2180,27 +2176,6 @@ function ambilKategoriDipilih(){
 
 }
 
-document.addEventListener("click",function(e){
-
-  if(!e.target.classList.contains("kategori-chip")) return;
-
-  const chip=e.target;
-  const value=chip.dataset.value;
-
-  if(value==="SEMUA"){
-
-    const chips=document.querySelectorAll(".kategori-chip");
-
-    chips.forEach(c=>{
-      c.classList.toggle("active",chip.classList.contains("active"));
-    });
-
-    chip.classList.toggle("active");
-
-    return;
-
-  }
-
-  chip.classList.toggle("active");
-
+document.addEventListener("DOMContentLoaded", () => {
+  renderKategori();
 });
