@@ -261,39 +261,27 @@ function getKategoriAktif() {
 }
 
 function renderKategori() {
-
   const container = document.getElementById("kategoriCheckbox");
+  if (!container) return;
+
   container.innerHTML = "";
 
- const daftar = modeMenu === "SNACK" ? kategoriSnack : kategoriOmprengan;
+  const kategori =
+    modeMenu === "OMPRENGAN"
+      ? kategoriOmprengan
+      : kategoriSnack;
 
-  // checkbox SEMUA
-  const semua = document.createElement("label");
-  semua.className = "kategori-chip semua";
-
-  semua.innerHTML = `
-    <input type="checkbox" id="kategoriSemua">
-    <span>Semua</span>
-  `;
-
-  container.appendChild(semua);
-
-  // checkbox kategori biasa
-  daftar.forEach(k => {
-
+  kategori.forEach(kat => {
     const label = document.createElement("label");
-    label.className = "kategori-chip";
+    label.className = "kategori-item";
 
     label.innerHTML = `
-      <input type="checkbox" value="${k}" class="kategori-check">
-      <span>${k}</span>
+      <input type="checkbox" value="${kat}">
+      ${kat}
     `;
 
     container.appendChild(label);
-
   });
-
-  initCheckboxSemua();
 }
 
 function initCheckboxSemua(){
