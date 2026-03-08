@@ -1633,7 +1633,7 @@ function generateCaptionOmprengan() {
   sma: kategoriLibur["SMA"] || false
 };
   
-  const gizi = window.hasilGizi.OMPRENGAN; || {};
+  const gizi = window.hasilGizi.OMPRENGAN || {};
 
   let caption = `🍱 Menu Bergizi Gratis
 📅 ${hari}, ${tanggal}
