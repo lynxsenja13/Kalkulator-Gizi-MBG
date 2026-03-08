@@ -2164,29 +2164,40 @@ function ambilMenuUntukLaporan(){
   return hasil;
 }
 
-function renderKategori() {
-  const container = document.getElementById("kategoriCheckbox");
-  if (!container) return;
+function renderKategori(){
 
-  container.innerHTML = "";
+const container = document.getElementById("kategoriCheckbox");
+if(!container) return;
 
-  const kategori =
-    modeMenu === "OMPRENGAN"
-      ? kategoriOmprengan
-      : kategoriSnack;
+let kategori =
+modeMenu === "SNACK"
+? kategoriSnack
+: kategoriOmprengan;
 
-  kategori.forEach(kat => {
-    const label = document.createElement("label");
-    label.className = "kategori-item";
+let html = "";
 
-    label.innerHTML = `
-      <input type="checkbox" value="${kat}">
-      ${kat}
-    `;
+/* tombol semua */
 
-    container.appendChild(label);
-  });
-  initCheckboxSemua();
+html += `
+<label class="kategori-chip">
+<input type="checkbox" id="kategoriSemua">
+<span>Semua</span>
+</label>
+`;
+
+kategori.forEach(k=>{
+
+html += `
+<label class="kategori-chip">
+<input type="checkbox" class="kategori-check" value="${k}">
+<span>${k}</span>
+</label>
+`;
+
+});
+
+container.innerHTML = html;
+
 }
 
 function ambilKategoriDipilih(){
