@@ -1871,34 +1871,35 @@ function kirimKeSpreadsheet() {
 
   const tanggal = formatTanggalIndonesia();
 
+  // ===============================
+  // 🔥 SUSUN MENU
+  // ===============================
+  let menuFix = [];
+
+  if (modeMenuLaporan === "semua") {
+
+    menuFix = menuSemua.filter(m => m.trim());
+
+  } else {
+
+    menuFix = [
+      "Menu Balita, Bumil & Busui",
+      ...menuBalita.filter(m => m.trim()),
+      "",
+      "Menu Sekolah",
+      ...menuSekolah.filter(m => m.trim())
+    ];
+
+  }
+
+  // ===============================
+  // 🔥 DATA FINAL
+  // ===============================
   const data = {
     tanggal: tanggal,
-
- let menuFix = [];
-
-if(modeMenuLaporan === "semua"){
-  menuFix = menuSemua.filter(m => m.trim());
-}else{
-  menuFix = [
-    "Menu Balita, Bumil & Busui",
-    ...menuBalita.filter(m=>m.trim()),
-    "",
-    "Menu Sekolah",
-    ...menuSekolah.filter(m=>m.trim())
-  ];
-}
-
-const data = {
-  tanggal: tanggal,
-  menu: menuFix,
-  omprengan: window.dataSpreadsheet.OMPRENGAN,
-  snack: window.dataSpreadsheet.SNACK,
-  catatan: document.getElementById("note")?.value || ""
-};
-
+    menu: menuFix,
     omprengan: window.dataSpreadsheet.OMPRENGAN,
     snack: window.dataSpreadsheet.SNACK,
-
     catatan: document.getElementById("note")?.value || ""
   };
 
@@ -1918,6 +1919,7 @@ const data = {
     console.error("Fetch error:", err);
     alert("Gagal kirim");
   });
+
 }
 
 function kirimLaporan(data) {
