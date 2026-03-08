@@ -1100,7 +1100,7 @@ else{
 const balitaValid = menuBalita.filter(m=>m.trim());
 const sekolahValid = menuSekolah.filter(m=>m.trim());
 
-menuList += `Menu Balita, Bumil & Busui :\n\n`;
+menuList += `Menu Balita, Bumil & Busui :\n`;
 
 menuList += balitaValid
 .map((m,i)=>`${i+1}. ${m}`)
@@ -1108,7 +1108,7 @@ menuList += balitaValid
 
 menuList += "\n\n";
 
-menuList += `Menu Sekolah :\n\n`;
+menuList += `Menu Sekolah :\n`;
 
 menuList += sekolahValid
 .map((m,i)=>`${i+1}. ${m}`)
@@ -1146,7 +1146,7 @@ D. Jumlah penerima sebanyak ${totalD} orang.
 
 Jumlah makan : ${totalSemua} porsi.
 
-E. Menu Makan hari ini ${tanggal}
+E. Menu Makan hari ini ${tanggal}"\n\n";
 ${menuList}
 
 Demikian kami laporkan.
