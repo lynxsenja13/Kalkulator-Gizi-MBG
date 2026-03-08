@@ -2161,34 +2161,41 @@ function renderKategoriCheckbox(){
   container.appendChild(semua);
 
 }
-function ambilKategoriDipilih() {
+function ambilKategoriDipilih(){
 
-  const checked = document.querySelectorAll(
-    "#kategoriCheckbox input:checked"
-  );
+  const aktif=document.querySelectorAll(".kategori-chip.active");
 
-  let list = [];
+  let list=[];
 
-  checked.forEach(cb => {
-    list.push(cb.value);
+  aktif.forEach(el=>{
+    list.push(el.dataset.value);
   });
 
   return list;
 
 }
 
-document.addEventListener("change", function(e){
+document.addEventListener("click",function(e){
 
-  if(e.target.value==="SEMUA"){
+  if(!e.target.classList.contains("kategori-chip")) return;
 
-    const all=document.querySelectorAll(
-      '#kategoriCheckbox input:not([value="SEMUA"])'
-    );
+  const chip=e.target;
+  const value=chip.dataset.value;
 
-    all.forEach(cb=>{
-      cb.checked=e.target.checked;
+  if(value==="SEMUA"){
+
+    const chips=document.querySelectorAll(".kategori-chip");
+
+    chips.forEach(c=>{
+      c.classList.toggle("active",chip.classList.contains("active"));
     });
 
+    chip.classList.toggle("active");
+
+    return;
+
   }
+
+  chip.classList.toggle("active");
 
 });
