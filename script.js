@@ -2212,22 +2212,15 @@ function renderKategori() {
 
 function ambilKategoriDipilih(){
 
-const checkboxes = document.querySelectorAll(".kategori-check");
-const semua = document.getElementById("kategoriSemua");
+const aktif=document.querySelectorAll(".kategori-chip.active");
 
-let kategori = [];
+let list=[];
 
-if(semua && semua.checked){
-return ["SEMUA"];
-}
-
-checkboxes.forEach(cb=>{
-if(cb.checked){
-kategori.push(cb.value);
-}
+aktif.forEach(el=>{
+list.push(el.dataset.kategori);
 });
 
-return kategori;
+return list;
 
 }
 
@@ -2235,14 +2228,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
 let kategoriAktif = [];
 
-document.querySelectorAll(".kategori-chip").forEach(chip => {
+document.querySelectorAll(".kategori-chip").forEach(chip=>{
 
 chip.addEventListener("click", function(){
 
 const kategori = this.dataset.kategori;
 
-// jika klik SEMUA
-if(kategori === "semua"){
+if(kategori==="semua"){
 
 document.querySelectorAll(".kategori-chip").forEach(c=>{
 c.classList.remove("active");
@@ -2250,19 +2242,17 @@ c.classList.remove("active");
 
 this.classList.add("active");
 
-kategoriAktif = ["semua"];
+kategoriAktif=["SEMUA"];
 
 return;
+
 }
 
-// toggle kategori
 this.classList.toggle("active");
 
-// matikan SEMUA
-const semuaChip = document.querySelector('[data-kategori="semua"]');
-if(semuaChip) semuaChip.classList.remove("active");
+document.querySelector('[data-kategori="semua"]').classList.remove("active");
 
-kategoriAktif = [];
+kategoriAktif=[];
 
 document.querySelectorAll(".kategori-chip.active").forEach(c=>{
 kategoriAktif.push(c.dataset.kategori);
