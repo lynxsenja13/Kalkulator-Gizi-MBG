@@ -384,14 +384,18 @@ AKG["Keringan Sekolah Besar"] = AKG["SMP"];
 // ================= LOAD DATABASE =================
 async function loadDatabase() {
   try {
+
+    console.log("Loading database dari API...");
+
     const res = await fetch(API_URL);
+
     database = await res.json();
     databaseLoaded = true;
 
     console.log("Database loaded:", database.length);
 
     initKategori();
-    renderKategori(); // ✅
+    renderKategori();
     initAutocomplete();
     saveCache();
 
