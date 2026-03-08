@@ -2248,6 +2248,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById("kategoriSemua").addEventListener("change", function(){
+ 
+const semua = this.checked;
+
+document.querySelectorAll(".kategori-check").forEach(cb=>{
+cb.checked = semua;
+});
+
+});
+
+const kategoriSemua = document.getElementById("kategoriSemua");
+
+if(kategoriSemua){
+kategoriSemua.addEventListener("change", function(){
 
 const semua = this.checked;
 
@@ -2256,6 +2269,7 @@ cb.checked = semua;
 });
 
 });
+}
 
 let kategoriAktif = [];
 
