@@ -432,10 +432,13 @@ function loadCache() {
 
   if (!cache) return false;
 
-  dbGizi = JSON.parse(cache);
+  database = JSON.parse(cache);
+  databaseLoaded = true;
+
+  console.log("Database dari cache:", database.length);
 
   initKategori();
-  renderKategori(); // ✅ FIX
+  renderKategori();
   initAutocomplete();
 
   return true;
