@@ -1841,17 +1841,6 @@ function kirimKeSpreadsheet() {
 
   modeMenu = modeBackup;
 
-  const tanggal = formatTanggalIndonesia();
-
-  let menuFix = ambilMenuUntukLaporan();
-
-  const data = {
-    tanggal: tanggal,
-    menu: menuFix,
-    omprengan: window.dataSpreadsheet.OMPRENGAN,
-    snack: window.dataSpreadsheet.SNACK
-  };
-
   const formData = new FormData();
   formData.append("data", JSON.stringify(data));
 
@@ -2030,16 +2019,8 @@ function kirimLaporan(data) {
 
 function kirimLaporanKeSpreadsheet() {
 
-const tanggal = formatTanggalIndonesia();
-
-let menuFix = ambilMenuUntukLaporan();
-
-const data = {
-  tanggal: tanggal,
-  menu: menuFix,
-  omprengan: window.dataSpreadsheet.OMPRENGAN,
-  snack: window.dataSpreadsheet.SNACK
-};
+  const tanggal = formatTanggalIndonesia();
+  const menuFix = ambilMenuUntukLaporan();
 
   const semuaDetail = [];
   const semuaLibur = {};
@@ -2061,12 +2042,16 @@ const data = {
   });
 
   const data = {
-  tanggal: tanggal,
-  menu: menuFix,
-  omprengan: window.dataSpreadsheet.OMPRENGAN,
-  snack: window.dataSpreadsheet.SNACK,
-  catatan: document.getElementById("note")?.value || ""
-};
+    tanggal: tanggal,
+    menu: menuFix,
+    omprengan: window.dataSpreadsheet.OMPRENGAN,
+    snack: window.dataSpreadsheet.SNACK,
+    detail: semuaDetail,
+    libur: semuaLibur,
+    catatan: document.getElementById("note")?.value || ""
+  };
+
+  console.log(data);
 
   const formData = new FormData();
   formData.append("data", JSON.stringify(data));
@@ -2086,6 +2071,7 @@ const data = {
   });
 
 }
+
   function debounce(fn, delay = 150) {
   let t;
   return (...args) => {
