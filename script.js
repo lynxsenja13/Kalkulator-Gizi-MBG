@@ -367,37 +367,6 @@ semua.checked = true;
 
 }
 
-function initCheckboxSemua(){
-
-const semua = document.getElementById("kategoriSemua");
-const checkboxes = document.querySelectorAll(".kategori-check");
-
-if(!semua) return;
-
-// klik SEMUA
-semua.addEventListener("change", function(){
-
-checkboxes.forEach(cb=>{
-cb.checked = semua.checked;
-});
-
-});
-
-// klik kategori
-checkboxes.forEach(cb=>{
-
-cb.addEventListener("change", function(){
-
-const semuaChecked = [...checkboxes].every(c => c.checked);
-
-semua.checked = semuaChecked;
-
-});
-
-});
-
-}
-
 // ================= AKG TARGET =================
 const AKG = {
   "Balita": {
