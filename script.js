@@ -1444,8 +1444,8 @@ const jumlahMakan = total;
   // =========================
   // TOTAL PENERIMA (POIN D)
   // =========================
-  const totalPenerima =
-    D1 + D2 + D3 + D4 + D5 + D6 + D7 + D8 + D9 + D10 + D11;
+  totalPenerima =
+  D1 + D2 + D3 + D4 + D5 + D6 + D7 + D8 + D9 + D10 + D11;
 
   const jumlahMakan = totalPenerima;
 
