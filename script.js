@@ -1087,9 +1087,11 @@ window.onload = function () {
   initKategori();
   renderKategori();
 
-  if (!loadCache()) {
-    loadDatabase();
-  }
+  // load cache dulu (biar cepat)
+  loadCache();
+
+  // selalu sync database terbaru
+  loadDatabase();
 
 };
 
