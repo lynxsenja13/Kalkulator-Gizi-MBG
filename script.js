@@ -496,7 +496,7 @@ function tambahBahan() {
 
   const nama = document.getElementById("namaBahan").value.trim();
   const berat = parseFloat(document.getElementById("beratBahan").value);
-  const satuan = document.getElementById("satuanBahan").value;
+  const satuan = document.getElementById("satuanBahan").value.toUpperCase();
 
   if (!nama || !berat) return;
 
@@ -578,8 +578,8 @@ function hitungTotal(list) {
 
   list.forEach(item => {
 
-    const db = database.find(d =>
-  getNamaBahan(d).includes(item.nama.toLowerCase().trim())
+   const db = database.find(d =>
+  getNamaBahan(d) === item.nama.toLowerCase().trim()
 );
 
     if (!db) return;
@@ -2325,6 +2325,14 @@ kategoriAktif.push(c.dataset.kategori);
 });
 
 function formatSatuan(satuan){
+
 if(!satuan) return "";
-return satuan.charAt(0).toUpperCase() + satuan.slice(1).toLowerCase();
+
+satuan = satuan.toUpperCase();
+
+if(satuan === "GRAM") return "Gram";
+if(satuan === "PCS") return "Pcs";
+
+return satuan;
+
 }
