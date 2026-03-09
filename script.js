@@ -1101,31 +1101,37 @@ function hitungPenerimaFinal() {
 
   const data = { ...PENERIMA_DEFAULT };
 
+  // BALITA
   if (kategoriLibur["Balita"]) {
     data["BALITA"] = 0;
     data["PIC POSYANDU"] = 0;
   }
 
+  // BUMIL
   if (kategoriLibur["Bumil & Busui"]) {
     data["BUMIL & BUSUI"] = 0;
   }
 
+  // SD YAS
   if (kategoriLibur["SD 1-3"] || kategoriLibur["SD 4-6"]) {
     data["SD YAS"] = 0;
     data["Guru & Tendik SD YAS"] = 0;
   }
 
+  // SMP
   if (kategoriLibur["SMP"]) {
     data["SMP YAS"] = 0;
     data["Guru & Tendik SMP YAS"] = 0;
   }
 
+  // SMA
   if (kategoriLibur["SMA"]) {
     data["SMA YAS"] = 0;
     data["Guru & Tendik SMA YAS"] = 0;
   }
 
-  if (kategoriLibur["SD Awi Gombong"]) {
+  // SD AWI GOMBONG
+  if (kategoriLibur["SDN Awi Gombong"]) {
     data["SDN Awi Gombong"] = 0;
     data["Guru & Tendik SD Awi Gombong"] = 0;
   }
@@ -1134,7 +1140,6 @@ function hitungPenerimaFinal() {
 
   return { data, total };
 }
-
 function generateCaptionHarian() {
   const { data } = hitungPenerimaFinal();
 
@@ -1400,7 +1405,7 @@ function prosesLaporan() {
   // AMBIL STATUS LIBUR
   // =========================
   const liburBalita = document.getElementById("liburBalita").checked;
-  const liburSDAwi = document.getElementById("liburSDAwi").checked;
+  const liburSDAwi = kategoriLibur["SDN Awi Gombong"] || false;
   const liburSDYas = document.getElementById("liburSDYas").checked;
   const liburSMPYas = document.getElementById("liburSMPYas").checked;
   const liburSMAYas = document.getElementById("liburSMAYas").checked;
@@ -1408,18 +1413,22 @@ function prosesLaporan() {
   // =========================
   // ANGKA DEFAULT (UBAH JIKA PERLU)
   // =========================
-  let D1 = liburBalita ? 0 : 211;
-  let D2 = liburBalita ? 0 : 125;
-  let D3 = liburSDYas ? 0 : 186;
-  let D4 = liburSMPYas ? 0 : 630;
-  let D5 = liburSMAYas ? 0 : 534;
-  let D6 = liburSDAwi ? 0 : 1015;
+  const { data, total } = hitungPenerimaFinal();
 
-  let D7 = liburSDYas ? 0 : 17;
-  let D8 = liburSMPYas ? 0 : 35;
-  let D9 = liburSMAYas ? 0 : 37;
-  let D10 = liburSDAwi ? 0 : 62;
-  let D11 = liburBalita ? 0 : 5;
+  let D1 = data["BALITA"];
+  let D2 = data["BUMIL & BUSUI"];
+  let D3 = data["SD YAS"];
+  let D4 = data["SMP YAS"];
+  let D5 = data["SMA YAS"];
+  let D6 = data["SDN Awi Gombong"];
+  let D7 = data["Guru & Tendik SD YAS"];
+  let D8 = data["Guru & Tendik SMP YAS"];
+  let D9 = data["Guru & Tendik SMA YAS"];
+  let  D10 = data["Guru & Tendik SD Awi Gombong"];
+  let D11 = data["PIC POSYANDU"];
+
+const totalPenerima = total;
+const jumlahMakan = total;
 
   // =========================
   // TOTAL PENERIMA (POIN D)
@@ -1534,8 +1543,12 @@ function bukaModalLibur() {
   const modal = document.getElementById("modalLibur");
   if (!modal) return;
 
-  /* TAMBAHKAN INI */
-  syncLiburModal();
+  /* SYNC STATUS LIBUR DARI CARD */
+  document.getElementById("liburBalita").checked = kategoriLibur["Balita"] || false;
+  document.getElementById("liburBumil").checked = kategoriLibur["Bumil & Busui"] || false;
+  document.getElementById("liburSD").checked = kategoriLibur["SD 1-3"] || false;
+  document.getElementById("liburSMP").checked = kategoriLibur["SMP"] || false;
+  document.getElementById("liburSMA").checked = kategoriLibur["SMA"] || false;
 
   modal.style.display = "flex";
 }
@@ -1557,19 +1570,10 @@ function prosesLaporanHarian() {
     generateCaptionHarian();
   }
 
-  const data = {
-    balita: document.getElementById("libur_balita").checked ? 0 : 211,
-    bumil: document.getElementById("libur_bumil").checked ? 0 : 125,
-    sdyas: document.getElementById("libur_sdyas").checked ? 0 : 186,
-    smpyas: document.getElementById("libur_smpyas").checked ? 0 : 630,
-    smayas: document.getElementById("libur_smayas").checked ? 0 : 534,
-    awig: document.getElementById("libur_awig").checked ? 0 : 1015,
-    guru_sd: document.getElementById("libur_sdyas").checked ? 0 : 17,
-    guru_smp: document.getElementById("libur_smpyas").checked ? 0 : 35,
-    guru_sma: document.getElementById("libur_smayas").checked ? 0 : 37,
-    guru_awig: document.getElementById("libur_awig").checked ? 0 : 62,
-    pic: document.getElementById("libur_balita").checked ? 0 : 5,
-  };
+  const { data, total } = hitungPenerimaFinal();
+
+    window.totalPenerima = total;
+    window.jumlahMakan = total;
 
   const totalPenerima =
     data.balita +
