@@ -2268,7 +2268,48 @@ return list;
 
 }
 
+function initKategoriChip(){
+
+const chips = document.querySelectorAll(".kategori-chip");
+
+chips.forEach(chip => {
+
+chip.addEventListener("click", function(){
+
+const kategori = this.dataset.kategori;
+
+/* klik SEMUA */
+
+if(kategori === "semua"){
+
+chips.forEach(c => c.classList.remove("active"));
+
+this.classList.add("active");
+
+}
+
+/* klik kategori lain */
+
+else{
+
+const semuaChip = document.querySelector('[data-kategori="semua"]');
+semuaChip.classList.remove("active");
+
+/* toggle */
+
+this.classList.toggle("active");
+
+}
+
+});
+
+});
+
+}
+
 document.addEventListener("DOMContentLoaded", function(){
+
+initKategoriChip();
 
 let kategoriAktif = [];
 
