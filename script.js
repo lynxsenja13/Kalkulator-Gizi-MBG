@@ -319,29 +319,21 @@ semua.checked = true;
 kategori.forEach(k => k.checked = false);
 
 /* klik SEMUA */
-
 semua.addEventListener("change", function(){
 
 if(this.checked){
-
-kategori.forEach(k=>{
-k.checked = false;
-});
-
+kategori.forEach(k => k.checked = false);
 }
 
 });
 
 /* klik kategori lain */
-
 kategori.forEach(k=>{
 
-k.addEventListener("change",function(){
+k.addEventListener("change", function(){
 
 if(this.checked){
-
 semua.checked = false;
-
 }
 
 const adaYangDipilih = [...kategori].some(cb => cb.checked);
