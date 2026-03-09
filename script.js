@@ -56,14 +56,18 @@ let subTabCaptionAktif = "omprengan";
 const PENERIMA_DEFAULT = {
   "BALITA": 211,
   "BUMIL & BUSUI": 125,
+
+  "SD Awi Gombong": 1015,
   "SD YAS": 186,
+
   "SMP YAS": 630,
   "SMA YAS": 534,
-  "SDN Awi Gombong": 1015,
+
+  "Guru & Tendik SD Awi Gombong": 62,
   "Guru & Tendik SD YAS": 17,
   "Guru & Tendik SMP YAS": 35,
   "Guru & Tendik SMA YAS": 37,
-  "Guru & Tendik SD Awi Gombong": 62,
+
   "PIC POSYANDU": 5
 };
 
@@ -224,9 +228,12 @@ function toggleLibur(kat, checked) {
   kategoriLibur[kat] = checked;
   window.kategoriLibur = kategoriLibur;
 
-  if (kat === "SD 1-3" || kat === "SD 4-6") {
-    kategoriLibur["SD 1-3"] = checked;
-    kategoriLibur["SD 4-6"] = checked;
+  if (kat === "SD Awi Gombong") {
+    kategoriLibur["SD Awi Gombong"] = checked;
+  }
+
+  if (kat === "SD YAS") {
+    kategoriLibur["SD YAS"] = checked;
   }
 
   if (kat === "SMP") {
@@ -1097,6 +1104,10 @@ window.onload = function () {
 
 };
 
+function sdSemuaLibur() {
+  return kategoriLibur["SD Awi Gombong"] && kategoriLibur["SD YAS"];
+}
+
 function hitungPenerimaFinal() {
 
   const data = { ...PENERIMA_DEFAULT };
@@ -1112,10 +1123,16 @@ function hitungPenerimaFinal() {
     data["BUMIL & BUSUI"] = 0;
   }
 
+  // SD Awi Gombong
+    if (kategoriLibur["SD Awi Gombong"]) {
+      data["SD Awi Gombong"] = 0;
+      data["Guru & Tendik SD Awi Gombong"] = 0;
+  }
+
   // SD YAS
-  if (kategoriLibur["SD 1-3"] || kategoriLibur["SD 4-6"]) {
-    data["SD YAS"] = 0;
-    data["Guru & Tendik SD YAS"] = 0;
+    if (kategoriLibur["SD YAS"]) {
+      data["SD YAS"] = 0;
+      data["Guru & Tendik SD YAS"] = 0;
   }
 
   // SMP
@@ -1128,12 +1145,6 @@ function hitungPenerimaFinal() {
   if (kategoriLibur["SMA"]) {
     data["SMA YAS"] = 0;
     data["Guru & Tendik SMA YAS"] = 0;
-  }
-
-  // SD AWI GOMBONG
-  if (kategoriLibur["SDN Awi Gombong"]) {
-    data["SDN Awi Gombong"] = 0;
-    data["Guru & Tendik SD Awi Gombong"] = 0;
   }
 
   const total = Object.values(data).reduce((a,b)=>a+b,0);
@@ -1612,8 +1623,7 @@ const liburData = window.kategoriLibur || {};
 const libur = {
   balita: liburData["Balita"] || false,
   bumil: liburData["Bumil & Busui"] || false,
-  sd13: liburData["SD 1-3"] || false,
-  sd46: liburData["SD 4-6"] || false,
+  sd: sdSemuaLibur(),
   smp: liburData["SMP"] || false,
   sma: liburData["SMA"] || false
 };
@@ -1652,10 +1662,10 @@ caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
 if (!libur.bumil)
 caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
 
-if (!libur.sd13)
+if (!libur.sd)
 caption += blokGizi("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
 
-if (!libur.sd46)
+if (!libur.sd)
 caption += blokGizi("Analisis Nilai Gizi SD 4-6", gizi.sd4_6);
 
 if (!libur.smp)
