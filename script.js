@@ -314,6 +314,10 @@ const kategori = document.querySelectorAll(".kategori-check");
 
 if(!semua) return;
 
+/* default awal -> semua aktif */
+semua.checked = true;
+kategori.forEach(k => k.checked = false);
+
 /* klik SEMUA */
 
 semua.addEventListener("change", function(){
@@ -335,7 +339,15 @@ kategori.forEach(k=>{
 k.addEventListener("change",function(){
 
 if(this.checked){
+
 semua.checked = false;
+
+}
+
+const adaYangDipilih = [...kategori].some(cb => cb.checked);
+
+if(!adaYangDipilih){
+semua.checked = true;
 }
 
 });
@@ -588,7 +600,7 @@ function renderList() {
   ul.innerHTML = "";
 
   bahanMaster[modeMenu].forEach(b => {
-    ul.innerHTML += `<li>${b.nama} - ${b.berat} ${b.satuan === "GRAM" ? "g" : "pcs"}</li>`;
+    ul.innerHTML += `<li>${b.nama} - ${b.berat} ${formatSatuan(b.satuan)}</li>`;
   });
 }
 
@@ -2348,3 +2360,8 @@ kategoriAktif.push(c.dataset.kategori);
 });
 
 });
+
+function formatSatuan(satuan){
+if(!satuan) return "";
+return satuan.charAt(0).toUpperCase() + satuan.slice(1).toLowerCase();
+}
