@@ -158,7 +158,7 @@ if (btn) {
   saveCache();
 
   // ✅ TAMBAHKAN KE SPREADSHEET (INI TEMPATNYA)
-  fetch(API_URL2, {
+  fetch(API_URL, {
   method: "POST",
   body: JSON.stringify({
     nama: newItem["nama bahan"],
