@@ -219,7 +219,6 @@ initAutocomplete();
 
 // ❌ HAPUS loadDatabase()
 }
-// ================= TOGGLE LIBUR =================
 function toggleLibur(kat, checked) {
 
   kategoriLibur[kat] = checked;
@@ -237,6 +236,9 @@ function toggleLibur(kat, checked) {
   if (kat === "SMA") {
     kategoriLibur["SMA"] = checked;
   }
+
+  /* TAMBAHKAN INI */
+  syncLiburModal();
 
   generateLaporan();
 }
@@ -708,6 +710,8 @@ function renderTabelKategori(menu, kat, dataBahan, standar) {
 
 function generateLaporan() {
 
+syncLiburModal();
+  
   if (!databaseLoaded) {
     alert("Database masih loading...");
     return;
