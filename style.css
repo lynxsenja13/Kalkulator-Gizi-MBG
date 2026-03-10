@@ -1863,16 +1863,6 @@ background:#16a34a;
   break-after: avoid;
 }
 
-#laporanPDF{
-  width: 210mm;
-}
-
-.pdf-container{
-  width: 210mm;
-  padding: 10mm;
-  background: white;
-}
-
 .pdf-no-break{
   page-break-inside: avoid;
   break-inside: avoid;
@@ -1895,19 +1885,7 @@ tr{
   margin-bottom:20px;
 }
 
-#laporanPDF{
-  width:210mm;
-}
-
 /* ===== AREA PDF ===== */
-
-#laporanPDF{
-  width: 180mm;
-  margin: auto;
-  background: white;
-  transform: scale(0.92);
-  transform-origin: top center;
-}
 
 /* kop surat */
 .kop{
@@ -1942,4 +1920,49 @@ tr{
 .kategori-card{
   padding:12px;
   font-size:14px;
+}
+
+/* ================= PDF FIX ================= */
+
+#laporanPDF{
+  width: 190mm;
+  margin: 0 auto;
+  padding: 10mm;
+  background: white;
+}
+
+/* kop surat */
+#laporanPDF .kop{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:10px;
+}
+
+/* card laporan */
+#laporanPDF .kategori-card{
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+
+  margin-bottom:18px;
+  padding:14px;
+
+  font-size:13px;
+}
+
+/* tabel */
+#laporanPDF table{
+  width:100%;
+  border-collapse: collapse;
+  page-break-inside: avoid;
+}
+
+#laporanPDF tr{
+  page-break-inside: avoid;
+}
+
+/* center konten */
+#hasilPDF{
+  width:100%;
+  margin:auto;
 }
