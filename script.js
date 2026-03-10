@@ -1415,11 +1415,12 @@ function prosesLaporan() {
   // =========================
   // AMBIL STATUS LIBUR
   // =========================
-  const liburBalita = document.getElementById("liburBalita").checked;
-  const liburSDAwi = kategoriLibur["SDN Awi Gombong"] || false;
-  const liburSDYas = document.getElementById("liburSDYas").checked;
-  const liburSMPYas = document.getElementById("liburSMPYas").checked;
-  const liburSMAYas = document.getElementById("liburSMAYas").checked;
+  const liburBalita = document.getElementById("libur_balita").checked;
+  const liburBumil = document.getElementById("libur_bumil").checked;
+  const  liburAwi = document.getElementById("libur_awig").checked;
+  const liburYas = document.getElementById("libur_sdyas").checked;
+  const liburSMP = document.getElementById("libur_smpyas").checked;
+  const liburSMA = document.getElementById("libur_smayas").checked;
 
   // =========================
   // ANGKA DEFAULT (UBAH JIKA PERLU)
@@ -1551,14 +1552,15 @@ function bukaModalLibur() {
   const modal = document.getElementById("modalLibur");
   if (!modal) return;
 
-  /* SYNC STATUS LIBUR DARI CARD */
-  document.getElementById("liburBalita").checked = kategoriLibur["Balita"] || false;
-  document.getElementById("liburBumil").checked = kategoriLibur["Bumil & Busui"] || false;
-  document.getElementById("liburSD").checked = kategoriLibur["SD 1-3"] || false;
-  document.getElementById("liburSMP").checked = kategoriLibur["SMP"] || false;
-  document.getElementById("liburSMA").checked = kategoriLibur["SMA"] || false;
-
   modal.style.display = "flex";
+
+  document.getElementById("libur_balita").checked = kategoriLibur["Balita"] || false;
+  document.getElementById("libur_bumil").checked = kategoriLibur["Bumil & Busui"] || false;
+  document.getElementById("libur_awig").checked = kategoriLibur["SD Awi Gombong"] || false;
+  document.getElementById("libur_sdyas").checked = kategoriLibur["SD YAS"] || false;
+  document.getElementById("libur_smpyas").checked = kategoriLibur["SMP YAS"] || false;
+  document.getElementById("libur_smayas").checked = kategoriLibur["SMA YAS"] || false;
+
 }
 
 function tutupModalLibur() {
