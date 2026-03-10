@@ -1898,3 +1898,43 @@ tr{
 #laporanPDF{
   width:210mm;
 }
+
+/* ===== AREA PDF ===== */
+
+#laporanPDF{
+  width: 180mm;
+  margin: auto;
+  background: white;
+  transform: scale(0.92);
+  transform-origin: top center;
+}
+
+/* kop surat */
+.kop{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:10px;
+}
+
+/* supaya card tidak terpotong */
+.kategori-card{
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+  margin-bottom:15px;
+}
+
+/* tabel tidak pecah */
+table{
+  page-break-inside: avoid;
+}
+
+tr{
+  page-break-inside: avoid;
+}
+
+/* center semua isi */
+#hasilPDF{
+  width:100%;
+  margin:auto;
+}
