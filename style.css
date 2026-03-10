@@ -782,9 +782,10 @@ button {
   margin-top: 20px;
 }
 
-/* HIDE DI LAYAR */
-#laporanPDF {
-  display: none;
+#laporanPDF{
+  visibility: hidden;
+  position: absolute;
+  left: -9999px;
 }
 
 /* BACKDROP */
@@ -1965,4 +1966,52 @@ tr{
 #hasilPDF{
   width:100%;
   margin:auto;
+}
+
+/* ================= PDF FINAL FIX ================= */
+
+#laporanPDF{
+  visibility:hidden;
+  position:absolute;
+  left:-9999px;
+
+  width:180mm;
+  padding:10mm;
+  background:white;
+}
+
+/* kop surat */
+#laporanPDF .kop{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:10px;
+}
+
+/* kecilkan card supaya muat */
+#laporanPDF .kategori-card{
+  font-size:12px;
+  padding:10px;
+  margin-bottom:12px;
+
+  page-break-inside:avoid;
+  break-inside:avoid;
+}
+
+/* tabel */
+#laporanPDF table{
+  width:100%;
+  border-collapse:collapse;
+  page-break-inside:avoid;
+}
+
+#laporanPDF th,
+#laporanPDF td{
+  padding:4px;
+  font-size:11px;
+}
+
+/* row tidak boleh pecah */
+#laporanPDF tr{
+  page-break-inside:avoid;
 }
