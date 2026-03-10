@@ -1055,42 +1055,56 @@ function exportPDF(){
 
   const laporan = document.getElementById("laporanPDF");
 
-  // isi data PDF
-  const now = new Date();
-  const tanggal = now.toLocaleDateString("id-ID",{
-    weekday:"long",
-    day:"2-digit",
-    month:"long",
-    year:"numeric"
-  });
+  // ===== tanggal =====
+  document.getElementById("tanggalLaporan").innerText =
+    formatTanggalIndonesia();
 
-  document.getElementById("tanggalLaporan").innerText = tanggal;
+  const mode = modeMenu === "OMPRENGAN"
+    ? "Menu Omprengan"
+    : "Menu Snack";
 
-  const mode = modeMenu === "OMPRENGAN" ? "Menu Omprengan" : "Menu Snack";
   document.getElementById("jenisMenuLaporan").innerText = mode;
 
-  document.getElementById("hasilPDF").innerHTML =
-    document.getElementById("hasil").innerHTML;
+  // ===== clone hasil laporan =====
+  const hasilAsli = document.getElementById("hasil");
+  const clone = hasilAsli.cloneNode(true);
 
+  // hapus elemen interaktif
+  clone.querySelectorAll("input,button,.libur-ios-wrapper,.btn-hapus").forEach(el=>{
+    el.remove();
+  });
+
+  document.getElementById("hasilPDF").innerHTML = clone.innerHTML;
+
+  // ===== catatan =====
   document.getElementById("printNote").innerText =
-    document.getElementById("note").value;
+    document.getElementById("note").value || "-";
 
-  // tampilkan dulu
+  // tampilkan container
   laporan.style.display = "block";
 
   const opt = {
-    margin:10,
-    filename:`Laporan Gizi ${formatTanggalFile()}.pdf`,
-    html2canvas:{scale:2},
-    jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},
-    pagebreak:{mode:["css","legacy"]}
+    margin: 10,
+    filename: `Laporan Gizi ${formatTanggalFile()}.pdf`,
+    html2canvas: {
+      scale: 2,
+      useCORS: true
+    },
+    jsPDF: {
+      unit: "mm",
+      format: "a4",
+      orientation: "portrait"
+    },
+    pagebreak: {
+      mode: ["css", "legacy"]
+    }
   };
 
-  setTimeout(()=>{
+  setTimeout(() => {
     html2pdf().set(opt).from(laporan).save().then(()=>{
-      laporan.style.display="none";
+      laporan.style.display = "none";
     });
-  },300);
+  }, 500);
 
 }
 function getTanggalLengkap() {
