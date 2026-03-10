@@ -1865,3 +1865,19 @@ background:#16a34a;
 #laporanPDF{
   width: 210mm;
 }
+
+.pdf-container{
+  width: 210mm;
+  padding: 10mm;
+  background: white;
+}
+
+.pdf-no-break{
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.pdf-content > *{
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
