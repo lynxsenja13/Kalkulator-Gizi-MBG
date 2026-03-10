@@ -1843,3 +1843,25 @@ transition:0.2s;
 background:#16a34a;
 
 }
+
+.kategori-card{
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.table-wrapper{
+  page-break-inside: avoid;
+}
+
+.kategori-header{
+  page-break-after: avoid;
+}
+
+.kop-surat{
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+#laporanPDF{
+  width: 210mm;
+}
