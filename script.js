@@ -1071,21 +1071,22 @@ function exportPDF() {
   setTimeout(() => { // 🔥 kasih waktu render
 
     const opt = {
-      margin: [10, 10, 10, 10],
-      filename: `Laporan Gizi ${formatTanggalFile()}.pdf`,
-      pagebreak: {
-        mode: ['css', 'legacy']
-    },
-      html2canvas: {
-        scale: 2,
-        useCORS: true
-    },
-      jsPDF: {
-        unit: "mm",
-        format: "a4",
-        orientation: "portrait"
-      }
-    };
+  margin: [10, 10, 10, 10],
+  filename: `Laporan Gizi ${formatTanggalFile()}.pdf`,
+  pagebreak: {
+    mode: ['avoid-all','css','legacy'],
+    avoid: ['.kategori-card','table','tr']
+  },
+  html2canvas: {
+    scale: 2,
+    useCORS: true
+  },
+  jsPDF: {
+    unit: "mm",
+    format: "a4",
+    orientation: "portrait"
+  }
+};
 
     html2pdf().set(opt).from(element).save().then(() => {
   element.style.display = "none";
