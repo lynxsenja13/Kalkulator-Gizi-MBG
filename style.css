@@ -783,9 +783,7 @@ button {
 }
 
 #laporanPDF{
-  visibility: hidden;
-  position: absolute;
-  left: -9999px;
+  display:none;
 }
 
 /* BACKDROP */
