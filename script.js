@@ -1053,46 +1053,36 @@ function formatTanggalIndonesia() {
 
 function exportPDF() {
 
-  const hasilHTML = document.getElementById("hasil").innerHTML;
-  document.getElementById("hasilPDF").innerHTML = hasilHTML;
-
-  const note = document.getElementById("note").value;
-  document.getElementById("printNote").innerText = note || "-";
-
-  const tanggal = getTanggalLengkap();
-  document.getElementById("tanggalLaporan").innerText = tanggal;
-
-  document.getElementById("jenisMenuLaporan").innerText =
-  modeMenu;
-
   const element = document.getElementById("laporanPDF");
+
+  // tampilkan dulu agar html2canvas bisa render
   element.style.display = "block";
 
-  setTimeout(() => { // 🔥 kasih waktu render
+  const opt = {
+    margin: [15, 10, 15, 10],
+    filename: `Laporan Gizi ${formatTanggalFile()}.pdf`,
+    
+    pagebreak: {
+      mode: ['css','legacy'],
+      avoid: ['.kategori-card','table','tr']
+    },
 
-    const opt = {
-  margin: [10, 10, 10, 10],
-  filename: `Laporan Gizi ${formatTanggalFile()}.pdf`,
-  pagebreak: {
-    mode: ['avoid-all','css','legacy'],
-    avoid: ['.kategori-card','table','tr']
-  },
-  html2canvas: {
-    scale: 2,
-    useCORS: true
-  },
-  jsPDF: {
-    unit: "mm",
-    format: "a4",
-    orientation: "portrait"
-  }
-};
+    html2canvas: {
+      scale: 1.6,
+      useCORS: true
+    },
 
-    html2pdf().set(opt).from(element).save().then(() => {
-  element.style.display = "none";
-});
+    jsPDF: {
+      unit: "mm",
+      format: "a4",
+      orientation: "portrait"
+    }
+  };
 
-  }, 300); // 🔥 delay 300ms
+  html2pdf().set(opt).from(element).save().then(() => {
+    element.style.display = "none";
+  });
+
 }
 
 function getTanggalLengkap() {
