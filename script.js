@@ -1206,7 +1206,7 @@ C. Personel :
 3. Akuntan/No tlp : Febrianto/082121312500
 4. Jml Karyawan : 44
 
-D. Jumlah penerima sebanyak ${totalD} orang.
+D. Jumlah penerima sebanyak <b>${totalD}</b> orang.
 1. BALITA = ${data["BALITA"]}
 2. BUMIL & BUSUI = ${data["BUMIL & BUSUI"]}
 3. SD YAS = ${data["SD YAS"]}
@@ -1219,7 +1219,7 @@ D. Jumlah penerima sebanyak ${totalD} orang.
 10. Guru & Tendik SD Awi Gombong = ${data["Guru & Tendik SD Awi Gombong"]}
 11. PIC POSYANDU = ${data["PIC POSYANDU"]}
 
-Jumlah makan : ${totalSemua} porsi.
+Jumlah makan : <b>${totalSemua}</b> porsi.
 
 E. Menu Makan hari ini ${tanggal}
 ${menuList}
@@ -1680,22 +1680,22 @@ ${menuText}
 const gizi = window.hasilGizi.OMPRENGAN || {};
 
 if (!libur.balita)
-caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
+caption += blokGizi("🥗 <b>Analisis Nilai Gizi Balita</b> 🥗", gizi.balita);
 
 if (!libur.bumil)
-caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
+caption += blokGizi("🥗 <b>Analisis Nilai Gizi Bumil & Busui</b> 🥗", gizi.bumil);
 
 if (!libur.sd)
-caption += blokGizi("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
+caption += blokGizi("🥗 <b>Analisis Nilai Gizi SD 1-3</b> 🥗", gizi.sd1_3);
 
 if (!libur.sd)
-caption += blokGizi("Analisis Nilai Gizi SD 4-6", gizi.sd4_6);
+caption += blokGizi("🥗 <b>Analisis Nilai Gizi SD 4-6</b> 🥗", gizi.sd4_6);
 
 if (!libur.smp)
-caption += blokGizi("Analisis Nilai Gizi SMP", gizi.smp);
+caption += blokGizi("🥗 <b>Analisis Nilai Gizi SMP</b> 🥗", gizi.smp);
 
 if (!libur.sma)
-caption += blokGizi("Analisis Nilai Gizi SMA", gizi.sma);
+caption += blokGizi("🥗 <b>Analisis Nilai Gizi SMA</b> 🥗", gizi.sma);
 
 const outputBox = document.getElementById("captionOutput");
 if (outputBox) outputBox.value = caption.trim();
@@ -1862,11 +1862,12 @@ function blokGizi(judul, data) {
 
   return `
 ${judul}
-Energi : ${data.energi ?? 0} kkal
-Protein : ${data.protein ?? 0} g
-Lemak : ${data.lemak ?? 0} g
-Karbohidrat : ${data.karbo ?? 0} g
-Serat : ${data.serat ?? 0} g
+━━━━━━━━━━━━━━━━
+• Energi      : ${data.energi ?? 0} kkal
+• Protein     : ${data.protein ?? 0} g
+• Lemak       : ${data.lemak ?? 0} g
+• Karbohidrat : ${data.karbo ?? 0} g
+• Serat       : ${data.serat ?? 0} g
 `;
 }
 
