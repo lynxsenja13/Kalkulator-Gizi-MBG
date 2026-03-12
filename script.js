@@ -1862,7 +1862,7 @@ function blokGizi(judul, data) {
 
   return `
 ${judul}
-━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━
 • Energi      : ${data.energi ?? 0} kkal
 • Protein     : ${data.protein ?? 0} g
 • Lemak       : ${data.lemak ?? 0} g
