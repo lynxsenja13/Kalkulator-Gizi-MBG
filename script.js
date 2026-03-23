@@ -990,6 +990,7 @@ function initAutocomplete() {
 
   input.addEventListener("input", function () {
     const keyword = this.value.toLowerCase();
+    autoIsiBerat(keyword); // 🔥 TAMBAHAN
     dropdown.innerHTML = "";
 
     if (!keyword) {
@@ -1009,6 +1010,8 @@ function initAutocomplete() {
       div.onclick = () => {
         input.value = nama;
         dropdown.style.display = "none";
+      
+        autoIsiBerat(nama); // 🔥 INI TAMBAHAN
       };
 
       dropdown.appendChild(div);
@@ -2382,4 +2385,57 @@ if(satuan === "PCS") return "Pcs";
 
 return satuan;
 
+}
+
+const defaultBerat = {
+  ayam: 80,
+  nasi: 100,
+  telur: 60,
+  minyak: 5,
+  jeruk: 135,
+  tepung: 10,
+  apel: 110,
+  pisang: 80,
+  selada: 5,
+  tahu: 30,
+  tempe: 30,
+};
+
+const defaultSatuan = {
+  ayam: "GRAM",
+  nasi: "GRAM",
+  telur: "GRAM",
+  minyak: "GRAM",
+  jeruk: "GRAM",
+  tepung: "GRAM",
+  apel: "GRAM",
+  pisang: "GRAM",
+  selada: "GRAM",
+  tahu: "GRAM",
+  tempe: "GRAM",
+};
+
+function autoIsiBerat(nama) {
+  const inputBerat = document.getElementById("beratBahan");
+  const inputSatuan = document.getElementById("satuanBahan");
+
+  if (!inputBerat || !inputSatuan) return;
+
+  // ❗ jangan override kalau user sudah isi
+  if (inputBerat.value) return;
+
+  const key = nama.toLowerCase().trim();
+
+  const found = Object.keys(defaultBerat).find(k =>
+    key.includes(k)
+  );
+
+  if (found) {
+    inputBerat.value = defaultBerat[found];
+
+    // 🔥 AUTO SATUAN
+    if (defaultSatuan[found]) {
+      inputSatuan.value = defaultSatuan[found];
+    }
+  }
 }
