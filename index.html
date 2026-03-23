@@ -16,7 +16,10 @@
 
 <!-- Intro Logo -->
 <div id="intro">
-  <img src="logo.png" alt="Logo" class="logo-intro">
+  <div>
+    <img src="logo.png" class="logo-intro">
+    <p>Loading...</p>
+  </div>
 </div>
 
 <div class="app">
@@ -317,6 +320,13 @@
     📋 Copy WA
   </button>
 </div>
+
+<script>
+  setTimeout(function() {
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("content").style.display = "block";
+  }, 2500); // 2.5 detik
+</script>
   
 <script src="config.js"></script>
 <script src="script.js"></script>
