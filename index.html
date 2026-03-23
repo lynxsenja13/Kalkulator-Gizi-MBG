@@ -332,41 +332,47 @@ window.addEventListener("load", () => {
   const logoHeader = document.getElementById("logoHeader");
   const introText = document.querySelector(".intro-text");
 
-  // ambil posisi header
+  // 🔥 sembunyikan dulu logo header
+  logoHeader.style.opacity = "0";
+
   const headerRect = logoHeader.getBoundingClientRect();
+  const startRect = logoIntro.getBoundingClientRect();
+
+  const deltaX = headerRect.left - startRect.left;
+  const deltaY = headerRect.top - startRect.top;
 
   setTimeout(() => {
 
-    // sembunyikan teks dulu
+    // hilangkan teks
     introText.style.opacity = "0";
 
-    // posisi awal logo
-    const startRect = logoIntro.getBoundingClientRect();
-
-    // hitung perpindahan
-    const deltaX = headerRect.left - startRect.left;
-    const deltaY = headerRect.top - startRect.top;
-
-    // aktifkan mode pindah
-    logoIntro.classList.add("logo-move");
-
-    // animasi transform
+    // animasi logo
+    logoIntro.style.transition = "all 0.9s ease";
     logoIntro.style.transform = `
       translate(${deltaX}px, ${deltaY}px)
       scale(0.25)
     `;
 
-    // setelah animasi selesai
+    // setelah sampai
     setTimeout(() => {
+
+      // 🔥 MATIKAN logo intro (biar ga balik)
+      logoIntro.style.display = "none";
+
+      // 🔥 munculin logo header asli
+      logoHeader.style.opacity = "1";
+      logoHeader.style.transition = "0.3s ease";
+
+      // hilangkan intro
       intro.style.opacity = "0";
 
       setTimeout(() => {
         intro.style.display = "none";
-      }, 500);
+      }, 400);
 
     }, 900);
 
-  }, 1500);
+  }, 1200);
 });
 </script>
   
