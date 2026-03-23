@@ -2402,17 +2402,17 @@ const defaultBerat = {
 };
 
 const defaultSatuan = {
-  ayam: "GRAM",
-  nasi: "GRAM",
-  telur: "GRAM",
-  minyak: "GRAM",
-  jeruk: "GRAM",
-  tepung: "GRAM",
-  apel: "GRAM",
-  pisang: "GRAM",
-  selada: "GRAM",
-  tahu: "GRAM",
-  tempe: "GRAM",
+  ayam: "Gram",
+  nasi: "Gram",
+  telur: "Gram",
+  minyak: "Gram",
+  jeruk: "Gram",
+  tepung: "Gram",
+  apel: "Gram",
+  pisang: "Gram",
+  selada: "Gram",
+  tahu: "Gram",
+  tempe: "Gram",
 };
 
 function autoIsiBerat(nama) {
