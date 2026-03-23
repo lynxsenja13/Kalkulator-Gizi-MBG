@@ -329,10 +329,37 @@
 </div>
 
 <script>
-  setTimeout(function() {
-    document.getElementById("intro").style.display = "none";
-    document.getElementById("content").style.display = "block";
-  }, 2500); // 2.5 detik
+window.addEventListener("load", () => {
+
+  const intro = document.getElementById("intro");
+  const logo = document.querySelector(".logo-intro");
+
+  setTimeout(() => {
+
+    // 🔥 efek mengecil + pindah
+    logo.style.transform = "scale(0.4) translateY(-150px)";
+    logo.style.transition = "all 1s ease";
+
+    // fade text
+    document.querySelectorAll(".intro-title, .intro-sub").forEach(el => {
+      el.style.opacity = "0";
+      el.style.transition = "all 0.5s ease";
+    });
+
+  }, 1500);
+
+  setTimeout(() => {
+
+    // 🔥 hilangkan intro
+    intro.style.opacity = "0";
+
+  }, 2300);
+
+  setTimeout(() => {
+    intro.style.display = "none";
+  }, 3000);
+
+});
 </script>
   
 <script src="config.js"></script>
