@@ -40,6 +40,7 @@ body {
   border-radius: 18px;
   margin-bottom: 22px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: all 0.25s ease;
 }
 
 .card.dark h2 {
@@ -2222,4 +2223,38 @@ body {
 /* CONTAINER APP */
 .app {
   min-height: 100vh;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+
+  padding: 16px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.card.dark {
+  transition: all 0.25s ease;
+}
+
+.card.dark:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+
+button {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+button:active {
+  transform: scale(0.96);
 }
