@@ -29,7 +29,7 @@
 
   <!-- HEADER -->
   <div class="header">
-    <img src="logo.png" class="logo" alt="Logo SPPG Cicadas 01" />
+    <img src="logo.png" class="logo" id="logoHeader" alt="Logo SPPG Cicadas 01" />
     <h1>SPPG Cicadas 01</h1>
     <p class="ahli-gizi">Ahli Gizi : Aliyah Khairunnisa Syafitri</p>
     <p class="credit">Created by Fikri Purwana Senja</p>
@@ -332,7 +332,13 @@ window.addEventListener("load", () => {
   const logoHeader = document.getElementById("logoHeader");
   const introText = document.querySelector(".intro-text");
 
-  // 🔥 sembunyikan dulu logo header
+  // 🔥 CEK BIAR GA ERROR
+  if (!logoHeader) {
+    console.error("logoHeader tidak ditemukan!");
+    intro.style.display = "none";
+    return;
+  }
+
   logoHeader.style.opacity = "0";
 
   const headerRect = logoHeader.getBoundingClientRect();
@@ -343,27 +349,21 @@ window.addEventListener("load", () => {
 
   setTimeout(() => {
 
-    // hilangkan teks
     introText.style.opacity = "0";
 
-    // animasi logo
     logoIntro.style.transition = "all 0.9s ease";
     logoIntro.style.transform = `
       translate(${deltaX}px, ${deltaY}px)
       scale(0.25)
     `;
 
-    // setelah sampai
     setTimeout(() => {
 
-      // 🔥 MATIKAN logo intro (biar ga balik)
       logoIntro.style.display = "none";
 
-      // 🔥 munculin logo header asli
       logoHeader.style.opacity = "1";
       logoHeader.style.transition = "0.3s ease";
 
-      // hilangkan intro
       intro.style.opacity = "0";
 
       setTimeout(() => {
