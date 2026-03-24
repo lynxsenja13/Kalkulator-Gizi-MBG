@@ -328,51 +328,16 @@
 <script>
 window.addEventListener("load", () => {
   const intro = document.getElementById("intro");
-  const logoIntro = document.getElementById("logoIntro");
-  const logoHeader = document.getElementById("logoHeader");
-  const introText = document.querySelector(".intro-text");
-
-  // 🔥 CEK BIAR GA ERROR
-  if (!logoHeader) {
-    console.error("logoHeader tidak ditemukan!");
-    intro.style.display = "none";
-    return;
-  }
-
-  logoHeader.style.opacity = "0";
-
-  const headerRect = logoHeader.getBoundingClientRect();
-  const startRect = logoIntro.getBoundingClientRect();
-
-  const deltaX = headerRect.left - startRect.left;
-  const deltaY = headerRect.top - startRect.top;
 
   setTimeout(() => {
-
-    introText.style.opacity = "0";
-
-    logoIntro.style.transition = "all 0.9s ease";
-    logoIntro.style.transform = `
-      translate(${deltaX}px, ${deltaY}px)
-      scale(0.25)
-    `;
+    intro.style.transition = "opacity 1s ease";
+    intro.style.opacity = "0";
 
     setTimeout(() => {
+      intro.style.display = "none";
+    }, 1000);
 
-      logoIntro.style.display = "none";
-
-      logoHeader.style.opacity = "1";
-      logoHeader.style.transition = "0.3s ease";
-
-      intro.style.opacity = "0";
-
-      setTimeout(() => {
-        intro.style.display = "none";
-      }, 400);
-
-    }, 900);
-
-  }, 1200);
+  }, 2000); // durasi tampil sebelum fade (2 detik)
 });
 </script>
   
