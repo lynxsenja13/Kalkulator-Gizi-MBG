@@ -2160,56 +2160,7 @@ body {
   }
 }
 
-/* INTRO FULL */
-#intro {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #0f172a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  z-index: 9999;
-}
-
-/* LOGO AWAL BESAR */
-#logoIntro {
-  width: 180px;
-  transition: all 1s ease;
-  position: relative;
-  z-index: 10000;
-}
-
-/* TEKS */
-.intro-text {
-  color: white;
-  text-align: center;
-  transition: opacity 0.5s ease;
-}
-
-/* 🔥 MODE PINDAH KE HEADER */
-.logo-move {
-  position: fixed !important;
-  width: 45px !important; /* ukuran sama seperti header */
-  z-index: 10000;
-}
-
-/* HEADER ANIMASI */
-.header {
-  animation: fadeHeader 0.8s ease;
-}
-
-@keyframes fadeHeader {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* logo header awalnya disembunyikan */
+#logoHeader {
+  opacity: 0;
 }
