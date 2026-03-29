@@ -1,3 +1,5 @@
+//Berhasil
+
 let bahanMaster = {
   OMPRENGAN: [],
   SNACK: []
