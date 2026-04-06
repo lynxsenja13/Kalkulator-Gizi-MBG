@@ -1,4 +1,4 @@
-//Update
+//Berhasil
 
 let bahanMaster = {
   OMPRENGAN: [],
