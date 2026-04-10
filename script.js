@@ -1159,10 +1159,6 @@
           document.body.removeChild(element);
         });
     }, 300);
-        
-    .then(() => {
-      document.body.removeChild(element); // hapus setelah selesai
-    });
 }
 
   function getTanggalLengkap() {
